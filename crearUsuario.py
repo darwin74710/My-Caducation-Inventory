@@ -13,7 +13,7 @@ class CrearUsuario(QMainWindow):
         self.ventanaAnteriorC = anteriorC
 
         self.setWindowTitle("Creación de usuario")
-        self.setStyleSheet("background-color: #739f6e;")
+        self.setStyleSheet("background-color: #9AC069;")
 
         self.ancho = 700
         self.alto = 400
@@ -44,7 +44,7 @@ class CrearUsuario(QMainWindow):
         self.ventana1 = QWidget()
         self.login = QLabel("CREACIÓN DE USUARIO")
         self.login.setFont(QFont("Arial", 30))
-        self.login.setStyleSheet("color: #e86868;")
+        self.login.setStyleSheet("color: white;")
         self.login.setAlignment(Qt.AlignCenter)
         self.formulario.addWidget(self.login)
 
@@ -56,6 +56,7 @@ class CrearUsuario(QMainWindow):
         # hacemos letrero de primer numero
         self.letrero1 = QLabel("Ingrese su usuario")
         self.letrero1.setFont(QFont("Arial", 17))
+        self.letrero1.setStyleSheet("color: white;")
         self.Cuadricula.addWidget(self.letrero1, 0, 1)
 
         # hacemos campo para ingresar el usuario
@@ -71,18 +72,22 @@ class CrearUsuario(QMainWindow):
 
         self.instruc = QLabel("- Usuario y contraseña de maximo\n14 caracteres")
         self.instruc.setFont(QFont("Arial", 13))
+        self.instruc.setStyleSheet("color: white;")
         self.Cuadricula.addWidget(self.instruc, 0, 0)
         self.instruc2 = QLabel("- No ingrese caracteres especiales")
         self.instruc2.setFont(QFont("Arial", 13))
+        self.instruc2.setStyleSheet("color: white;")
         self.Cuadricula.addWidget(self.instruc2, 1, 0)
         self.instruc4 = QLabel("")
         self.instruc4.setFont(QFont("Arial", 30))
+        self.instruc4.setStyleSheet("color: white;")
         self.Cuadricula.addWidget(self.instruc4, 3, 0)
 
 
         # hacemos el campo para ingresar contraseña
         self.letrero2 = QLabel("Ingrese su contraseña")
         self.letrero2.setFont(QFont("Arial", 17))
+        self.letrero2.setStyleSheet("color: white;")
         self.Cuadricula.addWidget(self.letrero2, 4, 0)
 
         self.contraseña = QLineEdit()
@@ -92,9 +97,10 @@ class CrearUsuario(QMainWindow):
         self.contraseña.setMaxLength(14)
         self.Cuadricula.addWidget(self.contraseña, 5, 0)
 
-        self.letrero2 = QLabel("Reingrese su contraseña")
-        self.letrero2.setFont(QFont("Arial", 17))
-        self.Cuadricula.addWidget(self.letrero2, 4, 1)
+        self.letrero3 = QLabel("Reingrese su contraseña")
+        self.letrero3.setFont(QFont("Arial", 17))
+        self.letrero3.setStyleSheet("color: white;")
+        self.Cuadricula.addWidget(self.letrero3, 4, 1)
 
         self.contraseña2 = QLineEdit()
         self.contraseña2.setStyleSheet("background-color: white;")
@@ -115,15 +121,13 @@ class CrearUsuario(QMainWindow):
         self.botonCrear = QPushButton("Crear")
         self.botonCrear.setFixedWidth(150)
         self.botonCrear.setFixedHeight(30)
-        self.botonCrear.setStyleSheet("background-color: #e86868; color: white;")
+        self.botonCrear.setStyleSheet("background-color: white; color: #9AC069;")
         self.botonCrear.setFont(QFont("Arial", 14))
 
         self.botonCrear.clicked.connect(self.crear_usuario)
 
         self.horizontal2.addWidget(self.botonCrear)
-
         self.horizontal.addWidget(self.ventana1)
-
         self.ventana2.setLayout(self.horizontal2)
         self.ventana1.setLayout(self.formulario)
         self.fondo.setLayout(self.horizontal)
@@ -132,12 +136,12 @@ class CrearUsuario(QMainWindow):
     def crear_usuario(self):
         self.ventanaDialogo = QDialog()
         self.ventanaDialogo.resize(300, 150)
-        self.ventanaDialogo.setStyleSheet("background-color: #739f6e;")
+        self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
 
         self.botonAceptar = QDialogButtonBox.Ok
 
         self.opcionesBotones = QDialogButtonBox(self.botonAceptar)
-        self.opcionesBotones.setStyleSheet("background-color: #e86868; color: white;")
+        self.opcionesBotones.setStyleSheet("background-color: white; color: #9AC069;")
         self.opcionesBotones.accepted.connect(self.ventanaDialogo.accept)
 
         self.ventanaDialogo.setWindowTitle("Validación")
@@ -154,6 +158,8 @@ class CrearUsuario(QMainWindow):
         self.ventanaDialogo.setLayout(self.vertical5)
 
         self.mensaje.setText("Ah creado su usuario correctamente.")
+        self.mensaje.setStyleSheet("color: white;")
+        self.mensaje.setFont(QFont("Arial", 14))
 
         self.ventanaDialogo.exec_()
 
