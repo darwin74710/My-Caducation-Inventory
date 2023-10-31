@@ -14,7 +14,7 @@ class Ingreso(QMainWindow):
         super(Ingreso, self).__init__(parent=parent)
 
         self.setWindowTitle("Login")
-        self.setStyleSheet("background-color: #739f6e;")
+        self.setStyleSheet("background-color: #9AC069;")
 
         self.ancho = 700
         self.alto = 400
@@ -46,7 +46,6 @@ class Ingreso(QMainWindow):
 
         self.logo = QPixmap("Imagenes/logo.png")
         self.letero1.setPixmap(self.logo)
-        self.letero1.setStyleSheet("border: 4px solid black;")
         self.letero1.setScaledContents(True)
         self.resize(self.logo.width(), self.logo.height())
         # agregamos espacio para separar el titulo
@@ -55,12 +54,13 @@ class Ingreso(QMainWindow):
         self.ventana1 = QWidget()
         self.login = QLabel("LOGIN")
         self.login.setFont(QFont("Arial", 80))
-        self.login.setStyleSheet("color: #e86868;")
+        self.login.setStyleSheet("color: white;")
         self.login.setAlignment(Qt.AlignCenter)
         self.formulario.addWidget(self.login)
 
         # hacemos letrero de primer numero
         self.letrero1 = QLabel("Ingrese su usuario")
+        self.letrero1.setStyleSheet("color: white;")
         self.letrero1.setFont(QFont("Arial", 17))
         self.formulario.addWidget(self.letrero1)
 
@@ -77,6 +77,7 @@ class Ingreso(QMainWindow):
 
         # hacemos el campo para ingresar contraseña
         self.letrero2 = QLabel("Ingrese su contraseña")
+        self.letrero2.setStyleSheet("color: white;")
         self.letrero2.setFont(QFont("Arial", 17))
         self.formulario.addWidget(self.letrero2)
 
@@ -96,7 +97,7 @@ class Ingreso(QMainWindow):
         self.botonCrear = QPushButton("Crear Usuario")
         self.botonCrear.setFixedWidth(150)
         self.botonCrear.setFixedHeight(30)
-        self.botonCrear.setStyleSheet("background-color: #e86868; color: white;")
+        self.botonCrear.setStyleSheet("background-color: white; color: #9AC069;")
         self.botonCrear.setFont(QFont("Arial", 14))
 
         self.botonCrear.clicked.connect(self.crear_usuario)
@@ -107,7 +108,7 @@ class Ingreso(QMainWindow):
         self.botonIngresar = QPushButton("Ingresar")
         self.botonIngresar.setFixedWidth(150)
         self.botonIngresar.setFixedHeight(30)
-        self.botonIngresar.setStyleSheet("background-color: #e86868; color: white;")
+        self.botonIngresar.setStyleSheet("background-color: white; color: #9AC069;")
         self.botonIngresar.setFont(QFont("Arial", 14))
 
 

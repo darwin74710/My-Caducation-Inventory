@@ -97,12 +97,12 @@ class Administrador(QMainWindow):
     def lista_productos(self):
 
         self.ventana = QWidget()
-        self.ventana.setStyleSheet("background-color: #739f6e;")
+        self.ventana.setStyleSheet("background-color: #9AC069;")
         self.setCentralWidget(self.ventana)
         self.horizontal = QHBoxLayout()
 
         self.scrollArea = QScrollArea()
-        self.scrollArea.setStyleSheet("background-color: #e86868;")
+        self.scrollArea.setStyleSheet("background-color: white;")
         # Adaptar el scroll a diferentes escaladas
         self.scrollArea.setWidgetResizable(True)
         # Ventana contenedora para la cuadricula
@@ -146,7 +146,7 @@ class Administrador(QMainWindow):
                     self.verticalCuadricula = QVBoxLayout()
 
                     self.botonAccion = QPushButton("Arroz Diana " + str(self.contador + 1))
-                    self.botonAccion.setStyleSheet("background-color: #E16262;")
+                    self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
                     self.botonAccion.setFixedHeight(50)
 
                     self.verticalCuadricula.addWidget(self.botonAccion)
@@ -169,9 +169,10 @@ class Administrador(QMainWindow):
 
         self.letreroP = QLabel()
         self.letreroP.setText("PRODUCTO")
-        self.letreroP.setFont(QFont("Arial", 20))
+        self.letreroP.setFont(QFont("Arial", 40))
         self.letreroP.setAlignment(Qt.AlignCenter)
         self.letreroP.setFixedWidth(380)
+        self.letreroP.setStyleSheet("color: white;")
         self.horizontal2.addWidget(self.letreroP)
 
         self.imagenP = QLabel("subir imagen")
@@ -198,12 +199,13 @@ class Administrador(QMainWindow):
 
     def mostrar_manual(self):
         self.ventana = QWidget()
-        self.ventana.setStyleSheet("background-color: #739f6e;")
+        self.ventana.setStyleSheet("background-color: #9AC069;")
         self.setCentralWidget(self.ventana)
         self.horizontal = QVBoxLayout()
 
         self.titulo1 = QLabel("Manual")
         self.titulo1.setFont(QFont("Arial", 40))
+        self.titulo1.setStyleSheet("color: white;")
         self.titulo1.setAlignment(Qt.AlignCenter)
 
         self.horizontal.addWidget(self.titulo1)
@@ -211,7 +213,7 @@ class Administrador(QMainWindow):
         self.horizontal.addStretch()
 
         self.scrollArea = QScrollArea()
-        self.scrollArea.setStyleSheet("background-color: #e86868;")
+        self.scrollArea.setStyleSheet("background-color: white;")
         self.scrollArea.setFixedHeight(450)
         # Adaptar el scroll a diferentes escaladas
         self.scrollArea.setWidgetResizable(True)
@@ -255,7 +257,7 @@ class Administrador(QMainWindow):
                     self.verticalCuadricula = QVBoxLayout()
 
                     self.botonAccion = QPushButton("Manual número " + str(self.contador + 1))
-                    self.botonAccion.setStyleSheet("background-color: #E16262;")
+                    self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
                     self.botonAccion.setFixedHeight(50)
 
                     self.verticalCuadricula.addWidget(self.botonAccion)
@@ -276,11 +278,12 @@ class Administrador(QMainWindow):
 
     def mostrar_alertas(self):
         self.ventana = QWidget()
-        self.ventana.setStyleSheet("background-color: #739f6e;")
+        self.ventana.setStyleSheet("background-color: #9AC069;")
         self.setCentralWidget(self.ventana)
         self.horizontal = QVBoxLayout()
 
         self.titulo1 = QLabel("Alertas")
+        self.titulo1.setStyleSheet("color: white;")
         self.titulo1.setFont(QFont("Arial", 40))
         self.titulo1.setAlignment(Qt.AlignCenter)
 
@@ -289,7 +292,7 @@ class Administrador(QMainWindow):
         self.horizontal.addStretch()
 
         self.scrollArea = QScrollArea()
-        self.scrollArea.setStyleSheet("background-color: #e86868;")
+        self.scrollArea.setStyleSheet("background-color: white;")
         self.scrollArea.setFixedHeight(450)
         # Adaptar el scroll a diferentes escaladas
         self.scrollArea.setWidgetResizable(True)
@@ -333,7 +336,7 @@ class Administrador(QMainWindow):
                     self.verticalCuadricula = QVBoxLayout()
 
                     self.botonAccion = QPushButton("Alerta " + str(self.contador + 1))
-                    self.botonAccion.setStyleSheet("background-color: #E16262;")
+                    self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
                     self.botonAccion.setFixedHeight(50)
 
                     self.verticalCuadricula.addWidget(self.botonAccion)
@@ -353,8 +356,8 @@ class Administrador(QMainWindow):
         self.ventana.setLayout(self.horizontal)
 
     def metodo_accion_boton(self, idBoton):
-        self.botones.button(self.contador).setStyleSheet("background-color: #E16262;")
-        self.botones.button(idBoton).setStyleSheet("background-color: #CA4141;")
+        self.botones.button(self.contador).setStyleSheet("color: white; background-color: #9AC069;")
+        self.botones.button(idBoton).setStyleSheet("color: white; background-color: #8EA85D;")
         self.contador = idBoton
 
 
