@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButton, QWidget, QLineEdit, QLabel, \
-    QVBoxLayout, QHBoxLayout, QGridLayout, QDialog, QDialogButtonBox
+    QVBoxLayout, QHBoxLayout, QGridLayout, QDialog, QDialogButtonBox, QFormLayout
 
 
 class CrearUsuario(QMainWindow):
@@ -15,8 +15,8 @@ class CrearUsuario(QMainWindow):
         self.setWindowTitle("Creación de usuario")
         self.setStyleSheet("background-color: #9AC069;")
 
-        self.ancho = 700
-        self.alto = 400
+        self.ancho = 800
+        self.alto = 600
 
         self.resize(self.ancho, self.alto)
 
@@ -33,9 +33,115 @@ class CrearUsuario(QMainWindow):
         self.setCentralWidget(self.fondo)
 
         self.horizontal = QHBoxLayout()
-        self.formulario = QVBoxLayout()
-        self.horizontal2 = QHBoxLayout()
 
+        self.horizontal.setContentsMargins(30, 30, 30, 30)
+
+        # ----- lAYOUT IZQUIERDO -----
+        self.ladoIzquierdo = QFormLayout()
+
+        self.letreroI = QLabel()
+
+        self.letreroI.setText("Registar Usuario")
+
+        self.letreroI.setFont(QFont("arial", 20))
+
+        self.letreroI.setStyleSheet("color: white;")
+
+        self.ladoIzquierdo.addRow(self.letreroI)
+
+        self.letreroI2 = QLabel()
+
+        self.letreroI2.setFixedWidth(340)
+
+        self.letreroI2.setText("Ingrese la informacion que se esta solicitando"
+                             "\nen el formulario. Los campos que tienen un *"
+                             "\nson obligatorios.")
+
+        self.letreroI2.setFont(QFont("arial", 10))
+
+        self.letreroI2.setStyleSheet("color: white; margin-bottom: 40px;"
+                                     "margin-top: 20px;"
+                                     "padding-bottom: 10px;"
+                                     "border: 2px solid white;"
+                                     "border-left: none;"
+                                     "border-right: none;"
+                                     "border-top: none;")
+
+        self.ladoIzquierdo.addRow(self.letreroI2)
+
+        self.nombreCompleto = QLineEdit()
+        self.nombreCompleto.setStyleSheet("background-color: white;")
+        self.nombreCompleto.setFixedWidth(250)
+        self.nombreCompleto.setMaxLength(70)
+
+        self.ladoIzquierdo.addRow("Nombre completo*", self.nombreCompleto)
+
+        self.NombredeUsuario = QLineEdit()
+        self.NombredeUsuario.setStyleSheet("background-color: white;")
+        self.NombredeUsuario.setFixedWidth(250)
+        self.NombredeUsuario.setMaxLength(14)
+
+        self.ladoIzquierdo.addRow("Nombre de usuario*", self.NombredeUsuario)
+
+        self.password = QLineEdit()
+        self.password.setStyleSheet("background-color: white;")
+        self.password.setFixedWidth(250)
+        self.password.setMaxLength(14)
+        self.password.setEchoMode(QLineEdit.Password)
+
+        self.ladoIzquierdo.addRow("Contraseña*", self.password)
+
+        self.password2 = QLineEdit()
+        self.password2.setStyleSheet("background-color: white;")
+        self.password2.setFixedWidth(250)
+        self.password2.setMaxLength(14)
+        self.password2.setEchoMode(QLineEdit.Password)
+
+        self.ladoIzquierdo.addRow("Confirmar Contraseña*", self.password2)
+
+        self.Documento = QLineEdit()
+        self.Documento.setStyleSheet("background-color: white;")
+        self.Documento.setFixedWidth(250)
+        self.Documento.setMaxLength(14)
+
+        self.ladoIzquierdo.addRow("Documento de identidad*", self.Documento)
+
+        self.correo = QLineEdit()
+        self.correo.setStyleSheet("background-color: white;")
+        self.correo.setFixedWidth(250)
+        self.correo.setMaxLength(14)
+
+        self.ladoIzquierdo.addRow("Correo electronico*", self.correo)
+
+        self.botonRegistrar = QPushButton("Registrar")
+        self.botonRegistrar.setFixedWidth(90)
+
+
+        self.botonRegistrar.setStyleSheet("background-color: #9AC069;"
+                                          "color: white;"
+                                          "padding: 10px;"
+                                          "margin-top: 40px;")
+
+        self.botonRegistrar.clicked.connect(self.accion_botonRegistrar)
+
+        self.botonLimpiar = QPushButton("Limpiar")
+        self.botonLimpiar.setFixedWidth(90)
+
+        self.botonLimpiar.setStyleSheet("background-color: #9AC069;"
+                                          "color: white;"
+                                          "padding: 10px;"
+                                          "margin-top: 40px;")
+
+        self.botonLimpiar.clicked.connect(self.accion_botonLimpiar)
+
+        self.ladoIzquierdo.addRow(self.botonRegistrar, self.botonLimpiar)
+
+        self.horizontal.addLayout(self.ladoIzquierdo)
+
+        #----- SE COLOCA LA FINAL -----
+        self.fondo.setLayout(self.horizontal)
+
+        '''
         self.espacio = QLabel()
         # consultar tipos de letras del sistema
         # for p in QFontDatabase().families():
@@ -131,9 +237,29 @@ class CrearUsuario(QMainWindow):
         self.ventana2.setLayout(self.horizontal2)
         self.ventana1.setLayout(self.formulario)
         self.fondo.setLayout(self.horizontal)
+        '''
+
+    def accion_botonRegistrar(self):
+        pass
+
+    def accion_botonLimpiar(self):
+        self.nombreCompleto.setText('')
+        self.NombredeUsuario.setText('')
+        self.password.setText('')
+        self.password2.setText('')
+        self.Documento.setText('')
+        self.correo.setText('')
+        '''
+        self.pregunta1.setText('')
+        self.respuesta1.setText('')
+        self.pregunta2.setText('')
+        self.respuesta2.setText('')
+        self.pregunta3.setText('')
+        self.respuesta3.setText('')
+        '''
 
 
-    def crear_usuario(self):
+        '''
         self.ventanaDialogo = QDialog()
         self.ventanaDialogo.resize(300, 150)
         self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
@@ -165,3 +291,4 @@ class CrearUsuario(QMainWindow):
 
         self.hide()
         self.ventanaAnteriorC.show()
+        '''
