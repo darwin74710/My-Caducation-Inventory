@@ -1,5 +1,6 @@
 import sys
 
+from PyQt5 import QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButton, QWidget, QLineEdit, QLabel, \
@@ -54,8 +55,8 @@ class CrearUsuario(QMainWindow):
         self.letreroI2.setFixedWidth(340)
 
         self.letreroI2.setText("Ingrese la informacion que se esta solicitando"
-                             "\nen el formulario. Los campos que tienen un *"
-                             "\nson obligatorios.")
+                             "\nen el formulario. Los campos marcados con un"
+                             "\nasterisco (*) son obligatorios.")
 
         self.letreroI2.setFont(QFont("arial", 10))
 
@@ -138,109 +139,222 @@ class CrearUsuario(QMainWindow):
 
         self.horizontal.addLayout(self.ladoIzquierdo)
 
+        #----- LAYOUT DERECHO -----
+        self.ladoDerecho = QFormLayout()
+
+        self.ladoDerecho.setContentsMargins(50, 0, 0, 0)
+
+        self.letreroD = QLabel()
+
+        self.letreroD.setText("Recuperar contraseña")
+
+        self.letreroD.setFont(QFont("arial", 20))
+
+        self.letreroD.setStyleSheet("color: white;")
+
+        self.ladoDerecho.addRow(self.letreroD)
+
+        self.letreroD2 = QLabel()
+
+        self.letreroD2.setFixedWidth(340)
+
+        self.letreroD2.setText("Ingrese la informacion para recuperar"
+                               "\nla contraseña. los campos marcados"
+                               "\ncon asterisco (*) son obligatorios.")
+
+        self.letreroD2.setFont(QFont("arial", 10))
+
+        self.letreroD2.setStyleSheet("color: white; margin-bottom: 40px;"
+                                     "margin-top: 20px;"
+                                     "padding-bottom: 10px;"
+                                     "border: 2px solid white;"
+                                     "border-left: none;"
+                                     "border-right: none;"
+                                     "border-top: none;")
+
+        self.ladoDerecho.addRow(self.letreroD2)
+
+        #-----primera pregunta de validacion
+        self.labelPregunta1 = QLabel("Pregunta de verificacion 1*")
+
+        self.ladoDerecho.addRow(self.labelPregunta1)
+
+        self.pregunta1 = QLineEdit()
+        self.pregunta1.setStyleSheet("background-color: white;")
+        self.pregunta1.setFixedWidth(320)
+
+        self.ladoDerecho.addRow(self.pregunta1)
+
+        #-----respuesta pregunta de validacion 1
+        self.labelRespuesta1 = QLabel("Respuesta de verificacion 1*")
+
+        self.ladoDerecho.addRow(self.labelRespuesta1)
+
+
+        self.respuesta1 = QLineEdit()
+        self.respuesta1.setStyleSheet("background-color: white;")
+        self.respuesta1.setFixedWidth(320)
+
+        self.ladoDerecho.addRow(self.respuesta1)
+
+        #----- Segunda Pregunta de verificacion
+        self.labelPregunta2 = QLabel("Pregunta de verificacion 2*")
+
+        self.ladoDerecho.addRow(self.labelPregunta2)
+
+        self.pregunta2 = QLineEdit()
+        self.pregunta2.setStyleSheet("background-color: white;")
+        self.pregunta2.setFixedWidth(320)
+
+        self.ladoDerecho.addRow(self.pregunta2)
+
+        # -----respuesta pregunta de validacion 2
+        self.labelRespuesta2 = QLabel("Respuesta de verificacion 2*")
+
+        self.ladoDerecho.addRow(self.labelRespuesta2)
+
+        self.respuesta2 = QLineEdit()
+        self.respuesta2.setStyleSheet("background-color: white;")
+        self.respuesta2.setFixedWidth(320)
+
+        self.ladoDerecho.addRow(self.respuesta2)
+
+        #-----Tercera pregunta de verificacion
+        self.labelPregunta3 = QLabel("Pregunta de verificacion 3*")
+
+        self.ladoDerecho.addRow(self.labelPregunta3)
+
+        self.pregunta3 = QLineEdit()
+        self.pregunta3.setStyleSheet("background-color: white;")
+        self.pregunta3.setFixedWidth(320)
+
+        self.ladoDerecho.addRow(self.pregunta3)
+
+        # -----respuesta pregunta de validacion 3
+        self.labelRespuesta3 = QLabel("Respuesta de verificacion 3*")
+
+        self.ladoDerecho.addRow(self.labelRespuesta3)
+
+        self.respuesta3 = QLineEdit()
+        self.respuesta3.setStyleSheet("background-color: white;")
+        self.respuesta3.setFixedWidth(320)
+
+        self.ladoDerecho.addRow(self.respuesta3)
+
+        #----- se crea boton para buscarlas preguntas
+        self.botonBuscar = QPushButton("Buscar")
+
+        self.botonBuscar.setFixedWidth(90)
+
+        self.botonBuscar.setStyleSheet("background-color: #9AC069;"
+                                        "color: white;"
+                                        "padding: 10px;"
+                                        "margin-top: 40px;"
+                                       )
+
+        #-----Boton recuperar contraseña
+        self.botonRecuperar = QPushButton("Recuperar")
+
+        self.botonRecuperar.setFixedWidth(90)
+
+        self.botonRecuperar.setStyleSheet("background-color: #9AC069;"
+                                       "color: white;"
+                                       "padding: 10px;"
+                                       "margin-top: 40px;"
+                                       )
+
+        self.ladoDerecho.addRow(self.botonBuscar, self.botonRecuperar)
+
+        self.horizontal.addLayout(self.ladoDerecho)
+
         #----- SE COLOCA LA FINAL -----
         self.fondo.setLayout(self.horizontal)
 
-        '''
-        self.espacio = QLabel()
-        # consultar tipos de letras del sistema
-        # for p in QFontDatabase().families():
-        # print(p)
-        # creamos letrero
-        self.ventana1 = QWidget()
-        self.login = QLabel("CREACIÓN DE USUARIO")
-        self.login.setFont(QFont("Arial", 30))
-        self.login.setStyleSheet("color: white;")
-        self.login.setAlignment(Qt.AlignCenter)
-        self.formulario.addWidget(self.login)
-
-        self.formulario.addStretch()
-
-        self.ventanaU = QWidget()
-        self.Cuadricula = QGridLayout()
-        self.ventanaU.setLayout(self.Cuadricula)
-        # hacemos letrero de primer numero
-        self.letrero1 = QLabel("Ingrese su usuario")
-        self.letrero1.setFont(QFont("Arial", 17))
-        self.letrero1.setStyleSheet("color: white;")
-        self.Cuadricula.addWidget(self.letrero1, 0, 1)
-
-        # hacemos campo para ingresar el usuario
-        self.usuario = QLineEdit()
-        self.usuario.setStyleSheet("background-color: white;")
-        # definimos el ancho del campo 80px
-        self.usuario.setFixedWidth(250)
-        self.usuario.setFont(QFont("Arial", 20))
-        # estabelcemos que solo ingrese numero de 12 caracteres
-        self.usuario.setMaxLength(14)
-        # ponemos el letero y ponemos el campo del primer numero en la segunda fila
-        self.Cuadricula.addWidget(self.usuario, 1, 1)
-
-        self.instruc = QLabel("- Usuario y contraseña de maximo\n14 caracteres")
-        self.instruc.setFont(QFont("Arial", 13))
-        self.instruc.setStyleSheet("color: white;")
-        self.Cuadricula.addWidget(self.instruc, 0, 0)
-        self.instruc2 = QLabel("- No ingrese caracteres especiales")
-        self.instruc2.setFont(QFont("Arial", 13))
-        self.instruc2.setStyleSheet("color: white;")
-        self.Cuadricula.addWidget(self.instruc2, 1, 0)
-        self.instruc4 = QLabel("")
-        self.instruc4.setFont(QFont("Arial", 30))
-        self.instruc4.setStyleSheet("color: white;")
-        self.Cuadricula.addWidget(self.instruc4, 3, 0)
-
-
-        # hacemos el campo para ingresar contraseña
-        self.letrero2 = QLabel("Ingrese su contraseña")
-        self.letrero2.setFont(QFont("Arial", 17))
-        self.letrero2.setStyleSheet("color: white;")
-        self.Cuadricula.addWidget(self.letrero2, 4, 0)
-
-        self.contraseña = QLineEdit()
-        self.contraseña.setStyleSheet("background-color: white;")
-        self.contraseña.setFixedWidth(250)
-        self.contraseña.setFont(QFont("Arial", 20))
-        self.contraseña.setMaxLength(14)
-        self.Cuadricula.addWidget(self.contraseña, 5, 0)
-
-        self.letrero3 = QLabel("Reingrese su contraseña")
-        self.letrero3.setFont(QFont("Arial", 17))
-        self.letrero3.setStyleSheet("color: white;")
-        self.Cuadricula.addWidget(self.letrero3, 4, 1)
-
-        self.contraseña2 = QLineEdit()
-        self.contraseña2.setStyleSheet("background-color: white;")
-        self.contraseña2.setFixedWidth(250)
-        self.contraseña2.setFont(QFont("Arial", 20))
-        self.contraseña2.setMaxLength(14)
-        self.Cuadricula.addWidget(self.contraseña2, 5, 1)
-
-        self.formulario.addWidget(self.ventanaU)
-
-        self.formulario.addStretch()
-
-        self.ventana2 = QWidget()
-        self.formulario.addWidget(self.ventana2)
-
-        self.horizontal2.addStretch()
-
-        self.botonCrear = QPushButton("Crear")
-        self.botonCrear.setFixedWidth(150)
-        self.botonCrear.setFixedHeight(30)
-        self.botonCrear.setStyleSheet("background-color: white; color: #9AC069;")
-        self.botonCrear.setFont(QFont("Arial", 14))
-
-        self.botonCrear.clicked.connect(self.crear_usuario)
-
-        self.horizontal2.addWidget(self.botonCrear)
-        self.horizontal.addWidget(self.ventana1)
-        self.ventana2.setLayout(self.horizontal2)
-        self.ventana1.setLayout(self.formulario)
-        self.fondo.setLayout(self.horizontal)
-        '''
-
     def accion_botonRegistrar(self):
-        pass
+
+        self.ventanadeDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
+
+        self.ventanadeDialogo.resize(300, 150)
+
+        self.botonAceptar = QDialogButtonBox.Ok
+        self.opciones = QDialogButtonBox(self.botonAceptar)
+        self.opciones.accepted.connect(self.ventanadeDialogo.accept)
+
+        self.ventanadeDialogo.setWindowTitle("Formulario de registro")
+
+        self.ventanadeDialogo.setWindowModality(Qt.ApplicationModal)
+
+        self.vertical = QVBoxLayout()
+
+        self.mensaje = QLabel("")
+
+        self.mensaje.setStyleSheet("background-color: #9AC069 ; color: white ; padding: 10px;")
+
+        self.vertical.addWidget(self.mensaje)
+
+        self.vertical.addWidget(self.opciones)
+
+        self.ventanadeDialogo.setLayout(self.vertical)
+
+        self.datosCorrectos = True
+
+        if (
+            self.password.text() != self.password2.text()
+        ):
+            self.datosCorrectos = False
+
+            self.mensaje.setText("Las contraseñas no son iguales")
+
+            self.ventanadeDialogo.exec_()
+
+        if (
+                self.nombreCompleto.text() == ''
+                or self.NombredeUsuario.text() == ''
+                or self.password.text() == ''
+                or self.password2.text() == ''
+                or self.Documento.setText == ''
+                or self.correo.setText == ''
+                or self.pregunta1.setText == ''
+                or self.respuesta1.setText == ''
+                or self.pregunta2.setText == ''
+                or self.respuesta2.setText == ''
+                or self.pregunta3.setText == ''
+                or self.respuesta3.setText == ''
+        ):
+            self.datosCorrectos = False
+
+            self.mensaje.setText("Debe ingresar todos los campos")
+
+            self.ventanadeDialogo.exec_()
+
+        if self.datosCorrectos:
+
+            self.file = open('datos/clientes.txt', 'ab')
+
+            self.file.write(bytes(self.nombreCompleto.text() + ";"
+                                  + self.NombredeUsuario.text() + ";"
+                                  + self.password.text() + ";"
+                                  + self.password2.text() + ";"
+                                  + self.Documento.text() + ";"
+                                  + self.correo.text() + ";"
+                                  + self.pregunta1.text() + ";"
+                                  + self.respuesta1.text() + ";"
+                                  + self.pregunta2.text() + ";"
+                                  + self.respuesta2.text() + ";"
+                                  + self.pregunta3.text() + ";"
+                                  + self.respuesta3.text() + "\n", encoding='UTF-8'))
+            #---se cierra el archivo
+            self.file.close()
+
+            #se abre el modo lectura de los datos
+            self.file = open('datos/clientes.txt', 'rb')
+            #se recorre el archivo linea por linea
+            while self.file:
+                linea = self.file.readline().decode('UTF-8')
+                print(linea)
+                if linea == '':
+                    break
+            self.file.close()
 
     def accion_botonLimpiar(self):
         self.nombreCompleto.setText('')
@@ -249,46 +363,12 @@ class CrearUsuario(QMainWindow):
         self.password2.setText('')
         self.Documento.setText('')
         self.correo.setText('')
-        '''
         self.pregunta1.setText('')
         self.respuesta1.setText('')
         self.pregunta2.setText('')
         self.respuesta2.setText('')
         self.pregunta3.setText('')
         self.respuesta3.setText('')
-        '''
 
 
-        '''
-        self.ventanaDialogo = QDialog()
-        self.ventanaDialogo.resize(300, 150)
-        self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
 
-        self.botonAceptar = QDialogButtonBox.Ok
-
-        self.opcionesBotones = QDialogButtonBox(self.botonAceptar)
-        self.opcionesBotones.setStyleSheet("background-color: white; color: #9AC069;")
-        self.opcionesBotones.accepted.connect(self.ventanaDialogo.accept)
-
-        self.ventanaDialogo.setWindowTitle("Validación")
-        # Bloquear la ventana anterior para no poder interactuar con ella.
-        self.ventanaDialogo.setWindowModality(Qt.ApplicationModal)
-
-        self.vertical5 = QVBoxLayout()
-
-        self.mensaje = QLabel("")
-
-        self.vertical5.addWidget(self.mensaje)
-        self.vertical5.addWidget(self.opcionesBotones)
-
-        self.ventanaDialogo.setLayout(self.vertical5)
-
-        self.mensaje.setText("Ah creado su usuario correctamente.")
-        self.mensaje.setStyleSheet("color: white;")
-        self.mensaje.setFont(QFont("Arial", 14))
-
-        self.ventanaDialogo.exec_()
-
-        self.hide()
-        self.ventanaAnteriorC.show()
-        '''
