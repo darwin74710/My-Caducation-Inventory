@@ -17,7 +17,7 @@ class CrearUsuario(QMainWindow):
         self.setStyleSheet("background-color: #9AC069;")
 
         self.ancho = 800
-        self.alto = 600
+        self.alto = 640
 
         self.resize(self.ancho, self.alto)
 
@@ -29,37 +29,31 @@ class CrearUsuario(QMainWindow):
         self.pantalla.moveCenter(self.centro)
         self.move(self.pantalla.topLeft())
 
-        self.fondo = QWidget()
-
+        self.fondo = QLabel()
         self.setCentralWidget(self.fondo)
+
+        self.verticalP = QVBoxLayout()
+
+        self.ventanaDatos = QLabel()
 
         self.horizontal = QHBoxLayout()
 
-        self.horizontal.setContentsMargins(30, 30, 30, 30)
-
         # ----- lAYOUT IZQUIERDO -----
         self.ladoIzquierdo = QFormLayout()
-
         self.letreroI = QLabel()
-
         self.letreroI.setText("Registar Usuario")
-
-        self.letreroI.setFont(QFont("arial", 20))
-
+        self.letreroI.setFont(QFont("arial", 24))
         self.letreroI.setStyleSheet("color: white;")
 
         self.ladoIzquierdo.addRow(self.letreroI)
 
         self.letreroI2 = QLabel()
-
         self.letreroI2.setFixedWidth(340)
-
+        self.letreroI2.setFixedHeight(130)
         self.letreroI2.setText("Ingrese la informacion que se esta solicitando"
                              "\nen el formulario. Los campos marcados con un"
                              "\nasterisco (*) son obligatorios.")
-
-        self.letreroI2.setFont(QFont("arial", 10))
-
+        self.letreroI2.setFont(QFont("arial", 12))
         self.letreroI2.setStyleSheet("color: white; margin-bottom: 40px;"
                                      "margin-top: 20px;"
                                      "padding-bottom: 10px;"
@@ -70,100 +64,106 @@ class CrearUsuario(QMainWindow):
 
         self.ladoIzquierdo.addRow(self.letreroI2)
 
+
+        self.titulo1 = QLabel("Nombre completo*")
+        self.titulo1.setFont(QFont("Arial", 12))
+        self.titulo1.setStyleSheet("color: white;")
+
         self.nombreCompleto = QLineEdit()
         self.nombreCompleto.setStyleSheet("background-color: white;")
         self.nombreCompleto.setFixedWidth(250)
+        self.nombreCompleto.setFont(QFont("Arial", 12))
         self.nombreCompleto.setMaxLength(70)
 
-        self.ladoIzquierdo.addRow("Nombre completo*", self.nombreCompleto)
+        self.ladoIzquierdo.addRow(self.titulo1)
+        self.ladoIzquierdo.addRow(self.nombreCompleto)
+
+        self.titulo2 = QLabel("Nombre de usuario*")
+        self.titulo2.setFont(QFont("Arial", 12))
+        self.titulo2.setStyleSheet("color: white;")
 
         self.NombredeUsuario = QLineEdit()
         self.NombredeUsuario.setStyleSheet("background-color: white;")
         self.NombredeUsuario.setFixedWidth(250)
+        self.NombredeUsuario.setFont(QFont("Arial", 12))
         self.NombredeUsuario.setMaxLength(14)
 
-        self.ladoIzquierdo.addRow("Nombre de usuario*", self.NombredeUsuario)
+        self.ladoIzquierdo.addRow(self.titulo2)
+        self.ladoIzquierdo.addRow(self.NombredeUsuario)
+
+        self.titulo3 = QLabel("Contraseña*")
+        self.titulo3.setFont(QFont("Arial", 12))
+        self.titulo3.setStyleSheet("color: white;")
 
         self.password = QLineEdit()
         self.password.setStyleSheet("background-color: white;")
         self.password.setFixedWidth(250)
+        self.password.setFont(QFont("Arial", 12))
         self.password.setMaxLength(14)
         self.password.setEchoMode(QLineEdit.Password)
 
-        self.ladoIzquierdo.addRow("Contraseña*", self.password)
+        self.ladoIzquierdo.addRow(self.titulo3)
+        self.ladoIzquierdo.addRow(self.password)
+
+        self.titulo4 = QLabel("Confirmar Contraseña*")
+        self.titulo4.setFont(QFont("Arial", 12))
+        self.titulo4.setStyleSheet("color: white;")
 
         self.password2 = QLineEdit()
         self.password2.setStyleSheet("background-color: white;")
         self.password2.setFixedWidth(250)
+        self.password2.setFont(QFont("Arial", 12))
         self.password2.setMaxLength(14)
         self.password2.setEchoMode(QLineEdit.Password)
 
-        self.ladoIzquierdo.addRow("Confirmar Contraseña*", self.password2)
+        self.ladoIzquierdo.addRow(self.titulo4)
+        self.ladoIzquierdo.addRow(self.password2)
+
+        self.titulo5 = QLabel("Documento de identidad*")
+        self.titulo5.setFont(QFont("Arial", 12))
+        self.titulo5.setStyleSheet("color: white;")
 
         self.Documento = QLineEdit()
         self.Documento.setStyleSheet("background-color: white;")
         self.Documento.setFixedWidth(250)
+        self.Documento.setFont(QFont("Arial", 12))
         self.Documento.setMaxLength(14)
 
-        self.ladoIzquierdo.addRow("Documento de identidad*", self.Documento)
+        self.ladoIzquierdo.addRow(self.titulo5)
+        self.ladoIzquierdo.addRow(self.Documento)
+
+        self.titulo6 = QLabel("Correo electronico*")
+        self.titulo6.setFont(QFont("Arial", 12))
+        self.titulo6.setStyleSheet("color: white;")
 
         self.correo = QLineEdit()
         self.correo.setStyleSheet("background-color: white;")
         self.correo.setFixedWidth(250)
+        self.correo.setFont(QFont("Arial", 12))
         self.correo.setMaxLength(14)
 
-        self.ladoIzquierdo.addRow("Correo electronico*", self.correo)
-
-        self.botonRegistrar = QPushButton("Registrar")
-        self.botonRegistrar.setFixedWidth(90)
-
-
-        self.botonRegistrar.setStyleSheet("background-color: #9AC069;"
-                                          "color: white;"
-                                          "padding: 10px;"
-                                          "margin-top: 40px;")
-
-        self.botonRegistrar.clicked.connect(self.accion_botonRegistrar)
-
-        self.botonLimpiar = QPushButton("Limpiar")
-        self.botonLimpiar.setFixedWidth(90)
-
-        self.botonLimpiar.setStyleSheet("background-color: #9AC069;"
-                                          "color: white;"
-                                          "padding: 10px;"
-                                          "margin-top: 40px;")
-
-        self.botonLimpiar.clicked.connect(self.accion_botonLimpiar)
-
-        self.ladoIzquierdo.addRow(self.botonRegistrar, self.botonLimpiar)
+        self.ladoIzquierdo.addRow(self.titulo6)
+        self.ladoIzquierdo.addRow(self.correo)
 
         self.horizontal.addLayout(self.ladoIzquierdo)
 
         #----- LAYOUT DERECHO -----
         self.ladoDerecho = QFormLayout()
 
-        self.ladoDerecho.setContentsMargins(50, 0, 0, 0)
-
         self.letreroD = QLabel()
-
         self.letreroD.setText("Recuperar contraseña")
-
-        self.letreroD.setFont(QFont("arial", 20))
-
+        self.letreroD.setFont(QFont("arial", 24))
         self.letreroD.setStyleSheet("color: white;")
 
         self.ladoDerecho.addRow(self.letreroD)
 
         self.letreroD2 = QLabel()
-
         self.letreroD2.setFixedWidth(340)
-
+        self.letreroD2.setFixedHeight(130)
         self.letreroD2.setText("Ingrese la informacion para recuperar"
                                "\nla contraseña. los campos marcados"
                                "\ncon asterisco (*) son obligatorios.")
-
-        self.letreroD2.setFont(QFont("arial", 10))
-
+        self.letreroD2.setFont(QFont("arial", 12))
         self.letreroD2.setStyleSheet("color: white; margin-bottom: 40px;"
                                      "margin-top: 20px;"
                                      "padding-bottom: 10px;"
@@ -171,22 +171,26 @@ class CrearUsuario(QMainWindow):
                                      "border-left: none;"
                                      "border-right: none;"
                                      "border-top: none;")
-
         self.ladoDerecho.addRow(self.letreroD2)
 
         #-----primera pregunta de validacion
         self.labelPregunta1 = QLabel("Pregunta de verificacion 1*")
+        self.labelPregunta1.setStyleSheet("color: white;")
+        self.labelPregunta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.labelPregunta1)
 
         self.pregunta1 = QLineEdit()
         self.pregunta1.setStyleSheet("background-color: white;")
         self.pregunta1.setFixedWidth(320)
+        self.pregunta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.pregunta1)
 
         #-----respuesta pregunta de validacion 1
         self.labelRespuesta1 = QLabel("Respuesta de verificacion 1*")
+        self.labelRespuesta1.setStyleSheet("color: white;")
+        self.labelRespuesta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.labelRespuesta1)
 
@@ -194,104 +198,155 @@ class CrearUsuario(QMainWindow):
         self.respuesta1 = QLineEdit()
         self.respuesta1.setStyleSheet("background-color: white;")
         self.respuesta1.setFixedWidth(320)
+        self.respuesta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.respuesta1)
 
         #----- Segunda Pregunta de verificacion
         self.labelPregunta2 = QLabel("Pregunta de verificacion 2*")
+        self.labelPregunta2.setStyleSheet("color: white;")
+        self.labelPregunta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.labelPregunta2)
 
         self.pregunta2 = QLineEdit()
         self.pregunta2.setStyleSheet("background-color: white;")
         self.pregunta2.setFixedWidth(320)
+        self.pregunta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.pregunta2)
 
         # -----respuesta pregunta de validacion 2
         self.labelRespuesta2 = QLabel("Respuesta de verificacion 2*")
+        self.labelRespuesta2.setStyleSheet("color: white;")
+        self.labelRespuesta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.labelRespuesta2)
 
         self.respuesta2 = QLineEdit()
         self.respuesta2.setStyleSheet("background-color: white;")
         self.respuesta2.setFixedWidth(320)
+        self.respuesta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.respuesta2)
 
         #-----Tercera pregunta de verificacion
         self.labelPregunta3 = QLabel("Pregunta de verificacion 3*")
+        self.labelPregunta3.setStyleSheet("color: white;")
+        self.labelPregunta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.labelPregunta3)
 
         self.pregunta3 = QLineEdit()
         self.pregunta3.setStyleSheet("background-color: white;")
         self.pregunta3.setFixedWidth(320)
+        self.pregunta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.pregunta3)
 
         # -----respuesta pregunta de validacion 3
         self.labelRespuesta3 = QLabel("Respuesta de verificacion 3*")
+        self.labelRespuesta3.setStyleSheet("color: white;")
+        self.labelRespuesta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.labelRespuesta3)
 
         self.respuesta3 = QLineEdit()
         self.respuesta3.setStyleSheet("background-color: white;")
         self.respuesta3.setFixedWidth(320)
+        self.respuesta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.respuesta3)
 
-        #----- se crea boton para buscarlas preguntas
-        self.botonBuscar = QPushButton("Buscar")
+        self.horizontal.addLayout(self.ladoDerecho)
+        self.ventanaDatos.setLayout(self.horizontal)
+        self.verticalP.addWidget(self.ventanaDatos)
 
-        self.botonBuscar.setFixedWidth(90)
+        self.ventanaBotones = QLabel()
+        self.ventanaBotones.setFixedHeight(100)
+        self.horizontalB = QHBoxLayout()
 
-        self.botonBuscar.setStyleSheet("background-color: #9AC069;"
+        self.botonRegistrar = QPushButton("Registrar")
+        self.botonRegistrar.setFixedWidth(100)
+        self.botonRegistrar.setFont(QFont("Arial", 12))
+        self.botonRegistrar.setStyleSheet("background-color: #8EA85D;"
+                                          "color: white;"
+                                          "padding: 10px;"
+                                          "margin-top: 40px;")
+        self.botonRegistrar.clicked.connect(self.accion_botonRegistrar)
+
+        self.botonLimpiar = QPushButton("Limpiar")
+        self.botonLimpiar.setFixedWidth(100)
+        self.botonLimpiar.setFont(QFont("Arial", 12))
+        self.botonLimpiar.setStyleSheet("background-color: #8EA85D;"
                                         "color: white;"
                                         "padding: 10px;"
-                                        "margin-top: 40px;"
+                                        "margin-top: 40px;")
+        self.botonLimpiar.clicked.connect(self.accion_botonLimpiar)
+
+        self.botonAtras = QPushButton("Atras")
+        self.botonAtras.setFixedWidth(100)
+        self.botonAtras.setFont(QFont("Arial", 12))
+        self.botonAtras.setStyleSheet("background-color: #8EA85D;"
+                                       "color: white;"
+                                       "padding: 10px;"
+                                       "margin-top: 40px;"
                                        )
+        self.botonAtras.clicked.connect(self.accion_botonatras)
 
-        #-----Boton recuperar contraseña
-        self.botonRecuperar = QPushButton("Recuperar")
-
-        self.botonRecuperar.setFixedWidth(90)
-
-        self.botonRecuperar.setStyleSheet("background-color: #9AC069;"
+        self.botonBuscar = QPushButton("Buscar")
+        self.botonBuscar.setFixedWidth(100)
+        self.botonBuscar.setFont(QFont("Arial", 12))
+        self.botonBuscar.setStyleSheet("background-color: #8EA85D;"
                                        "color: white;"
                                        "padding: 10px;"
                                        "margin-top: 40px;"
                                        )
 
-        self.ladoDerecho.addRow(self.botonBuscar, self.botonRecuperar)
+        # -----Boton recuperar contraseña
+        self.botonRecuperar = QPushButton("Recuperar")
+        self.botonRecuperar.setFixedWidth(100)
+        self.botonRecuperar.setFont(QFont("Arial", 12))
+        self.botonRecuperar.setStyleSheet("background-color: #8EA85D;"
+                                          "color: white;"
+                                          "padding: 10px;"
+                                          "margin-top: 40px;"
+                                          )
 
-        self.horizontal.addLayout(self.ladoDerecho)
+        self.horizontalB.addWidget(self.botonRegistrar)
+        self.horizontalB.addWidget(self.botonLimpiar)
+        self.horizontalB.addStretch()
+        self.horizontalB.addWidget(self.botonAtras)
+        self.horizontalB.addStretch()
+        self.horizontalB.addWidget(self.botonBuscar)
+        self.horizontalB.addWidget(self.botonRecuperar)
 
+        self.ventanaBotones.setLayout(self.horizontalB)
+        self.verticalP.addWidget(self.ventanaBotones)
         #----- SE COLOCA LA FINAL -----
-        self.fondo.setLayout(self.horizontal)
+        self.fondo.setLayout(self.verticalP)
+
 
     def accion_botonRegistrar(self):
-
         self.ventanadeDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
-
         self.ventanadeDialogo.resize(300, 150)
+        self.ventanadeDialogo.setStyleSheet("background-color: #9AC069;")
 
         self.botonAceptar = QDialogButtonBox.Ok
         self.opciones = QDialogButtonBox(self.botonAceptar)
+        self.opciones.setStyleSheet("background-color: #8EA85D; color: white;")
         self.opciones.accepted.connect(self.ventanadeDialogo.accept)
 
         self.ventanadeDialogo.setWindowTitle("Formulario de registro")
-
         self.ventanadeDialogo.setWindowModality(Qt.ApplicationModal)
 
         self.vertical = QVBoxLayout()
 
         self.mensaje = QLabel("")
-
-        self.mensaje.setStyleSheet("background-color: #9AC069 ; color: white ; padding: 10px;")
+        self.mensaje.setFont(QFont("Arial", 12))
+        self.mensaje.setStyleSheet("color: white;")
 
         self.vertical.addWidget(self.mensaje)
-
         self.vertical.addWidget(self.opciones)
 
         self.ventanadeDialogo.setLayout(self.vertical)
@@ -306,6 +361,7 @@ class CrearUsuario(QMainWindow):
             self.mensaje.setText("Las contraseñas no son iguales")
 
             self.ventanadeDialogo.exec_()
+            self.accion_botonatras()
 
         if (
                 self.nombreCompleto.text() == ''
@@ -326,6 +382,7 @@ class CrearUsuario(QMainWindow):
             self.mensaje.setText("Debe ingresar todos los campos")
 
             self.ventanadeDialogo.exec_()
+            self.accion_botonatras()
 
         if self.datosCorrectos:
 
@@ -369,6 +426,10 @@ class CrearUsuario(QMainWindow):
         self.respuesta2.setText('')
         self.pregunta3.setText('')
         self.respuesta3.setText('')
+
+    def accion_botonatras(self):
+        self.hide()
+        self.ventanaAnteriorC.show()
 
 
 
