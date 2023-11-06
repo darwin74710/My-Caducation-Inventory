@@ -13,15 +13,13 @@ from crearUsuario import CrearUsuario
 class Ingreso(QMainWindow):
     def __init__(self, parent=None):
         super(Ingreso, self).__init__(parent=parent)
-
+        # Se crea la ventana principal junto a sus modificaciones
         self.setWindowTitle("Login")
         self.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
         self.setStyleSheet("background-color: #9AC069;")
 
         self.ancho = 285
         self.alto = 510
-
-        self.resize(self.ancho, self.alto)
 
         self.setFixedWidth(self.ancho)
         self.setFixedHeight(self.alto)
@@ -31,19 +29,15 @@ class Ingreso(QMainWindow):
         self.pantalla.moveCenter(self.centro)
         self.move(self.pantalla.topLeft())
 
-
+        # Se empieza a trabajar en la construcción de la ventana
         self.fondo = QWidget()
-
         self.setCentralWidget(self.fondo)
 
         self.horizontal = QVBoxLayout()
         self.formulario = QFormLayout()
         self.horizontal2 = QHBoxLayout()
 
-        # consultar tipos de letras del sistema
-        #for p in QFontDatabase().families():
-            #print(p)
-        # creamos letrero
+        # Se establece el logo de la aplicación
         self.letero1 = QLabel()
         self.letero1.setFixedWidth(285)
         self.letero1.setFixedHeight(285)
@@ -56,25 +50,21 @@ class Ingreso(QMainWindow):
 
         self.ventana1 = QWidget()
 
-        # hacemos letrero de primer numero
+        # Se crea el ingreso del usuario
         self.letrero1 = QLabel("Ingrese su usuario")
         self.letrero1.setFixedHeight(30)
         self.letrero1.setStyleSheet("color: white;")
         self.letrero1.setFont(QFont("Arial", 12))
         self.formulario.addRow(self.letrero1)
 
-        # hacemos campo para ingresar el usuario
         self.usuario = QLineEdit()
         self.usuario.setStyleSheet("background-color: white;")
-        # definimos el ancho del campo 80px
         self.usuario.setFixedWidth(250)
         self.usuario.setFont(QFont("Arial", 12))
-        # estabelcemos que solo ingrese numero de 12 caracteres
         self.usuario.setMaxLength(14)
-        # ponemos el letero y ponemos el campo del primer numero en la segunda fila
         self.formulario.addRow(self.usuario)
 
-        # hacemos el campo para ingresar contraseña
+        # Se crea el ingreso de la contraseña
         self.letrero2 = QLabel("Ingrese su contraseña")
         self.letrero2.setFixedHeight(30)
         self.letrero2.setStyleSheet("color: white;")
@@ -88,6 +78,7 @@ class Ingreso(QMainWindow):
         self.contraseña.setMaxLength(14)
         self.contraseña.setEchoMode(QLineEdit.Password)
 
+        # Se crea botón para alternar entre poder ver y no ver la contraseña
         self.cambiarContra = QPushButton()
         self.cambiarContra.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
         self.cambiarContra.setFixedWidth(25)
@@ -96,6 +87,7 @@ class Ingreso(QMainWindow):
 
         self.formulario.addRow(self.contraseña, self.cambiarContra)
 
+        # Se crean los botones para el ingreso de usuario o la creación de uno
         self.ventana2 = QWidget()
         self.formulario.addRow(self.ventana2)
 
@@ -109,7 +101,6 @@ class Ingreso(QMainWindow):
 
         self.horizontal2.addWidget(self.botonCrear)
 
-        # hacemos boton para hacer ingresar
         self.botonIngresar = QPushButton("Ingresar")
         self.botonIngresar.setFixedWidth(100)
         self.botonIngresar.setFixedHeight(35)
@@ -126,7 +117,9 @@ class Ingreso(QMainWindow):
         self.ventana2.setLayout(self.horizontal2)
         self.ventana1.setLayout(self.formulario)
         self.fondo.setLayout(self.horizontal)
+
     def accion_botonIngresar(self):
+        # Metodo para iniciar sesión e ir a la ventana Administrador
         self.hide()
         self.usuario.setText('')
         self.contraseña.setText('')
@@ -135,12 +128,13 @@ class Ingreso(QMainWindow):
         self.ventanaA.show()
 
     def crear_usuario(self):
+        # Metodo para ir a la ventana crear usuario
         self.hide()
-
         self.ventanaB = CrearUsuario(self)
         self.ventanaB.show()
 
     def alternar_contrasena(self):
+        # Metodo para poder ver o no ver la contraseña ingresada
         if self.activacion == True:
             self.activacion = False
             self.contraseña.setEchoMode(QLineEdit.Normal)

@@ -15,7 +15,7 @@ from productos import Productos
 class Administrador(QMainWindow):
     def __init__(self, anterior):
         super(Administrador, self).__init__(anterior)
-
+        #Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
 
         self.ver_manual = Manual(self)
@@ -27,8 +27,6 @@ class Administrador(QMainWindow):
         self.ancho = 1000
         self.alto = 563
 
-        self.resize(self.ancho, self.alto)
-
         self.setFixedWidth(self.ancho)
         self.setFixedHeight(self.alto)
 
@@ -37,6 +35,7 @@ class Administrador(QMainWindow):
         self.pantalla.moveCenter(self.centro)
         self.move(self.pantalla.topLeft())
 
+        # Se distribuyen sus elementos
         self.ventana = QWidget()
         self.ventana.setStyleSheet("background-color: #9AC069;")
         self.setCentralWidget(self.ventana)
@@ -47,6 +46,7 @@ class Administrador(QMainWindow):
         self.principal.setFixedHeight(60)
         self.horizontal = QHBoxLayout()
 
+        # Se crea el titulo a la izquierda para explicar la ubicación de la ventana y a la derecha el botón para desconectarse
         self.titulo1 = QLabel("ADMINISTRADOR")
         self.titulo1.setFont(QFont("Arial", 40))
         self.titulo1.setStyleSheet("color: white;")
@@ -69,6 +69,7 @@ class Administrador(QMainWindow):
 
         self.vertical.addStretch()
 
+        # Se crea subventana para colocar información extra, los botones para dezplasarse a las ventanas y el logo
         self.Fondo = QLabel()
         self.Fondo.setStyleSheet("background-color: white;")
         self.Fondo.setFixedHeight(480)
@@ -193,17 +194,21 @@ class Administrador(QMainWindow):
         self.ventana.setLayout(self.vertical)
 
     def ir_productos(self):
+        # Metodo para ir a la ventana productos
         self.hide()
         self.ver_productos.show()
 
     def ir_manual(self):
+        # Metodo para ir a la ventana manual
         self.hide()
         self.ver_manual.show()
 
     def ir_alertas(self):
+        # Metodo para ir a la ventana alertas
         self.hide()
         self.ver_alertas.show()
 
     def desconectar(self):
+        # Metodo para cerar la sesion
         self.hide()
         self.ventanaAnterior.show()

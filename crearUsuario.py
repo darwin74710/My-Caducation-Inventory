@@ -10,7 +10,7 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButt
 class CrearUsuario(QMainWindow):
     def __init__(self, anteriorC):
         super(CrearUsuario, self).__init__(anteriorC)
-
+        # Se crea la ventana principal junto a sus propiedades
         self.ventanaAnteriorC = anteriorC
 
         self.setWindowTitle("Creación de usuario")
@@ -18,8 +18,6 @@ class CrearUsuario(QMainWindow):
 
         self.ancho = 800
         self.alto = 640
-
-        self.resize(self.ancho, self.alto)
 
         self.setFixedWidth(self.ancho)
         self.setFixedHeight(self.alto)
@@ -29,6 +27,7 @@ class CrearUsuario(QMainWindow):
         self.pantalla.moveCenter(self.centro)
         self.move(self.pantalla.topLeft())
 
+        # Se empieza a distribuir layouts para una mejor ubicación de elementos
         self.fondo = QLabel()
         self.setCentralWidget(self.fondo)
 
@@ -38,7 +37,8 @@ class CrearUsuario(QMainWindow):
 
         self.horizontal = QHBoxLayout()
 
-        # ----- lAYOUT IZQUIERDO -----
+        # Desde aquí se trabaja el lado izquierdo de la ventana en donde se puede crear el usuario
+        # Se explica lo que debe hacer el usuario en este lado
         self.ladoIzquierdo = QFormLayout()
         self.letreroI = QLabel()
         self.letreroI.setText("Registar Usuario")
@@ -64,7 +64,7 @@ class CrearUsuario(QMainWindow):
 
         self.ladoIzquierdo.addRow(self.letreroI2)
 
-
+        # Se crean los campos para ingresar los datos del usuario
         self.titulo1 = QLabel("Nombre completo*")
         self.titulo1.setFont(QFont("Arial", 12))
         self.titulo1.setStyleSheet("color: white;")
@@ -159,14 +159,14 @@ class CrearUsuario(QMainWindow):
 
         self.horizontal.addLayout(self.ladoIzquierdo)
 
-        #----- LAYOUT DERECHO -----
-        self.ladoDerecho = QFormLayout()
-
+        # Desde aquí se trabaja el lado derecho de la ventana en donde se crean y responden las preguntas de recuperación de usuario
+        # explica lo que debe hacer el usuario en este lado
         self.letreroD = QLabel()
         self.letreroD.setText("Recuperar contraseña")
         self.letreroD.setFont(QFont("arial", 24))
         self.letreroD.setStyleSheet("color: white;")
 
+        self.ladoDerecho = QFormLayout()
         self.ladoDerecho.addRow(self.letreroD)
 
         self.letreroD2 = QLabel()
@@ -185,7 +185,7 @@ class CrearUsuario(QMainWindow):
                                      "border-top: none;")
         self.ladoDerecho.addRow(self.letreroD2)
 
-        #-----primera pregunta de validacion
+        # Se construyen los elementos para el ingreso de preguntas
         self.labelPregunta1 = QLabel("Pregunta de verificacion 1*")
         self.labelPregunta1.setStyleSheet("color: white;")
         self.labelPregunta1.setFont(QFont("Arial", 12))
@@ -199,13 +199,11 @@ class CrearUsuario(QMainWindow):
 
         self.ladoDerecho.addRow(self.pregunta1)
 
-        #-----respuesta pregunta de validacion 1
         self.labelRespuesta1 = QLabel("Respuesta de verificacion 1*")
         self.labelRespuesta1.setStyleSheet("color: white;")
         self.labelRespuesta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.labelRespuesta1)
-
 
         self.respuesta1 = QLineEdit()
         self.respuesta1.setStyleSheet("background-color: white;")
@@ -214,7 +212,6 @@ class CrearUsuario(QMainWindow):
 
         self.ladoDerecho.addRow(self.respuesta1)
 
-        #----- Segunda Pregunta de verificacion
         self.labelPregunta2 = QLabel("Pregunta de verificacion 2*")
         self.labelPregunta2.setStyleSheet("color: white;")
         self.labelPregunta2.setFont(QFont("Arial", 12))
@@ -228,7 +225,6 @@ class CrearUsuario(QMainWindow):
 
         self.ladoDerecho.addRow(self.pregunta2)
 
-        # -----respuesta pregunta de validacion 2
         self.labelRespuesta2 = QLabel("Respuesta de verificacion 2*")
         self.labelRespuesta2.setStyleSheet("color: white;")
         self.labelRespuesta2.setFont(QFont("Arial", 12))
@@ -242,7 +238,6 @@ class CrearUsuario(QMainWindow):
 
         self.ladoDerecho.addRow(self.respuesta2)
 
-        #-----Tercera pregunta de verificacion
         self.labelPregunta3 = QLabel("Pregunta de verificacion 3*")
         self.labelPregunta3.setStyleSheet("color: white;")
         self.labelPregunta3.setFont(QFont("Arial", 12))
@@ -256,7 +251,6 @@ class CrearUsuario(QMainWindow):
 
         self.ladoDerecho.addRow(self.pregunta3)
 
-        # -----respuesta pregunta de validacion 3
         self.labelRespuesta3 = QLabel("Respuesta de verificacion 3*")
         self.labelRespuesta3.setStyleSheet("color: white;")
         self.labelRespuesta3.setFont(QFont("Arial", 12))
@@ -274,10 +268,12 @@ class CrearUsuario(QMainWindow):
         self.ventanaDatos.setLayout(self.horizontal)
         self.verticalP.addWidget(self.ventanaDatos)
 
+        # Se crea una ventana para distribuir los botones en la parte inferior
         self.ventanaBotones = QLabel()
         self.ventanaBotones.setFixedHeight(100)
         self.horizontalB = QHBoxLayout()
 
+        # Se crean los botones y se conectan a sus metodos
         self.botonRegistrar = QPushButton("Registrar")
         self.botonRegistrar.setFixedWidth(100)
         self.botonRegistrar.setFont(QFont("Arial", 12))
@@ -315,7 +311,6 @@ class CrearUsuario(QMainWindow):
                                        "margin-top: 40px;"
                                        )
 
-        # -----Boton recuperar contraseña
         self.botonRecuperar = QPushButton("Recuperar")
         self.botonRecuperar.setFixedWidth(100)
         self.botonRecuperar.setFont(QFont("Arial", 12))
@@ -335,11 +330,12 @@ class CrearUsuario(QMainWindow):
 
         self.ventanaBotones.setLayout(self.horizontalB)
         self.verticalP.addWidget(self.ventanaBotones)
-        #----- SE COLOCA LA FINAL -----
+
         self.fondo.setLayout(self.verticalP)
 
-
     def accion_botonRegistrar(self):
+        # Metodo para guardar el usuario en un archivo plano
+        # Se crea la ventana de validación
         self.ventanadeDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
         self.ventanadeDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
         self.ventanadeDialogo.setFixedWidth(300)
@@ -350,6 +346,7 @@ class CrearUsuario(QMainWindow):
 
         self.formulario = QFormLayout()
 
+        # Se crean los elementos a mostrar
         self.espacio2 = QLabel()
         self.espacio2.setFixedHeight(5)
         self.formulario.addRow(self.espacio2)
@@ -376,6 +373,7 @@ class CrearUsuario(QMainWindow):
 
         self.datosCorrectos = True
 
+        # Evitar repetir la contraseña
         if (
             self.password.text() != self.password2.text()
         ):
@@ -385,6 +383,7 @@ class CrearUsuario(QMainWindow):
 
             self.ventanadeDialogo.exec_()
 
+        # Evitar ingresar campos vacios
         if (
                 self.nombreCompleto.text() == ''
                 or self.NombredeUsuario.text() == ''
@@ -405,8 +404,10 @@ class CrearUsuario(QMainWindow):
 
             self.ventanadeDialogo.exec_()
 
+        # Sl ingresar datos correctos
         if self.datosCorrectos:
-
+            # Se abre el archivo plano y se añade la información en binario
+            # El ab se establece para guardar información
             self.file = open('datos/clientes.txt', 'ab')
 
             self.file.write(bytes(self.nombreCompleto.text() + ";"
@@ -421,10 +422,10 @@ class CrearUsuario(QMainWindow):
                                   + self.respuesta2.text() + ";"
                                   + self.pregunta3.text() + ";"
                                   + self.respuesta3.text() + "\n", encoding='UTF-8'))
-            #---se cierra el archivo
             self.file.close()
 
-            #se abre el modo lectura de los datos
+            #se abre el archivo plano y se lee la información dentro de el
+            # El rb se establece para leer información
             self.file = open('datos/clientes.txt', 'rb')
             #se recorre el archivo linea por linea
             while self.file:
@@ -435,6 +436,7 @@ class CrearUsuario(QMainWindow):
             self.file.close()
 
     def accion_botonLimpiar(self):
+        # Metodo para vaciar los campos de información
         self.nombreCompleto.setText('')
         self.NombredeUsuario.setText('')
         self.password.setText('')
@@ -449,6 +451,7 @@ class CrearUsuario(QMainWindow):
         self.respuesta3.setText('')
 
     def alternar_contrasena1(self):
+        # Metodo para ver y no ver la contraseña
         if self.activacion1 == True:
             self.activacion1 = False
             self.password.setEchoMode(QLineEdit.Normal)
@@ -459,6 +462,7 @@ class CrearUsuario(QMainWindow):
             self.cambiarContra1.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
 
     def alternar_contrasena2(self):
+        # Metodo para ver y no ver la contraseña
         if self.activacion2 == True:
             self.activacion2 = False
             self.password2.setEchoMode(QLineEdit.Normal)
@@ -469,8 +473,10 @@ class CrearUsuario(QMainWindow):
             self.cambiarContra2.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
 
     def cerrar_mensaje(self):
+        # Metodo para cerrar la ventana de validación
         self.ventanadeDialogo.hide()
 
     def accion_botonatras(self):
+        # Metodo para volver a la ventana ingreso
         self.hide()
         self.ventanaAnteriorC.show()

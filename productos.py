@@ -11,15 +11,13 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QToolBar,
 class Productos(QMainWindow):
     def __init__(self, anterior):
         super(Productos, self).__init__(anterior)
-
+        # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
 
         self.setWindowTitle("Productos")
 
         self.ancho = 1000
         self.alto = 563
-
-        self.resize(self.ancho, self.alto)
 
         self.setFixedWidth(self.ancho)
         self.setFixedHeight(self.alto)
@@ -29,50 +27,41 @@ class Productos(QMainWindow):
         self.pantalla.moveCenter(self.centro)
         self.move(self.pantalla.topLeft())
 
+        # Se crea la ventana para establecer los elementos
         self.ventana = QWidget()
         self.ventana.setStyleSheet("background-color: #9AC069;")
         self.setCentralWidget(self.ventana)
         self.horizontal = QHBoxLayout()
 
+        # Ventana para la distribución de productos
         self.scrollArea = QScrollArea()
         self.scrollArea.setStyleSheet("background-color: #8EA85D;")
-        # Adaptar el scroll a diferentes escaladas
         self.scrollArea.setWidgetResizable(True)
-        # Ventana contenedora para la cuadricula
+
         self.contenedora = QWidget()
-
         self.cuadricula = QGridLayout(self.contenedora)
-
         self.scrollArea.setWidget(self.contenedora)
 
-        # Establecemos el numero de elementos
         self.numeroElementos = 12
-
-        # Creamos el contador de elementos que se muestran en el Layout
         self.contador = 0
-
-        # Para establecer los elementos por fila
         self.elementosPorColumna = 1
+
         # Redondeamos al entero superior + 1, mostraremos 3 columnas por fila
         # por eso dividimos por 3
         self.numeroFilas = math.ceil(self.numeroElementos / self.elementosPorColumna) + 1
 
         self.ventana.setLayout(self.horizontal)
 
-        # crear un agrupador de botones
         self.botones = QButtonGroup()
-        # Definimos que ningún boton sea exclusivo
         self.botones.setExclusive(False)
 
-        # Ciclos for para crear objetos en la cuadricula.
+        # Ciclos para la creación de productos según el numero de elementos establecido
         for fila in range(1, self.numeroFilas):
             for columna in range(1, self.elementosPorColumna + 1):
-                # Validar el contador
                 if self.contador < self.numeroElementos:
-                    # En cada celda de la cuadricula se crea una ventana
+                    # Metodo para crear una ventana cada vez que los numeros de elementos superen al contador
                     self.ventanaAux = QWidget()
 
-                    # Crear un layout vertical para cada elemento de la cuadricula
                     self.verticalCuadricula = QVBoxLayout()
 
                     self.botonAccion = QPushButton("Producto " + str(self.contador + 1))
@@ -86,16 +75,15 @@ class Productos(QMainWindow):
                     self.botones.addButton(self.botonAccion, self.contador + 1)
 
                     self.ventanaAux.setLayout(self.verticalCuadricula)
-                    # a la cuadricula le agregamos la ventana en al fila y la columna actual
+                    # a la cuadricula le agregamos la ventana en posición de la fila y la columna
                     self.cuadricula.addWidget(self.ventanaAux, fila, columna)
 
-                    # Aumentamos el contador
                     self.contador += 1
-
+        # Se le otorga un metodo a cada producto
         self.botones.idClicked.connect(self.metodo_accion_boton)
         self.horizontal.addWidget(self.scrollArea)
 
-        # Aquí comienza
+        # Se crea la ventana derecha en donde se previsualizara la información de los productos
         self.ventana2 = QLabel()
         self.ventana2.setFixedWidth(370)
         self.vertical2 = QVBoxLayout()
@@ -227,10 +215,12 @@ class Productos(QMainWindow):
         self.ventanaTitulos.setLayout(self.formulario4)
         self.ventanaDatos.setLayout(self.formulario5)
 
+        # Se crea la ventana para los botones interactuables con los productos
         self.ventanaBotones = QLabel()
         self.ventanaBotones.setFixedHeight(35)
         self.vertical3 = QHBoxLayout()
 
+        # Botón para crear productos
         self.crear = QPushButton("Crear")
         self.crear.setFixedWidth(100)
         self.crear.setFixedHeight(27)
@@ -238,6 +228,7 @@ class Productos(QMainWindow):
         self.crear.setFont(QFont("Arial", 12))
         self.crear.clicked.connect(self.metodo_crear_producto)
 
+        # Botón para modificar productos
         self.Modificar = QPushButton("Modificar")
         self.Modificar.setFixedWidth(100)
         self.Modificar.setFixedHeight(27)
@@ -245,6 +236,7 @@ class Productos(QMainWindow):
         self.Modificar.setFont(QFont("Arial", 12))
         self.Modificar.clicked.connect(self.metodo_modificar_producto)
 
+        # Botón para eliminar productos
         self.eliminar = QPushButton("Eliminar")
         self.eliminar.setFixedWidth(100)
         self.eliminar.setFixedHeight(27)
@@ -272,6 +264,7 @@ class Productos(QMainWindow):
         self.ventana.setLayout(self.horizontal)
 
     def metodo_crear_producto(self):
+        # Metodo para abrir una ventana emergente en la que se ingresan datos para la creación del nuevo producto
         self.ventanaDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
         self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
         self.ventanaDialogo.setFixedWidth(400)
@@ -364,6 +357,7 @@ class Productos(QMainWindow):
         self.ano.setStyleSheet("background-color: white;")
         self.ano.setFont(QFont("Arial", 12))
 
+        # Estas barras son simple decoración
         self.barra = QLabel("/")
         self.barra.setFixedHeight(20)
         self.barra.setAlignment(Qt.AlignCenter)
@@ -384,7 +378,6 @@ class Productos(QMainWindow):
 
         self.miniInfo.setLayout(self.minihorizontal3)
         self.minivertical.addWidget(self.miniInfo)
-
 
         self.infoCaducidad.setLayout(self.minivertical)
         self.formularioMensaje.addRow(self.titulo2, self.infoCaducidad)
@@ -417,6 +410,7 @@ class Productos(QMainWindow):
         self.principal.setLayout(self.formularioMensaje)
         self.formularioPrin.addRow(self.principal)
 
+        # Se crea ventana establecida en la parte inferior para crear botones en los que se puede cancelar la creación del producto o crearlo
         self.botones2 = QLabel()
         self.botones2.setFixedHeight(37)
         self.minihorizontal4 = QHBoxLayout()
@@ -428,7 +422,7 @@ class Productos(QMainWindow):
         self.botonCrear.setFont(QFont("Arial", 12))
         self.botonCrear.clicked.connect(self.funcion_crear)
 
-        self.botonAtras = QPushButton("Atrás")
+        self.botonAtras = QPushButton("Cancelar")
         self.botonAtras.setFixedWidth(100)
         self.botonAtras.setFixedHeight(27)
         self.botonAtras.setStyleSheet("background-color: #8EA85D; color: white;")
@@ -446,9 +440,12 @@ class Productos(QMainWindow):
         self.ventanaDialogo.exec_()
 
     def funcion_crear(self):
+        # Metodo para crear el producto y guardar la información
         print("Crea producto")
 
     def metodo_modificar_producto(self):
+        # Ventana emergente para modificar los datos del producto
+        # Es la misma ventana de crear productos así que se podrian juntar en una sola pero añadirle condicionales de si se va a crear un producto o si se va a modificar
         self.ventanaDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
         self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
         self.ventanaDialogo.setFixedWidth(400)
@@ -541,6 +538,7 @@ class Productos(QMainWindow):
         self.ano.setStyleSheet("background-color: white;")
         self.ano.setFont(QFont("Arial", 12))
 
+        # Estas lineas son decoración
         self.barra = QLabel("/")
         self.barra.setFixedHeight(20)
         self.barra.setAlignment(Qt.AlignCenter)
@@ -597,6 +595,7 @@ class Productos(QMainWindow):
         self.botones2.setFixedHeight(37)
         self.minihorizontal4 = QHBoxLayout()
 
+        # Botones para guardar o cancelar la modificación
         self.botonCrear = QPushButton("Guardar")
         self.botonCrear.setFixedWidth(100)
         self.botonCrear.setFixedHeight(27)
@@ -604,7 +603,7 @@ class Productos(QMainWindow):
         self.botonCrear.setFont(QFont("Arial", 12))
         self.botonCrear.clicked.connect(self.funcion_guardar)
 
-        self.botonAtras = QPushButton("Atrás")
+        self.botonAtras = QPushButton("Cancelar")
         self.botonAtras.setFixedWidth(100)
         self.botonAtras.setFixedHeight(27)
         self.botonAtras.setStyleSheet("background-color: #8EA85D; color: white;")
@@ -617,14 +616,16 @@ class Productos(QMainWindow):
 
         self.botones2.setLayout(self.minihorizontal4)
         self.formularioPrin.addRow(self.botones2)
-
         self.ventanaDialogo.setLayout(self.formularioPrin)
+
         self.ventanaDialogo.exec_()
 
     def funcion_guardar(self):
+        # Metodo para guardar las modificaciones realizadas
         print("Guarda cambios")
 
     def metodo_eliminar_producto(self):
+        # Ventana emergente para aceptar o negar la eliminación del producto seleccionado
         self.ventanaDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
         self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
         self.ventanaDialogo.setFixedWidth(300)
@@ -641,7 +642,6 @@ class Productos(QMainWindow):
         self.mensaje.setFont(QFont("Arial", 12))
 
         self.formularioMensaje.addRow(self.mensaje)
-
         self.eleccion = QLabel()
         self.eleccion.setFixedHeight(40)
         self.horizontal1 = QHBoxLayout()
@@ -672,16 +672,20 @@ class Productos(QMainWindow):
         self.ventanaDialogo.exec_()
 
     def funcion_eliminar(self):
+        # Metodo para eliminar el producto seleccionado
         print("Eliminar")
 
     def metodo_accion_boton(self, idBoton):
+        # Metodo para cambiar el color de los botones al ser pulsados
         self.botones.button(self.contador).setStyleSheet("color: white; background-color: #9AC069;")
         self.botones.button(idBoton).setStyleSheet("color: white; background-color: #65783E;")
         self.contador = idBoton
 
     def metodo_cerrar(self):
+        # Metodo para cerrar las subventanas abiertas en las funciones crear, modificar y eliminar
         self.ventanaDialogo.hide()
 
     def ir_administrador(self):
+        # Metodo para volver a la ventana administrador
         self.hide()
         self.ventanaAnterior.show()
