@@ -6,7 +6,6 @@ from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButton, QWidget, QLineEdit, QLabel, \
     QVBoxLayout, QHBoxLayout, QGridLayout, QDialog, QDialogButtonBox, QFormLayout
 
-
 class CrearUsuario(QMainWindow):
     def __init__(self, anteriorC):
         super(CrearUsuario, self).__init__(anteriorC)

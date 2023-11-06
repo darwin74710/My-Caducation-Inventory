@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QToolBar,
     QGridLayout, QFormLayout, QPushButton, QHBoxLayout, QLineEdit, QScrollArea, QButtonGroup, QDialog, QDialogButtonBox, \
     QTextEdit
 
+from crearUsuario import CrearUsuario
 from manual import Manual
 from alertas import Alertas
 from productos import Productos
@@ -21,6 +22,7 @@ class Administrador(QMainWindow):
         self.ver_manual = Manual(self)
         self.ver_alertas = Alertas(self)
         self.ver_productos = Productos(self)
+        self.crear_usuario = CrearUsuario(self)
 
         self.setWindowTitle("Administrador")
 
@@ -52,6 +54,14 @@ class Administrador(QMainWindow):
         self.titulo1.setStyleSheet("color: white;")
         self.titulo1.setAlignment(Qt.AlignCenter)
 
+        self.botonCrearUsuario = QPushButton()
+        self.botonCrearUsuario.setFixedWidth(50)
+        self.botonCrearUsuario.setFixedHeight(50)
+        self.botonCrearUsuario.setStyleSheet("background-color: #8EA85D;")
+        self.botonCrearUsuario.setIcon(QtGui.QIcon('Imagenes/iconos/usuario.png'))
+        self.botonCrearUsuario.setIconSize(QSize(40, 40))
+        self.botonCrearUsuario.clicked.connect(self.ir_crear_usuario)
+
         self.botonDesconectar = QPushButton()
         self.botonDesconectar.setFixedWidth(50)
         self.botonDesconectar.setFixedHeight(50)
@@ -62,6 +72,7 @@ class Administrador(QMainWindow):
 
         self.horizontal.addWidget(self.titulo1)
         self.horizontal.addStretch()
+        self.horizontal.addWidget(self.botonCrearUsuario)
         self.horizontal.addWidget(self.botonDesconectar)
 
         self.principal.setLayout(self.horizontal)
@@ -86,8 +97,8 @@ class Administrador(QMainWindow):
         self.explicacion.setText("Bienvenid@ a My Caducation Inventory, desde aquí podras navegar a las diferentes\n"
                                  "pestañas, si quieres volver a este lugar dale click al botón arriba a la derecha\n"
                                  "con un icono de casa que aparece en las otras pestañas.\n\n"
-                                 "Puedes desconectarte con el botón que se encuentra arriba a la derecha de esta\n"
-                                 "ventana.")
+                                 "Puedes crear un usuario o desconectarte con los botones que se encuentran arriba\n"
+                                 "a la derecha de esta ventana.\n")
         self.explicacion.setFont(QFont("arial", 12))
 
         self.Formulario.addRow(self.explicacion)
@@ -207,6 +218,11 @@ class Administrador(QMainWindow):
         # Metodo para ir a la ventana alertas
         self.hide()
         self.ver_alertas.show()
+
+    def ir_crear_usuario(self):
+        # Metodo para ir a la ventana crear usuario
+        self.hide()
+        self.crear_usuario.show()
 
     def desconectar(self):
         # Metodo para cerar la sesion

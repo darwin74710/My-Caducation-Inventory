@@ -8,8 +8,6 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QFormLayo
 
 from administrador import Administrador
 
-from crearUsuario import CrearUsuario
-
 class Ingreso(QMainWindow):
     def __init__(self, parent=None):
         super(Ingreso, self).__init__(parent=parent)
@@ -35,7 +33,6 @@ class Ingreso(QMainWindow):
 
         self.horizontal = QVBoxLayout()
         self.formulario = QFormLayout()
-        self.horizontal2 = QHBoxLayout()
 
         # Se establece el logo de la aplicación
         self.letero1 = QLabel()
@@ -89,17 +86,13 @@ class Ingreso(QMainWindow):
 
         # Se crean los botones para el ingreso de usuario o la creación de uno
         self.ventana2 = QWidget()
+        self.ventana2.setFixedWidth(257)
+        self.horizontal2 = QHBoxLayout()
         self.formulario.addRow(self.ventana2)
 
-        self.botonCrear = QPushButton("Crear Usuario")
-        self.botonCrear.setFixedWidth(120)
-        self.botonCrear.setFixedHeight(35)
-        self.botonCrear.setStyleSheet("background-color: #8EA85D; color: white;")
-        self.botonCrear.setFont(QFont("Arial", 12))
-
-        self.botonCrear.clicked.connect(self.crear_usuario)
-
-        self.horizontal2.addWidget(self.botonCrear)
+        self.espacio = QLabel()
+        self.horizontal2.addWidget(self.espacio)
+        self.horizontal2.addStretch()
 
         self.botonIngresar = QPushButton("Ingresar")
         self.botonIngresar.setFixedWidth(100)
@@ -126,12 +119,6 @@ class Ingreso(QMainWindow):
 
         self.ventanaA = Administrador(self)
         self.ventanaA.show()
-
-    def crear_usuario(self):
-        # Metodo para ir a la ventana crear usuario
-        self.hide()
-        self.ventanaB = CrearUsuario(self)
-        self.ventanaB.show()
 
     def alternar_contrasena(self):
         # Metodo para poder ver o no ver la contraseña ingresada
