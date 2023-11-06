@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5 import QtCore
+from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButton, QWidget, QLineEdit, QLabel, \
@@ -102,8 +102,14 @@ class CrearUsuario(QMainWindow):
         self.password.setMaxLength(14)
         self.password.setEchoMode(QLineEdit.Password)
 
+        self.cambiarContra1 = QPushButton()
+        self.cambiarContra1.setFixedWidth(25)
+        self.cambiarContra1.clicked.connect(self.alternar_contrasena1)
+        self.activacion1 = True
+        self.cambiarContra1.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
+
         self.ladoIzquierdo.addRow(self.titulo3)
-        self.ladoIzquierdo.addRow(self.password)
+        self.ladoIzquierdo.addRow(self.password, self.cambiarContra1)
 
         self.titulo4 = QLabel("Confirmar Contraseña*")
         self.titulo4.setFont(QFont("Arial", 12))
@@ -116,8 +122,14 @@ class CrearUsuario(QMainWindow):
         self.password2.setMaxLength(14)
         self.password2.setEchoMode(QLineEdit.Password)
 
+        self.cambiarContra2 = QPushButton()
+        self.cambiarContra2.setFixedWidth(25)
+        self.cambiarContra2.clicked.connect(self.alternar_contrasena2)
+        self.activacion2 = True
+        self.cambiarContra2.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
+
         self.ladoIzquierdo.addRow(self.titulo4)
-        self.ladoIzquierdo.addRow(self.password2)
+        self.ladoIzquierdo.addRow(self.password2, self.cambiarContra2)
 
         self.titulo5 = QLabel("Documento de identidad*")
         self.titulo5.setFont(QFont("Arial", 12))
@@ -329,27 +341,38 @@ class CrearUsuario(QMainWindow):
 
     def accion_botonRegistrar(self):
         self.ventanadeDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
-        self.ventanadeDialogo.resize(300, 150)
+        self.ventanadeDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
+        self.ventanadeDialogo.setFixedWidth(300)
+        self.ventanadeDialogo.setFixedHeight(90)
         self.ventanadeDialogo.setStyleSheet("background-color: #9AC069;")
-
-        self.botonAceptar = QDialogButtonBox.Ok
-        self.opciones = QDialogButtonBox(self.botonAceptar)
-        self.opciones.setStyleSheet("background-color: #8EA85D; color: white;")
-        self.opciones.accepted.connect(self.ventanadeDialogo.accept)
-
         self.ventanadeDialogo.setWindowTitle("Formulario de registro")
         self.ventanadeDialogo.setWindowModality(Qt.ApplicationModal)
 
-        self.vertical = QVBoxLayout()
+        self.formulario = QFormLayout()
+
+        self.espacio2 = QLabel()
+        self.espacio2.setFixedHeight(5)
+        self.formulario.addRow(self.espacio2)
 
         self.mensaje = QLabel("")
         self.mensaje.setFont(QFont("Arial", 12))
         self.mensaje.setStyleSheet("color: white;")
 
-        self.vertical.addWidget(self.mensaje)
-        self.vertical.addWidget(self.opciones)
+        self.espacio = QLabel()
+        self.espacio.setFixedWidth(190)
 
-        self.ventanadeDialogo.setLayout(self.vertical)
+        self.atras = QPushButton("Atrás")
+        self.atras.setFixedWidth(80)
+        self.atras.setFixedHeight(25)
+        self.atras.setFont(QFont("Arial", 12))
+        self.atras.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.atras.clicked.connect(self.cerrar_mensaje)
+
+        self.formulario.addRow(self.mensaje)
+        self.formulario.addRow(self.espacio2)
+        self.formulario.addRow(self.espacio, self.atras)
+
+        self.ventanadeDialogo.setLayout(self.formulario)
 
         self.datosCorrectos = True
 
@@ -361,7 +384,6 @@ class CrearUsuario(QMainWindow):
             self.mensaje.setText("Las contraseñas no son iguales")
 
             self.ventanadeDialogo.exec_()
-            self.accion_botonatras()
 
         if (
                 self.nombreCompleto.text() == ''
@@ -382,7 +404,6 @@ class CrearUsuario(QMainWindow):
             self.mensaje.setText("Debe ingresar todos los campos")
 
             self.ventanadeDialogo.exec_()
-            self.accion_botonatras()
 
         if self.datosCorrectos:
 
@@ -427,9 +448,29 @@ class CrearUsuario(QMainWindow):
         self.pregunta3.setText('')
         self.respuesta3.setText('')
 
+    def alternar_contrasena1(self):
+        if self.activacion1 == True:
+            self.activacion1 = False
+            self.password.setEchoMode(QLineEdit.Normal)
+            self.cambiarContra1.setIcon(QtGui.QIcon('Imagenes/iconos/ver.png'))
+        elif self.activacion1 == False:
+            self.activacion1 = True
+            self.password.setEchoMode(QLineEdit.Password)
+            self.cambiarContra1.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
+
+    def alternar_contrasena2(self):
+        if self.activacion2 == True:
+            self.activacion2 = False
+            self.password2.setEchoMode(QLineEdit.Normal)
+            self.cambiarContra2.setIcon(QtGui.QIcon('Imagenes/iconos/ver.png'))
+        elif self.activacion2 == False:
+            self.activacion2 = True
+            self.password2.setEchoMode(QLineEdit.Password)
+            self.cambiarContra2.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
+
+    def cerrar_mensaje(self):
+        self.ventanadeDialogo.hide()
+
     def accion_botonatras(self):
         self.hide()
         self.ventanaAnteriorC.show()
-
-
-

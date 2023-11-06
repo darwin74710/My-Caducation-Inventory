@@ -18,8 +18,8 @@ class Ingreso(QMainWindow):
         self.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
         self.setStyleSheet("background-color: #9AC069;")
 
-        self.ancho = 300
-        self.alto = 550
+        self.ancho = 285
+        self.alto = 510
 
         self.resize(self.ancho, self.alto)
 
@@ -37,7 +37,7 @@ class Ingreso(QMainWindow):
         self.setCentralWidget(self.fondo)
 
         self.horizontal = QVBoxLayout()
-        self.formulario = QVBoxLayout()
+        self.formulario = QFormLayout()
         self.horizontal2 = QHBoxLayout()
 
         # consultar tipos de letras del sistema
@@ -45,8 +45,8 @@ class Ingreso(QMainWindow):
             #print(p)
         # creamos letrero
         self.letero1 = QLabel()
-        self.letero1.setFixedWidth(300)
-        self.letero1.setFixedHeight(300)
+        self.letero1.setFixedWidth(285)
+        self.letero1.setFixedHeight(285)
         self.logo = QPixmap("Imagenes/logo.png")
         self.letero1.setPixmap(self.logo)
         self.letero1.setScaledContents(True)
@@ -61,7 +61,7 @@ class Ingreso(QMainWindow):
         self.letrero1.setFixedHeight(30)
         self.letrero1.setStyleSheet("color: white;")
         self.letrero1.setFont(QFont("Arial", 12))
-        self.formulario.addWidget(self.letrero1)
+        self.formulario.addRow(self.letrero1)
 
         # hacemos campo para ingresar el usuario
         self.usuario = QLineEdit()
@@ -72,25 +72,32 @@ class Ingreso(QMainWindow):
         # estabelcemos que solo ingrese numero de 12 caracteres
         self.usuario.setMaxLength(14)
         # ponemos el letero y ponemos el campo del primer numero en la segunda fila
-        self.formulario.addWidget(self.usuario)
+        self.formulario.addRow(self.usuario)
 
         # hacemos el campo para ingresar contraseña
         self.letrero2 = QLabel("Ingrese su contraseña")
         self.letrero2.setFixedHeight(30)
         self.letrero2.setStyleSheet("color: white;")
         self.letrero2.setFont(QFont("Arial", 12))
-        self.formulario.addWidget(self.letrero2)
+        self.formulario.addRow(self.letrero2)
 
         self.contraseña = QLineEdit()
         self.contraseña.setStyleSheet("background-color: white;")
-        self.contraseña.setFixedWidth(250)
+        self.contraseña.setFixedWidth(217)
         self.contraseña.setFont(QFont("Arial", 12))
         self.contraseña.setMaxLength(14)
         self.contraseña.setEchoMode(QLineEdit.Password)
-        self.formulario.addWidget(self.contraseña)
+
+        self.cambiarContra = QPushButton()
+        self.cambiarContra.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
+        self.cambiarContra.setFixedWidth(25)
+        self.cambiarContra.clicked.connect(self.alternar_contrasena)
+        self.activacion = True
+
+        self.formulario.addRow(self.contraseña, self.cambiarContra)
 
         self.ventana2 = QWidget()
-        self.formulario.addWidget(self.ventana2)
+        self.formulario.addRow(self.ventana2)
 
         self.botonCrear = QPushButton("Crear Usuario")
         self.botonCrear.setFixedWidth(120)
@@ -121,6 +128,8 @@ class Ingreso(QMainWindow):
         self.fondo.setLayout(self.horizontal)
     def accion_botonIngresar(self):
         self.hide()
+        self.usuario.setText('')
+        self.contraseña.setText('')
 
         self.ventanaA = Administrador(self)
         self.ventanaA.show()
@@ -130,6 +139,16 @@ class Ingreso(QMainWindow):
 
         self.ventanaB = CrearUsuario(self)
         self.ventanaB.show()
+
+    def alternar_contrasena(self):
+        if self.activacion == True:
+            self.activacion = False
+            self.contraseña.setEchoMode(QLineEdit.Normal)
+            self.cambiarContra.setIcon(QtGui.QIcon('Imagenes/iconos/ver.png'))
+        elif self.activacion == False:
+            self.activacion = True
+            self.contraseña.setEchoMode(QLineEdit.Password)
+            self.cambiarContra.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
 
 
 
