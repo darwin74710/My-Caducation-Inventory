@@ -93,7 +93,7 @@ class Administrador(QMainWindow):
         self.Formulario = QFormLayout()
 
         self.explicacion = QLabel()
-        self.explicacion.setFixedHeight(120)
+        self.explicacion.setFixedHeight(125)
         self.explicacion.setText("Bienvenid@ a My Caducation Inventory, desde aquí podras navegar a las diferentes\n"
                                  "pestañas, si quieres volver a este lugar dale click al botón arriba a la derecha\n"
                                  "con un icono de casa que aparece en las otras pestañas.\n\n"
