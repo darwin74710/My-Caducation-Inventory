@@ -27,14 +27,12 @@ class Ingreso(QMainWindow):
         self.pantalla.moveCenter(self.centro)
         self.move(self.pantalla.topLeft())
 
-        # Se empieza a trabajar en la construcción de la ventana
+        # Se establece una ventana de fondo junto a una distribución
         self.fondo = QWidget()
+        self.horizontal = QVBoxLayout()
         self.setCentralWidget(self.fondo)
 
-        self.horizontal = QVBoxLayout()
-        self.formulario = QFormLayout()
-
-        # Se establece el logo de la aplicación
+        # Se coloca el logo de la app en el fondo
         self.letero1 = QLabel()
         self.letero1.setFixedWidth(285)
         self.letero1.setFixedHeight(285)
@@ -42,13 +40,14 @@ class Ingreso(QMainWindow):
         self.letero1.setPixmap(self.logo)
         self.letero1.setScaledContents(True)
         self.letero1.resize(self.logo.width(), self.logo.height())
-        # agregamos espacio para separar el titulo
+
         self.horizontal.addWidget(self.letero1)
 
         self.ventana1 = QWidget()
 
-        # Se crea el ingreso del usuario
+        # Creamos el ingreso de usuario con titulo y un campo para escribirlo
         self.letrero1 = QLabel("Ingrese su usuario")
+        self.formulario = QFormLayout()
         self.letrero1.setFixedHeight(30)
         self.letrero1.setStyleSheet("color: white;")
         self.letrero1.setFont(QFont("Arial", 12))
@@ -61,7 +60,7 @@ class Ingreso(QMainWindow):
         self.usuario.setMaxLength(14)
         self.formulario.addRow(self.usuario)
 
-        # Se crea el ingreso de la contraseña
+        # Creamos el ingreso de contraseña con su titulo y un campo para escribirlo
         self.letrero2 = QLabel("Ingrese su contraseña")
         self.letrero2.setFixedHeight(30)
         self.letrero2.setStyleSheet("color: white;")
@@ -75,7 +74,7 @@ class Ingreso(QMainWindow):
         self.contraseña.setMaxLength(14)
         self.contraseña.setEchoMode(QLineEdit.Password)
 
-        # Se crea botón para alternar entre poder ver y no ver la contraseña
+        # Creamos un botón para elegir si se ve la contraseña ingresada o no
         self.cambiarContra = QPushButton()
         self.cambiarContra.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
         self.cambiarContra.setFixedWidth(25)
@@ -84,22 +83,20 @@ class Ingreso(QMainWindow):
 
         self.formulario.addRow(self.contraseña, self.cambiarContra)
 
-        # Se crean los botones para el ingreso de usuario o la creación de uno
+        # Se crea una ventana para distribuir los botones en el fondo
         self.ventana2 = QWidget()
-        self.ventana2.setFixedWidth(257)
         self.horizontal2 = QHBoxLayout()
+        self.ventana2.setFixedWidth(257)
         self.formulario.addRow(self.ventana2)
 
-        self.espacio = QLabel()
-        self.horizontal2.addWidget(self.espacio)
         self.horizontal2.addStretch()
 
+        #Se crea el botón para ingresar a la ventana administrador
         self.botonIngresar = QPushButton("Ingresar")
         self.botonIngresar.setFixedWidth(100)
         self.botonIngresar.setFixedHeight(35)
         self.botonIngresar.setStyleSheet("background-color: #8EA85D; color: white;")
         self.botonIngresar.setFont(QFont("Arial", 12))
-
 
         self.horizontal2.addWidget(self.botonIngresar)
 
@@ -130,8 +127,6 @@ class Ingreso(QMainWindow):
             self.activacion = True
             self.contraseña.setEchoMode(QLineEdit.Password)
             self.cambiarContra.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
-
-
 
 if __name__ == '__main__':
 

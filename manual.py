@@ -18,7 +18,6 @@ class Manual(QMainWindow):
 
         self.ancho = 1000
         self.alto = 563
-
         self.setFixedWidth(self.ancho)
         self.setFixedHeight(self.alto)
 
@@ -27,22 +26,27 @@ class Manual(QMainWindow):
         self.pantalla.moveCenter(self.centro)
         self.move(self.pantalla.topLeft())
 
-        # Se empiezan a distribuir sus elementos
-        self.ventana = QWidget()
-        self.ventana.setStyleSheet("background-color: #9AC069;")
-        self.setCentralWidget(self.ventana)
+        # Creamos la ventana de fondo para establecer las ventanas de forma vertical
+        self.fondo = QWidget()
         self.vertical = QVBoxLayout()
+        self.fondo.setStyleSheet("background-color: #9AC069;")
+        self.setCentralWidget(self.fondo)
 
-        # Se crea una ventana para explicar la ubicación de la ventana actual y el botón para volver a la ventana administrador
+        # Creamos una ventana horizontal para establecer el titulo y el botón de regreso
         self.regreso = QLabel()
-        self.regreso.setFixedHeight(60)
         self.horizontalP = QHBoxLayout()
+        self.regreso.setFixedHeight(60)
 
+        # Creamos el titulo
         self.titulo1 = QLabel("MANUAL")
         self.titulo1.setFont(QFont("Arial", 40))
         self.titulo1.setStyleSheet("color: white;")
         self.titulo1.setAlignment(Qt.AlignCenter)
 
+        self.horizontalP.addWidget(self.titulo1)
+        self.horizontalP.addStretch()
+
+        # Creamos el botón para volver a la ventana administrador
         self.devolver = QPushButton()
         self.devolver.setFixedWidth(50)
         self.devolver.setFixedHeight(50)
@@ -51,15 +55,13 @@ class Manual(QMainWindow):
         self.devolver.setIconSize(QSize(40, 40))
         self.devolver.clicked.connect(self.ir_administrador)
 
-        self.horizontalP.addWidget(self.titulo1)
-        self.horizontalP.addStretch()
         self.horizontalP.addWidget(self.devolver)
 
         self.regreso.setLayout(self.horizontalP)
         self.vertical.addWidget(self.regreso)
         self.vertical.addStretch()
 
-        # Se crea la ventana para guardar los datos extras del manual
+        # Creamos la ventana en dónde apareceran los elementos del manual
         self.scrollArea = QScrollArea()
         self.scrollArea.setStyleSheet("background-color: #8EA85D;")
         self.scrollArea.setFixedHeight(470)
@@ -108,7 +110,7 @@ class Manual(QMainWindow):
 
         self.botones.idClicked.connect(self.metodo_accion_boton)
 
-        self.ventana.setLayout(self.vertical)
+        self.fondo.setLayout(self.vertical)
 
     def metodo_accion_boton(self, idBoton):
         # Metodo para cambiar los colores del botón seleccionado

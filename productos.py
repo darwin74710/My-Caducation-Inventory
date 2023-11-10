@@ -18,7 +18,6 @@ class Productos(QMainWindow):
 
         self.ancho = 1000
         self.alto = 563
-
         self.setFixedWidth(self.ancho)
         self.setFixedHeight(self.alto)
 
@@ -27,11 +26,11 @@ class Productos(QMainWindow):
         self.pantalla.moveCenter(self.centro)
         self.move(self.pantalla.topLeft())
 
-        # Se crea la ventana para establecer los elementos
+        # Se crea la ventana de fondo para establecer otras ventanas de forma horizontal
         self.ventana = QWidget()
+        self.horizontal = QHBoxLayout()
         self.ventana.setStyleSheet("background-color: #9AC069;")
         self.setCentralWidget(self.ventana)
-        self.horizontal = QHBoxLayout()
 
         # Ventana para la distribución de productos
         self.scrollArea = QScrollArea()
@@ -85,17 +84,20 @@ class Productos(QMainWindow):
 
         # Se crea la ventana derecha en donde se previsualizara la información de los productos
         self.ventana2 = QLabel()
-        self.ventana2.setFixedWidth(370)
         self.vertical2 = QVBoxLayout()
+        self.ventana2.setFixedWidth(370)
 
         self.regreso = QLabel()
-        self.regreso.setFixedHeight(60)
         self.horizontalP = QHBoxLayout()
+        self.regreso.setFixedHeight(60)
 
         self.letreroP = QLabel()
         self.letreroP.setText("PRODUCTOS")
         self.letreroP.setFont(QFont("Arial", 30))
         self.letreroP.setStyleSheet("color: white;")
+
+        self.horizontalP.addWidget(self.letreroP)
+        self.horizontalP.addStretch()
 
         self.devolver = QPushButton()
         self.devolver.setFixedWidth(50)
@@ -105,8 +107,6 @@ class Productos(QMainWindow):
         self.devolver.setIconSize(QSize(40, 40))
         self.devolver.clicked.connect(self.ir_administrador)
 
-        self.horizontalP.addWidget(self.letreroP)
-        self.horizontalP.addStretch()
         self.horizontalP.addWidget(self.devolver)
 
         self.regreso.setLayout(self.horizontalP)
@@ -128,9 +128,9 @@ class Productos(QMainWindow):
         self.vertical2.addWidget(self.ventanaImg)
 
         self.ventanainfo = QLabel()
+        self.formulario3 = QVBoxLayout()
         self.ventanainfo.setFixedHeight(267)
         self.ventanainfo.setStyleSheet("background-color: #8EA85D;")
-        self.formulario3 = QVBoxLayout()
         self.formulario3.setContentsMargins(10, 0, 10, 10)
 
         self.texto1 = QLabel("Descripción:")
@@ -143,6 +143,8 @@ class Productos(QMainWindow):
                                   "border-top: none;")
         self.texto1.setFont(QFont("Arial", 12))
 
+        self.formulario3.addWidget(self.texto1)
+
         self.texto2 = QLabel("Arroz Diana de 5000g, excelente fuente de\n"
                              "vitaminas y minerales como niacina,\n"
                              "vitaminda D, calcio, fibra, hierro, tiamina y\n"
@@ -154,71 +156,75 @@ class Productos(QMainWindow):
                                   "border-right: none;"
                                   "border-top: none;")
 
-        self.formulario3.addWidget(self.texto1)
         self.formulario3.addWidget(self.texto2)
 
         self.ventanaTitulos = QLabel()
+        self.formulario4 = QHBoxLayout()
         self.ventanaTitulos.setFixedHeight(22)
 
-        self.ventanaDatos = QLabel()
-        self.ventanaDatos.setFixedHeight(22)
+        self.descripcionTitulo1 = QLabel("Caducidad: ")
+        self.descripcionTitulo1.setFixedWidth(90)
+        self.descripcionTitulo1.setFixedHeight(12)
+        self.descripcionTitulo1.setStyleSheet("color: white;")
+        self.descripcionTitulo1.setFont(QFont("Arial", 12))
 
-        self.formulario4 = QHBoxLayout()
-        self.formulario5 = QHBoxLayout()
-
-        self.texto3 = QLabel("Caducidad: ")
-        self.texto3.setFixedWidth(90)
-        self.texto3.setFixedHeight(12)
-        self.texto3.setStyleSheet("color: white;")
-        self.texto3.setFont(QFont("Arial", 12))
-
-        self.texto4 = QLabel("05/11/2023")
-        self.texto4.setFixedWidth(90)
-        self.texto4.setFixedHeight(12)
-        self.texto4.setFont(QFont("Arial", 12))
-
-        self.formulario4.addWidget(self.texto3)
+        self.formulario4.addWidget(self.descripcionTitulo1)
         self.formulario4.addStretch()
-        self.formulario5.addWidget(self.texto4)
-        self.formulario5.addStretch()
 
-        self.texto5 = QLabel("Cantidad: ")
-        self.texto5.setFixedWidth(90)
-        self.texto5.setFixedHeight(12)
-        self.texto5.setStyleSheet("color: white;")
-        self.texto5.setFont(QFont("Arial", 12))
+        self.descripcionTitulo2 = QLabel("Cantidad: ")
+        self.descripcionTitulo2.setFixedWidth(90)
+        self.descripcionTitulo2.setFixedHeight(12)
+        self.descripcionTitulo2.setStyleSheet("color: white;")
+        self.descripcionTitulo2.setFont(QFont("Arial", 12))
 
-        self.texto6 = QLabel("23")
-        self.texto6.setFixedWidth(90)
-        self.texto6.setFixedHeight(12)
-        self.texto6.setFont(QFont("Arial", 12))
-
-        self.formulario4.addWidget(self.texto5)
+        self.formulario4.addWidget(self.descripcionTitulo1)
         self.formulario4.addStretch()
-        self.formulario5.addWidget(self.texto6)
-        self.formulario5.addStretch()
 
-        self.texto7 = QLabel("Precio: ")
-        self.texto7.setFixedWidth(90)
-        self.texto7.setFixedHeight(12)
-        self.texto7.setStyleSheet("color: white;")
-        self.texto7.setFont(QFont("Arial", 12))
+        self.descripcionTitulo3 = QLabel("Precio: ")
+        self.descripcionTitulo1.setFixedWidth(90)
+        self.descripcionTitulo1.setFixedHeight(12)
+        self.descripcionTitulo1.setStyleSheet("color: white;")
+        self.descripcionTitulo1.setFont(QFont("Arial", 12))
 
-        self.texto8 = QLabel("$ 22.290")
-        self.texto8.setFixedWidth(90)
-        self.texto8.setFixedHeight(12)
-        self.texto8.setFont(QFont("Arial", 12))
-
-        self.formulario4.addWidget(self.texto7)
-        self.formulario5.addWidget(self.texto8)
+        self.formulario4.addWidget(self.descripcionTitulo1)
 
         self.ventanaTitulos.setLayout(self.formulario4)
+        self.formulario3.addWidget(self.ventanaTitulos)
+
+        self.ventanaDatos = QLabel()
+        self.formulario5 = QHBoxLayout()
+        self.ventanaDatos.setFixedHeight(22)
+
+        self.descripcionDatos1 = QLabel("05/11/2023")
+        self.descripcionDatos1.setFixedWidth(90)
+        self.descripcionDatos1.setFixedHeight(12)
+        self.descripcionDatos1.setFont(QFont("Arial", 12))
+
+        self.formulario5.addWidget(self.descripcionDatos1)
+        self.formulario5.addStretch()
+
+        self.descripcionDatos2 = QLabel("23")
+        self.descripcionDatos2.setFixedWidth(90)
+        self.descripcionDatos2.setFixedHeight(12)
+        self.descripcionDatos2.setFont(QFont("Arial", 12))
+
+        self.formulario5.addWidget(self.descripcionDatos2)
+        self.formulario5.addStretch()
+
+        self.descripcionDatos3 = QLabel("$ 22.290")
+        self.descripcionDatos3.setFixedWidth(90)
+        self.descripcionDatos3.setFixedHeight(12)
+        self.descripcionDatos3.setFont(QFont("Arial", 12))
+
+        self.formulario5.addWidget(self.descripcionDatos3)
+
         self.ventanaDatos.setLayout(self.formulario5)
+        self.formulario3.addWidget(self.ventanaDatos)
 
         # Se crea la ventana para los botones interactuables con los productos
         self.ventanaBotones = QLabel()
-        self.ventanaBotones.setFixedHeight(35)
         self.vertical3 = QHBoxLayout()
+        self.ventanaBotones.setFixedHeight(35)
 
         # Botón para crear productos
         self.crear = QPushButton("Crear")
@@ -228,6 +234,9 @@ class Productos(QMainWindow):
         self.crear.setFont(QFont("Arial", 12))
         self.crear.clicked.connect(self.metodo_crear_producto)
 
+        self.vertical3.addWidget(self.crear)
+        self.vertical3.addStretch()
+
         # Botón para modificar productos
         self.Modificar = QPushButton("Modificar")
         self.Modificar.setFixedWidth(100)
@@ -235,6 +244,9 @@ class Productos(QMainWindow):
         self.Modificar.setStyleSheet("background-color: #9AC069; color: white;")
         self.Modificar.setFont(QFont("Arial", 12))
         self.Modificar.clicked.connect(self.metodo_modificar_producto)
+
+        self.vertical3.addWidget(self.Modificar)
+        self.vertical3.addStretch()
 
         # Botón para eliminar productos
         self.eliminar = QPushButton("Eliminar")
@@ -244,15 +256,10 @@ class Productos(QMainWindow):
         self.eliminar.setFont(QFont("Arial", 12))
         self.eliminar.clicked.connect(self.metodo_eliminar_producto)
 
-        self.vertical3.addWidget(self.crear)
-        self.vertical3.addStretch()
-        self.vertical3.addWidget(self.Modificar)
-        self.vertical3.addStretch()
         self.vertical3.addWidget(self.eliminar)
 
         self.ventanaBotones.setLayout(self.vertical3)
-        self.formulario3.addWidget(self.ventanaTitulos)
-        self.formulario3.addWidget(self.ventanaDatos)
+
         self.formulario3.addStretch()
         self.formulario3.addWidget(self.ventanaBotones)
 
@@ -266,6 +273,7 @@ class Productos(QMainWindow):
     def metodo_crear_producto(self):
         # Metodo para abrir una ventana emergente en la que se ingresan datos para la creación del nuevo producto
         self.ventanaDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
+        self.formularioPrin = QFormLayout()
         self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
         self.ventanaDialogo.setFixedWidth(400)
         self.ventanaDialogo.setFixedHeight(320)
@@ -273,12 +281,10 @@ class Productos(QMainWindow):
         self.ventanaDialogo.setWindowTitle("Crear Producto")
         self.ventanaDialogo.setWindowModality(Qt.ApplicationModal)
 
-        self.formularioPrin = QFormLayout()
-
         self.principal = QLabel()
+        self.formularioMensaje = QFormLayout()
         self.principal.setFixedHeight(240)
         self.principal.setStyleSheet("background-color: #8EA85D;")
-        self.formularioMensaje = QFormLayout()
 
         self.titulo1 = QLabel("Descripción:\n(Ingrese maximo\n205 caracteres)")
         self.titulo1.setFixedHeight(60)
