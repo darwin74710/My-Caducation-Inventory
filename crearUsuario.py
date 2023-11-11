@@ -398,7 +398,7 @@ class CrearUsuario(QMainWindow):
         if self.datosCorrectos:
             # Se abre el archivo plano y se añade la información en binario decodificandola en formato occidental
             # El ab se establece para guardar información
-            self.file = open('datos/clientes.txt', 'ab')
+            self.file = open('datos/usuarios.txt', 'ab')
 
             self.file.write(bytes(self.nombreCompleto.text() + ";"
                                   + self.NombredeUsuario.text() + ";"
@@ -416,7 +416,7 @@ class CrearUsuario(QMainWindow):
 
             # Se abre el archivo plano en modo lectura y se muestra la inforamción de el
             # El rb se establece para leer información
-            self.file = open('datos/clientes.txt', 'rb')
+            self.file = open('datos/usuarios.txt', 'rb')
             #se recorre el archivo linea por linea
             while self.file:
                 linea = self.file.readline().decode('UTF-8')
