@@ -148,10 +148,8 @@ class Productos(QMainWindow):
 
         self.formulario3.addWidget(self.texto1)
 
-        self.texto2 = QLabel("Arroz Diana de 5000g, excelente fuente de\n"
-                             "vitaminas y minerales como niacina,\n"
-                             "vitaminda D, calcio, fibra, hierro, tiamina y\n"
-                             "riboflavina.")
+        self.texto2 = QTextEdit()
+        self.texto2.setReadOnly(True)
         self.texto2.setFixedHeight(100)
         self.texto2.setFont(QFont("Arial", 12))
         self.texto2.setStyleSheet("border: 2px solid #9AC069;"
@@ -172,7 +170,6 @@ class Productos(QMainWindow):
         self.descripcionTitulo1.setFont(QFont("Arial", 12))
 
         self.formulario4.addWidget(self.descripcionTitulo1)
-        self.formulario4.addStretch()
 
         self.descripcionTitulo2 = QLabel("Cantidad: ")
         self.descripcionTitulo2.setFixedWidth(90)
@@ -180,16 +177,7 @@ class Productos(QMainWindow):
         self.descripcionTitulo2.setStyleSheet("color: white;")
         self.descripcionTitulo2.setFont(QFont("Arial", 12))
 
-        self.formulario4.addWidget(self.descripcionTitulo1)
-        self.formulario4.addStretch()
-
-        self.descripcionTitulo3 = QLabel("Precio: ")
-        self.descripcionTitulo1.setFixedWidth(90)
-        self.descripcionTitulo1.setFixedHeight(12)
-        self.descripcionTitulo1.setStyleSheet("color: white;")
-        self.descripcionTitulo1.setFont(QFont("Arial", 12))
-
-        self.formulario4.addWidget(self.descripcionTitulo1)
+        self.formulario4.addWidget(self.descripcionTitulo2)
 
         self.ventanaTitulos.setLayout(self.formulario4)
         self.formulario3.addWidget(self.ventanaTitulos)
@@ -204,15 +192,6 @@ class Productos(QMainWindow):
         self.descripcionDatos1.setFont(QFont("Arial", 12))
 
         self.formulario5.addWidget(self.descripcionDatos1)
-        self.formulario5.addStretch()
-
-        self.descripcionDatos2 = QLabel("23")
-        self.descripcionDatos2.setFixedWidth(90)
-        self.descripcionDatos2.setFixedHeight(12)
-        self.descripcionDatos2.setFont(QFont("Arial", 12))
-
-        self.formulario5.addWidget(self.descripcionDatos2)
-        self.formulario5.addStretch()
 
         self.descripcionDatos3 = QLabel("$ 22.290")
         self.descripcionDatos3.setFixedWidth(90)
