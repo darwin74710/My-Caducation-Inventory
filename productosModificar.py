@@ -3,13 +3,14 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QLabel, QFormLayout, QTextEdit, QVBoxLayout, QHBoxLayout, \
     QLineEdit, QPushButton, QComboBox, QDialog
-
+from productosLista import Lista
 
 class ProductosModificar(QMainWindow):
     def __init__(self, anterior):
         super(ProductosModificar, self).__init__(anterior)
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
+        self.idPosicionModificar = anterior.idPosicion
 
         self.setWindowTitle("Modificar producto")
 
@@ -245,9 +246,115 @@ class ProductosModificar(QMainWindow):
 
         self.datosCorrectos = True
 
+        self.file = open('datos/productos.txt', 'rb')
+
+        usuarios = []
+
+        while self.file:
+            linea = self.file.readline().decode('UTF-8')
+            lista = linea.split(";")
+            if linea == '':
+                break
+            u = Lista(
+                lista[0],
+                lista[1],
+                lista[2],
+                lista[3],
+                lista[4],
+                lista[5],
+                lista[6],
+                lista[7]
+            )
+            usuarios.append(u)
+        self.file.close()
+
+        for u in usuarios:
+            if int(u.idPosicion) == self.idPosicionModificar:
+                self.nombre.setText(u.nombre)
+                self.descripcion.setText(u.descripcion)
+                self.dia.setText(u.numeroDia)
+                self.mes.setText(u.numeroMes)
+                self.ano.setText(u.numeroAno)
+                self.cantidad.setText(u.numeroCantidad)
+                self.filtro.setCurrentIndex(int(u.identificadorFiltro))
+                break
+
     def funcion_modificar(self):
         # Metodo para crear el producto y guardar la información
-        print("Modifica producto")
+        self.datosCorrectos = True
+        self.numeroDia = self.dia.text().replace(" ", "")
+        self.numeroMes = self.mes.text().replace(" ", "")
+        self.numeroAno = self.ano.text().replace(" ", "")
+        self.numeroCantidad = self.cantidad.text().replace(" ", "")
+        self.descripcionTexto = self.descripcion.toPlainText().replace("\n", " ")
+
+        self.limiteDia = int(31)
+        self.limiteAno = 2023
+        self.identificadorFiltro = self.filtro.currentIndex()
+
+        if ((
+                not self.numeroDia.isdigit() or not self.numeroMes.isdigit() or not self.numeroAno.isdigit() or not self.numeroCantidad.isdigit())
+                or ((self.numeroDia.isnumeric() and (int(self.numeroDia) <= 0)))
+                or ((self.numeroMes.isnumeric() and (int(self.numeroMes) <= 0)))
+                or not (int(self.numeroDia) <= int(self.limiteDia) and int(self.numeroMes) <= int(12))
+                or ((self.numeroAno.isnumeric() and int(self.numeroAno) < int(self.limiteAno)))
+                or ((self.numeroCantidad.isnumeric() and int(self.numeroCantidad) <= 0))
+        ):
+            self.ventanaValidar.setFixedHeight(100)
+            self.datosCorrectos = False
+            self.mensaje.setText("Debe ingresar los datos correctamente.")
+            self.ventanaValidar.exec_()
+
+        if self.datosCorrectos:
+            self.file = open("datos/productos.txt", 'rb')
+
+            usuarios = []
+
+            while self.file:
+                linea = self.file.readline().decode('UTF-8')
+                lista = linea.split(";")
+                if linea == '':
+                    break
+                u = Lista(
+                    lista[0],
+                    lista[1],
+                    lista[2],
+                    lista[3],
+                    lista[4],
+                    lista[5],
+                    lista[6],
+                    lista[7]
+                )
+                usuarios.append(u)
+            self.file.close()
+
+            for u in usuarios:
+                if int(u.idPosicion) == self.idPosicionModificar:
+                    u.nombre = self.nombre.text()
+                    u.descripcion = self.descripcionTexto
+                    u.numeroDia = self.numeroDia
+                    u.numeroMes = self.numeroMes
+                    u.numeroAno = self.numeroAno
+                    u.numeroCantidad = self.numeroCantidad
+                    break
+
+            self.file = open("datos/productos.txt", 'wb')
+            for u in usuarios:
+                self.file.write(bytes(u.idPosicion + ";"
+                                      + u.identificadorFiltro + ";"
+                                      + u.nombre + ";"
+                                      + u.descripcion + ";"
+                                      + u.numeroDia + ";"
+                                      + u.numeroMes + ";"
+                                      + u.numeroAno + ";"
+                                      + u.numeroCantidad, encoding='UTF-8'))
+            self.file.close()
+
+            self.mensaje.setText("Se ah modificado el producto correctamente.")
+            self.ventanaValidar.show()
+            self.ventanaAnterior.ordenar_productos_lista()
+            self.ventanaAnterior.limpiar()
+            self.metodo_cerrar()
 
     def metodo_cerrar(self):
         # Metodo para cerrar las subventanas abiertas en las funciones crear, modificar y eliminar
