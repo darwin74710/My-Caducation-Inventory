@@ -11,13 +11,14 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QToolBar,
 from crearUsuario import CrearUsuario
 from manual import Manual
 from alertas import Alertas
-from productos import Productos
+from productosActualizador import Actualizador
 
 class Administrador(QMainWindow):
     def __init__(self, anterior):
         super(Administrador, self).__init__(anterior)
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
+        self.actualizador = Actualizador
 
         self.setWindowTitle("Administrador")
 
@@ -209,9 +210,8 @@ class Administrador(QMainWindow):
 
     def ir_productos(self):
         # Metodo para ir a la ventana productos
-        self.ver_productos = Productos(self)
         self.hide()
-        self.ver_productos.show()
+        self.actualizador.actualizar(self)
 
     def ir_manual(self):
         # Metodo para ir a la ventana manual
