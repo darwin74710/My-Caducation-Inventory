@@ -11,7 +11,6 @@ class Actualizador(QMainWindow):
 
 
     def actualizar(self):
-        print("Lista de productos actualizada correctamente.")
         self.hide()
         self.productos = Productos(self)
         self.productos.show()

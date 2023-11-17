@@ -394,7 +394,6 @@ class Productos(QMainWindow):
             self.file.close()
 
             self.numeroProductos = len(self.arrayFiltros)
-            print("numero de elementos en lista: " + str(len(self.arrayFiltros)))
             self.contador = 0
             self.elementosPorColumna = 1
 
@@ -417,7 +416,7 @@ class Productos(QMainWindow):
 
                         self.verticalCuadricula.addWidget(self.botonAccion)
 
-                        self.botones.addButton(self.botonAccion, int(self.usuarios[self.contador].idPosicion))
+                        self.botones.addButton(self.botonAccion, int(self.arrayFiltros[self.contador].idPosicion))
 
                         self.ventanaAux.setLayout(self.verticalCuadricula)
 
@@ -425,11 +424,13 @@ class Productos(QMainWindow):
 
                         self.contador += 1
             self.botones.idClicked.connect(self.metodo_accionProductos)
-
+            self.idPosicion = 0
     def metodo_accionProductos(self, idPosicion):
-        self.botones.button(self.contador).setStyleSheet("color: white; background-color: #9AC069;")
-        self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
-        self.contador = idPosicion
+        if self.idPosicion == 0:
+            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
+        if self.idPosicion > 0:
+            self.botones.button(self.idPosicion).setStyleSheet("color: white; background-color: #9AC069;")
+            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
 
         self.idPosicion = idPosicion
 
@@ -502,25 +503,9 @@ class Productos(QMainWindow):
                     lista[8]
                 )
                 usuarios.append(self.u)
-
-                if int(self.u.identificadorFiltro) == self.ventanaAnterior.actualizadorFiltros and self.ventanaAnterior.actualizadorFiltros != 6:
-                    self.listaFiltros2 = Lista(
-                        lista[0],
-                        lista[1],
-                        lista[2],
-                        lista[3],
-                        lista[4],
-                        lista[5],
-                        lista[6],
-                        lista[7],
-                        lista[8]
-                    )
-                    self.arrayFiltros.append(self.listaFiltros2)
-                    #print(self.listaFiltros2)
             self.file.close()
 
             for self.u in self.usuarios:
-                print(self.listaFiltros)
                 if idPosicion == int(self.u.idPosicion):
                     if self.u.identificadorFiltro == str(0):
                         self.imagenFiltro.setPixmap(self.imagenGranos)
