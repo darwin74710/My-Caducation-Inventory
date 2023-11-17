@@ -5,6 +5,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QLabel, QFormLayout, QTextEdit, QVBoxLayout, QHBoxLayout, \
     QLineEdit, QPushButton, QButtonGroup, QWidget, QDialogButtonBox, QDialog, QMenu, QComboBox
+from productosLista import Lista
 
 
 class ProductosCrear(QMainWindow):
@@ -247,23 +248,50 @@ class ProductosCrear(QMainWindow):
 
         self.datosCorrectos = True
 
+        self.file = open('datos/productos.txt', 'rb')
+        self.usuarios = []
+
+        while self.file:
+            linea = self.file.readline().decode('UTF-8')
+            lista = linea.split(";")
+            if linea == '':
+                break
+            u = Lista(
+                lista[0],
+                lista[1],
+                lista[2],
+                lista[3],
+                lista[4],
+                lista[5],
+                lista[6],
+                lista[7],
+                lista[8]
+            )
+            self.usuarios.append(u)
+        self.file.close()
+
     def funcion_crear(self):
         self.datosCorrectos = True
         self.numeroDia = self.dia.text().replace(" ", "")
         self.numeroMes = self.mes.text().replace(" ", "")
         self.numeroAno = self.ano.text().replace(" ", "")
         self.numeroCantidad = self.cantidad.text().replace(" ", "")
+        self.descripcionTexto = self.descripcion.toPlainText().replace("\n", " ")
+        self.vacio = " "
 
-        self.limiteDia = 31
+        self.limiteDia = int(31)
         self.limiteAno = 2023
         self.identificadorFiltro = self.filtro.currentIndex()
+        self.idPosicion = len(self.usuarios) + 1
 
         if ((not self.numeroDia.isdigit() or not self.numeroMes.isdigit() or not self.numeroAno.isdigit() or not self.numeroCantidad.isdigit())
-            or ((self.numeroDia.isnumeric() and (int(self.numeroDia) >= int(self.limiteDia) and int(self.numeroDia) <= 0)))
-            or ((self.numeroMes.isnumeric() and (int(self.numeroMes) >= 12 and int(self.numeroMes) <= 0)))
+            or ((self.numeroDia.isnumeric() and (int(self.numeroDia) <= 0)))
+            or ((self.numeroMes.isnumeric() and (int(self.numeroMes) <= 0)))
+            or not (int(self.numeroDia) <= int(self.limiteDia) and int(self.numeroMes) <= int(12))
             or ((self.numeroAno.isnumeric() and int(self.numeroAno) < int(self.limiteAno)))
             or ((self.numeroCantidad.isnumeric() and int(self.numeroCantidad) <= 0))
         ):
+            self.ventanaValidar.setFixedHeight(100)
             self.datosCorrectos = False
             self.mensaje.setText("Debe ingresar los datos correctamente.")
             self.ventanaValidar.exec_()
@@ -271,18 +299,23 @@ class ProductosCrear(QMainWindow):
         if self.datosCorrectos:
             self.file = open('datos/productos.txt', 'ab')
 
-            self.file.write(bytes(str(self.identificadorFiltro) + ";"
+            self.file.write(bytes(str(self.idPosicion) + ";"
+                                  + str(self.identificadorFiltro) + ";"
                                   + self.nombre.text() + ";"
-                                  + self.descripcion.toPlainText() + ";"
+                                  + self.descripcionTexto + ";"
                                   + self.numeroDia + ";"
                                   + self.numeroMes + ";"
                                   + self.numeroAno + ";"
-                                  + self.numeroCantidad + "\n", encoding='UTF-8'))
+                                  + self.numeroCantidad + ";"
+                                  + self.vacio + "\n", encoding='UTF-8'))
             self.file.close()
 
-            self.mensaje.setText("Se a creado exitosamente el producto:\n\n" +
+            self.ventanaValidar.setFixedHeight(125)
+            self.mensaje.setText("Se a creado exitosamente el producto:\n" +
                                  self.nombre.text())
             self.ventanaValidar.exec_()
+            self.ventanaAnterior.ordenar_productos_lista()
+            self.ventanaAnterior.limpiar()
             self.hide()
 
     def metodo_cerrar(self):
