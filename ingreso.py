@@ -89,18 +89,25 @@ class Ingreso(QMainWindow):
         self.ventana2.setFixedWidth(257)
         self.formulario.addRow(self.ventana2)
 
+        self.botonRecuperar = QPushButton("Recuperar\nUsuario")
+        self.botonRecuperar.setFixedWidth(100)
+        self.botonRecuperar.setFixedHeight(45)
+        self.botonRecuperar.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonRecuperar.setFont(QFont("Arial", 12))
+
+        self.horizontal2.addWidget(self.botonRecuperar)
+
         self.horizontal2.addStretch()
 
         #Se crea el botón para ingresar a la ventana administrador
         self.botonIngresar = QPushButton("Ingresar")
         self.botonIngresar.setFixedWidth(100)
-        self.botonIngresar.setFixedHeight(35)
+        self.botonIngresar.setFixedHeight(45)
         self.botonIngresar.setStyleSheet("background-color: #8EA85D; color: white;")
         self.botonIngresar.setFont(QFont("Arial", 12))
+        self.botonIngresar.clicked.connect(self.accion_botonIngresar)
 
         self.horizontal2.addWidget(self.botonIngresar)
-
-        self.botonIngresar.clicked.connect(self.accion_botonIngresar)
 
         self.horizontal.addWidget(self.ventana1)
 

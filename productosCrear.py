@@ -264,7 +264,8 @@ class ProductosCrear(QMainWindow):
                 lista[4],
                 lista[5],
                 lista[6],
-                lista[7]
+                lista[7],
+                lista[8]
             )
             self.usuarios.append(u)
         self.file.close()
@@ -276,6 +277,7 @@ class ProductosCrear(QMainWindow):
         self.numeroAno = self.ano.text().replace(" ", "")
         self.numeroCantidad = self.cantidad.text().replace(" ", "")
         self.descripcionTexto = self.descripcion.toPlainText().replace("\n", " ")
+        self.vacio = " "
 
         self.limiteDia = int(31)
         self.limiteAno = 2023
@@ -304,7 +306,8 @@ class ProductosCrear(QMainWindow):
                                   + self.numeroDia + ";"
                                   + self.numeroMes + ";"
                                   + self.numeroAno + ";"
-                                  + self.numeroCantidad + "\n", encoding='UTF-8'))
+                                  + self.numeroCantidad + ";"
+                                  + self.vacio + "\n", encoding='UTF-8'))
             self.file.close()
 
             self.ventanaValidar.setFixedHeight(125)

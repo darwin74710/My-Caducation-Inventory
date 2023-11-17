@@ -1,5 +1,5 @@
 from PyQt5 import QtGui, QtCore
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QLabel, QFormLayout, QTextEdit, QVBoxLayout, QHBoxLayout, \
     QLineEdit, QPushButton, QComboBox, QDialog
@@ -15,7 +15,7 @@ class ProductosModificar(QMainWindow):
         self.setWindowTitle("Modificar producto")
 
         self.ancho = 400
-        self.alto = 345
+        self.alto = 355
         self.setFixedWidth(self.ancho)
         self.setFixedHeight(self.alto)
 
@@ -32,7 +32,7 @@ class ProductosModificar(QMainWindow):
 
         self.principal = QLabel()
         self.formularioMensaje = QFormLayout()
-        self.principal.setFixedHeight(270)
+        self.principal.setFixedHeight(294)
         self.principal.setStyleSheet("background-color: #8EA85D;")
 
         self.titulo0 = QLabel("Nombre: ")
@@ -159,13 +159,37 @@ class ProductosModificar(QMainWindow):
         self.titulo3.setFont(QFont("Arial", 12))
         self.titulo3.setStyleSheet("color: white;")
 
+        self.ventanaModificarCantidad = QLabel()
+        self.ventanaModificarCantidad.setFixedHeight(30)
+        self.horizontalModificarCantidad = QHBoxLayout()
+
         self.cantidad = QLineEdit()
         self.cantidad.setFixedWidth(50)
         self.cantidad.setFixedHeight(20)
         self.cantidad.setStyleSheet("background-color: white;")
         self.cantidad.setFont(QFont("Arial", 12))
+        self.horizontalModificarCantidad.addWidget(self.cantidad)
 
-        self.formularioMensaje.addRow(self.titulo3, self.cantidad)
+        self.sumar = QPushButton()
+        self.sumar.setFixedWidth(20)
+        self.sumar.setFixedHeight(20)
+        self.sumar.setIcon(QtGui.QIcon('Imagenes/iconos/mas.png'))
+        self.sumar.setIconSize(QSize(15, 15))
+        self.sumar.clicked.connect(self.metodo_sumar)
+        self.horizontalModificarCantidad.addWidget(self.sumar)
+
+        self.restar = QPushButton()
+        self.restar.setFixedWidth(20)
+        self.restar.setFixedHeight(20)
+        self.restar.setIcon(QtGui.QIcon('Imagenes/iconos/menos.png'))
+        self.restar.setIconSize(QSize(20, 20))
+        self.restar.clicked.connect(self.metodo_restar)
+        self.horizontalModificarCantidad.addWidget(self.restar)
+        self.horizontalModificarCantidad.addStretch()
+
+        self.ventanaModificarCantidad.setLayout(self.horizontalModificarCantidad)
+        self.formularioMensaje.addRow(self.titulo3, self.ventanaModificarCantidad)
+        self.formularioMensaje.addRow(self.vacio)
 
         self.titulo4 = QLabel("Filtro:")
         self.titulo4.setFixedHeight(20)
@@ -263,7 +287,8 @@ class ProductosModificar(QMainWindow):
                 lista[4],
                 lista[5],
                 lista[6],
-                lista[7]
+                lista[7],
+                lista[8]
             )
             usuarios.append(u)
         self.file.close()
@@ -276,6 +301,7 @@ class ProductosModificar(QMainWindow):
                 self.mes.setText(u.numeroMes)
                 self.ano.setText(u.numeroAno)
                 self.cantidad.setText(u.numeroCantidad)
+                self.cantidad.setReadOnly(True)
                 self.filtro.setCurrentIndex(int(u.identificadorFiltro))
                 break
 
@@ -293,7 +319,7 @@ class ProductosModificar(QMainWindow):
         self.identificadorFiltro = self.filtro.currentIndex()
 
         if ((
-                not self.numeroDia.isdigit() or not self.numeroMes.isdigit() or not self.numeroAno.isdigit() or not self.numeroCantidad.isdigit())
+                not self.numeroDia.isdigit() or not self.numeroMes.isdigit() or not self.numeroAno.isdigit())
                 or ((self.numeroDia.isnumeric() and (int(self.numeroDia) <= 0)))
                 or ((self.numeroMes.isnumeric() and (int(self.numeroMes) <= 0)))
                 or not (int(self.numeroDia) <= int(self.limiteDia) and int(self.numeroMes) <= int(12))
@@ -323,7 +349,8 @@ class ProductosModificar(QMainWindow):
                     lista[4],
                     lista[5],
                     lista[6],
-                    lista[7]
+                    lista[7],
+                    lista[8]
                 )
                 usuarios.append(u)
             self.file.close()
@@ -336,6 +363,7 @@ class ProductosModificar(QMainWindow):
                     u.numeroMes = self.numeroMes
                     u.numeroAno = self.numeroAno
                     u.numeroCantidad = self.numeroCantidad
+                    u.identificadorFiltro = str(self.identificadorFiltro)
                     break
 
             self.file = open("datos/productos.txt", 'wb')
@@ -347,7 +375,8 @@ class ProductosModificar(QMainWindow):
                                       + u.numeroDia + ";"
                                       + u.numeroMes + ";"
                                       + u.numeroAno + ";"
-                                      + u.numeroCantidad, encoding='UTF-8'))
+                                      + u.numeroCantidad + ";"
+                                      + u.espacio, encoding='UTF-8'))
             self.file.close()
 
             self.mensaje.setText("Se ah modificado el producto correctamente.")
@@ -355,6 +384,13 @@ class ProductosModificar(QMainWindow):
             self.ventanaAnterior.ordenar_productos_lista()
             self.ventanaAnterior.limpiar()
             self.metodo_cerrar()
+
+    def metodo_sumar(self):
+        self.cantidad.setText(str(int(self.cantidad.text()) + 1))
+
+    def metodo_restar(self):
+        if int(self.cantidad.text()) > 0:
+            self.cantidad.setText(str(int(self.cantidad.text()) - 1))
 
     def metodo_cerrar(self):
         # Metodo para cerrar las subventanas abiertas en las funciones crear, modificar y eliminar

@@ -87,7 +87,8 @@ class ProductosEliminar(QMainWindow):
                 lista[4],
                 lista[5],
                 lista[6],
-                lista[7]
+                lista[7],
+                lista[8]
             )
             usuarios.append(u)
         self.file.close()
@@ -107,7 +108,8 @@ class ProductosEliminar(QMainWindow):
                                   + u.numeroDia + ";"
                                   + u.numeroMes + ";"
                                   + u.numeroAno + ";"
-                                  + u.numeroCantidad, encoding='UTF-8'))
+                                  + u.numeroCantidad + ";"
+                                  + u.espacio, encoding='UTF-8'))
         self.file.close()
         self.ventanaAnterior.ordenar_productos_lista()
         self.ventanaAnterior.limpiar()

@@ -266,8 +266,6 @@ class Productos(QMainWindow):
         self.ventanaDialogo.setWindowModality(Qt.ApplicationModal)
 
     def ordenar_productos_lista(self):
-        self.hide()
-        self.ventanaAnterior.show()
         self.file = open('datos/productos.txt', 'rb')
         self.usuarios = []
 
@@ -285,7 +283,8 @@ class Productos(QMainWindow):
                 lista[4],
                 lista[5],
                 lista[6],
-                lista[7]
+                lista[7],
+                lista[8]
             )
             self.usuarios.append(self.u)
             self.u.idPosicion = self.idPosicion
@@ -299,7 +298,8 @@ class Productos(QMainWindow):
                                       + self.u.numeroDia + ";"
                                       + self.u.numeroMes + ";"
                                       + self.u.numeroAno + ";"
-                                      + self.u.numeroCantidad, encoding='UTF-8'))
+                                      + self.u.numeroCantidad + ";"
+                                      + self.u.espacio, encoding='UTF-8'))
             self.file2.close()
         self.file.close()
 
@@ -341,7 +341,6 @@ class Productos(QMainWindow):
         self.botones.button(self.contador).setStyleSheet("color: white; background-color: #9AC069;")
         self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
         self.contador = idPosicion
-        print(self.contador)
 
         self.idPosicion = idPosicion
 
@@ -362,7 +361,8 @@ class Productos(QMainWindow):
                 lista[4],
                 lista[5],
                 lista[6],
-                lista[7]
+                lista[7],
+                lista[8]
             )
             usuarios.append(self.u)
         self.file.close()

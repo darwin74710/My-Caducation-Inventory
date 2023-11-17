@@ -6,7 +6,8 @@ class Lista:
                  numeroDia,
                  numeroMes,
                  numeroAno,
-                 numeroCantidad):
+                 numeroCantidad,
+                 espacio):
         self.idPosicion = idPosicion
         self.identificadorFiltro = identificadorFiltro
         self.nombre = nombre
@@ -15,6 +16,7 @@ class Lista:
         self.numeroMes = numeroMes
         self.numeroAno = numeroAno
         self.numeroCantidad = numeroCantidad
+        self.espacio = espacio
 
     # Al imprimir el objeto de tipo Lista se dira solo el nombre.
     def __str__(self):
