@@ -1,7 +1,10 @@
 1;0;Arroz Diana;Es un arroz deliciosos para el consumo y rico en proteinas.;12;11;2045;12;
 2;1;Carne Enlatada;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
 3;5;Tilapia;Este pescado es de color rojo y se puede encontrar en colombia.;8;3;2024;20;
-4;1;Carne Enlatada;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
-5;1;Carne Enlatada3;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
-6;1;Carne Enlatada5;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
-7;1;Carne Enlatada6;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
+4;3;Leche;Este producto proporciona gran cantidad de hierro en el cuerpo para su vasto crecimiento;12;11;2023;50;
+5;2;Cuca;Este producto es exquisito para el paladar y la degustación del humano.;1;5;2023;50;
+6;1;Carne Enlatada2;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
+7;1;Carne Enlatada3;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
+8;1;Carne Enlatada4;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
+9;1;Carne Enlatada5;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
+10;1;Carne Enlatada6;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;

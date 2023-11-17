@@ -19,6 +19,7 @@ class Administrador(QMainWindow):
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
         self.actualizador = Actualizador
+        self.actualizadorFiltros = 6
 
         self.setWindowTitle("Administrador")
 

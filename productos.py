@@ -62,14 +62,8 @@ class Productos(QMainWindow):
         self.filtro.setFixedHeight(20)
         self.filtro.setStyleSheet("background-color: white;")
         self.filtro.setFont(QFont("Arial", 12))
-        self.filtro.addItems(["Todos", "Granos", "Enlatados", "Parva", "Lacteos", "Carnicos", "Pescados"])
+        self.filtro.addItems(["Granos", "Enlatados", "Parva", "Lacteos", "Carnicos", "Pescados", "Todos"])
         self.horizontalFiltros.addWidget(self.filtro)
-
-        self.actualizarFiltros = QPushButton()
-        self.actualizarFiltros.setFixedWidth(20)
-        self.actualizarFiltros.setFixedHeight(20)
-        self.actualizarFiltros.clicked.connect(self.ordenar_productos_lista)
-        self.horizontalFiltros.addWidget(self.actualizarFiltros)
 
         self.filtros.setLayout(self.horizontalFiltros)
         self.verticalProductos.addWidget(self.filtros)
@@ -87,6 +81,8 @@ class Productos(QMainWindow):
         self.ventanaListaProductos.setLayout(self.verticalProductos)
         self.horizontal.addWidget(self.ventanaListaProductos)
 
+        self.filtro.setCurrentIndex(self.ventanaAnterior.actualizadorFiltros)
+        self.filtro.currentIndexChanged.connect(self.metodo_actualizarFiltros)
         self.ordenar_productos_lista()
 
         # Se crea la ventana derecha en donde se previsualizara la información de los productos
@@ -271,8 +267,8 @@ class Productos(QMainWindow):
         self.ventanaDialogo.setWindowModality(Qt.ApplicationModal)
 
     def ordenar_productos_lista(self):
-        if self.filtro.currentIndex() == 0:
-
+        self.ventanaAnterior.actualizadorFiltros = int(self.filtro.currentIndex())
+        if self.filtro.currentIndex() == 6:
             self.file = open('datos/productos.txt', 'rb')
             self.usuarios = []
 
@@ -342,11 +338,10 @@ class Productos(QMainWindow):
                         self.contador += 1
             self.botones.idClicked.connect(self.metodo_accionProductos)
 
-        if self.filtro.currentIndex() == 1:
-            self.contadorGranos = 0
+        elif self.filtro.currentIndex() == self.ventanaAnterior.actualizadorFiltros and self.ventanaAnterior.actualizadorFiltros != 6:
             self.file = open('datos/productos.txt', 'rb')
             self.usuarios = []
-            self.granos = []
+            self.arrayFiltros = []
 
             while self.file:
                 linea = self.file.readline().decode('UTF-8')
@@ -368,8 +363,8 @@ class Productos(QMainWindow):
                 self.usuarios.append(self.u)
                 self.u.idPosicion = self.idPosicion
 
-                if self.u.identificadorFiltro == str(1):
-                    self.listaGranos = Lista(
+                if int(self.u.identificadorFiltro) == self.ventanaAnterior.actualizadorFiltros and self.ventanaAnterior.actualizadorFiltros != 6:
+                    self.listaFiltros = Lista(
                         lista[0],
                         lista[1],
                         lista[2],
@@ -380,8 +375,7 @@ class Productos(QMainWindow):
                         lista[7],
                         lista[8]
                     )
-                    self.contadorGranos += 1
-                    self.granos.append(self.listaGranos)
+                    self.arrayFiltros.append(self.listaFiltros)
                 else:
                     pass
 
@@ -399,8 +393,8 @@ class Productos(QMainWindow):
                 self.file2.close()
             self.file.close()
 
-            self.numeroProductos = len(self.granos)
-            print("numero de elementos en lista: " + str(len(self.granos)))
+            self.numeroProductos = len(self.arrayFiltros)
+            print("numero de elementos en lista: " + str(len(self.arrayFiltros)))
             self.contador = 0
             self.elementosPorColumna = 1
 
@@ -416,7 +410,7 @@ class Productos(QMainWindow):
 
                         self.verticalCuadricula = QVBoxLayout()
 
-                        self.botonAccion = QPushButton(self.granos[self.contador].nombre)
+                        self.botonAccion = QPushButton(self.arrayFiltros[self.contador].nombre)
                         self.botonAccion.setFont(QFont("Arial", 12))
                         self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
                         self.botonAccion.setFixedHeight(50)
@@ -431,7 +425,6 @@ class Productos(QMainWindow):
 
                         self.contador += 1
             self.botones.idClicked.connect(self.metodo_accionProductos)
-            self.ventanaAnterior.ir_productos()
 
     def metodo_accionProductos(self, idPosicion):
         self.botones.button(self.contador).setStyleSheet("color: white; background-color: #9AC069;")
@@ -440,7 +433,7 @@ class Productos(QMainWindow):
 
         self.idPosicion = idPosicion
 
-        if self.filtro.currentIndex() == 0:
+        if self.filtro.currentIndex() == 6:
             self.file = open('datos/productos.txt', 'rb')
 
             usuarios = []
@@ -486,12 +479,11 @@ class Productos(QMainWindow):
                     self.cantidad.setText(self.u.numeroCantidad)
                     break
 
-        if self.filtro.currentIndex() == 1:
+        elif self.filtro.currentIndex() == self.ventanaAnterior.actualizadorFiltros and self.ventanaAnterior.actualizadorFiltros != 6:
             self.file = open('datos/productos.txt', 'rb')
-            print(self.u.idPosicion)
 
             usuarios = []
-            self.granos = []
+            self.arrayFiltros = []
 
             while self.file:
                 linea = self.file.readline().decode('UTF-8')
@@ -511,8 +503,8 @@ class Productos(QMainWindow):
                 )
                 usuarios.append(self.u)
 
-                if self.u.identificadorFiltro == str(1):
-                    self.listaGranos = Lista(
+                if int(self.u.identificadorFiltro) == self.ventanaAnterior.actualizadorFiltros and self.ventanaAnterior.actualizadorFiltros != 6:
+                    self.listaFiltros2 = Lista(
                         lista[0],
                         lista[1],
                         lista[2],
@@ -523,30 +515,31 @@ class Productos(QMainWindow):
                         lista[7],
                         lista[8]
                     )
-                    self.granos.append(self.listaGranos)
+                    self.arrayFiltros.append(self.listaFiltros2)
+                    #print(self.listaFiltros2)
             self.file.close()
 
             for self.u in self.usuarios:
-                if int(self.u.idPosicion) == self.idPosicion:
-
-                    if self.listaGranos.identificadorFiltro == str(0):
+                print(self.listaFiltros)
+                if idPosicion == int(self.u.idPosicion):
+                    if self.u.identificadorFiltro == str(0):
                         self.imagenFiltro.setPixmap(self.imagenGranos)
-                    if self.listaGranos.identificadorFiltro == str(1):
+                    if self.u.identificadorFiltro == str(1):
                         self.imagenFiltro.setPixmap(self.imagenEnlatados)
-                    if self.listaGranos.identificadorFiltro == str(2):
+                    if self.u.identificadorFiltro == str(2):
                         self.imagenFiltro.setPixmap(self.imagenParva)
-                    if self.listaGranos.identificadorFiltro == str(3):
+                    if self.u.identificadorFiltro == str(3):
                         self.imagenFiltro.setPixmap(self.imagenLacteos)
-                    if self.listaGranos.identificadorFiltro == str(4):
+                    if self.u.identificadorFiltro == str(4):
                         self.imagenFiltro.setPixmap(self.imagenCarnicos)
-                    if self.listaGranos.identificadorFiltro == str(5):
+                    if self.u.identificadorFiltro == str(5):
                         self.imagenFiltro.setPixmap(self.imagenPescados)
 
-                    self.textoNombre.setText(self.listaGranos.nombre)
-                    self.textoDescripcion.setText(self.listaGranos.descripcion)
+                    self.textoNombre.setText(self.u.nombre)
+                    self.textoDescripcion.setText(self.u.descripcion)
                     self.caducidad.setText(
-                    self.listaGranos.numeroDia + "/" + self.listaGranos.numeroMes + "/" + self.listaGranos.numeroAno)
-                    self.cantidad.setText(self.listaGranos.numeroCantidad)
+                    self.u.numeroDia + "/" + self.u.numeroMes + "/" + self.u.numeroAno)
+                    self.cantidad.setText(self.u.numeroCantidad)
                     break
 
     def metodo_crear_producto(self):
@@ -644,3 +637,9 @@ class Productos(QMainWindow):
         self.textoDescripcion.setText("")
         self.caducidad.setText("")
         self.cantidad.setText("")
+
+    def metodo_actualizarFiltros(self):
+        self.ventanaAnterior.actualizadorFiltros = self.filtro.currentIndex()
+        self.hide()
+        self.ventanaAnterior.hide()
+        self.ventanaAnterior.ir_productos()
