@@ -111,7 +111,8 @@ class ProductosEliminar(QMainWindow):
                                   + u.numeroCantidad + ";"
                                   + u.espacio, encoding='UTF-8'))
         self.file.close()
-        self.ventanaAnterior.ordenar_productos_lista()
+        self.ventanaAnterior.hide()
+        self.ventanaAnterior.ventanaAnterior.ir_productos()
         self.ventanaAnterior.limpiar()
         self.metodo_cerrar()
 

@@ -19,7 +19,6 @@ class Productos(QMainWindow):
         super(Productos, self).__init__(anterior)
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
-        self.cambioActualizar = False
 
         self.setWindowTitle("Productos")
 
@@ -63,7 +62,7 @@ class Productos(QMainWindow):
         self.filtro.setFixedHeight(20)
         self.filtro.setStyleSheet("background-color: white;")
         self.filtro.setFont(QFont("Arial", 12))
-        self.filtro.addItems(["Todos", "Granos", "Enlatados", "Parva", "Lacteos", "Carnicos", "Pescados"])
+        self.filtro.addItems(["Granos", "Enlatados", "Parva", "Lacteos", "Carnicos", "Pescados", "Todos"])
         self.horizontalFiltros.addWidget(self.filtro)
 
         self.filtros.setLayout(self.horizontalFiltros)
@@ -82,6 +81,8 @@ class Productos(QMainWindow):
         self.ventanaListaProductos.setLayout(self.verticalProductos)
         self.horizontal.addWidget(self.ventanaListaProductos)
 
+        self.filtro.setCurrentIndex(self.ventanaAnterior.actualizadorFiltros)
+        self.filtro.currentIndexChanged.connect(self.metodo_actualizarFiltros)
         self.ordenar_productos_lista()
 
         # Se crea la ventana derecha en donde se previsualizara la información de los productos
@@ -266,128 +267,265 @@ class Productos(QMainWindow):
         self.ventanaDialogo.setWindowModality(Qt.ApplicationModal)
 
     def ordenar_productos_lista(self):
-        self.file = open('datos/productos.txt', 'rb')
-        self.usuarios = []
+        self.ventanaAnterior.actualizadorFiltros = int(self.filtro.currentIndex())
+        if self.filtro.currentIndex() == 6:
+            self.file = open('datos/productos.txt', 'rb')
+            self.usuarios = []
 
-        while self.file:
-            linea = self.file.readline().decode('UTF-8')
-            self.idPosicion = len(self.usuarios) + 1
-            lista = linea.split(";")
-            if linea == '':
-                break
-            self.u = Lista(
-                lista[0],
-                lista[1],
-                lista[2],
-                lista[3],
-                lista[4],
-                lista[5],
-                lista[6],
-                lista[7],
-                lista[8]
-            )
-            self.usuarios.append(self.u)
-            self.u.idPosicion = self.idPosicion
+            while self.file:
+                linea = self.file.readline().decode('UTF-8')
+                self.idPosicion = len(self.usuarios) + 1
+                lista = linea.split(";")
+                if linea == '':
+                    break
+                self.u = Lista(
+                    lista[0],
+                    lista[1],
+                    lista[2],
+                    lista[3],
+                    lista[4],
+                    lista[5],
+                    lista[6],
+                    lista[7],
+                    lista[8]
+                )
+                self.usuarios.append(self.u)
+                self.u.idPosicion = self.idPosicion
 
-            self.file2 = open('datos/productos.txt', 'wb')
-            for self.u in self.usuarios:
-                self.file2.write(bytes(str(self.u.idPosicion) + ";"
-                                      + self.u.identificadorFiltro + ";"
-                                      + self.u.nombre + ";"
-                                      + self.u.descripcion + ";"
-                                      + self.u.numeroDia + ";"
-                                      + self.u.numeroMes + ";"
-                                      + self.u.numeroAno + ";"
-                                      + self.u.numeroCantidad + ";"
-                                      + self.u.espacio, encoding='UTF-8'))
-            self.file2.close()
-        self.file.close()
+                self.file2 = open('datos/productos.txt', 'wb')
+                for self.u in self.usuarios:
+                    self.file2.write(bytes(str(self.u.idPosicion) + ";"
+                                           + self.u.identificadorFiltro + ";"
+                                           + self.u.nombre + ";"
+                                           + self.u.descripcion + ";"
+                                           + self.u.numeroDia + ";"
+                                           + self.u.numeroMes + ";"
+                                           + self.u.numeroAno + ";"
+                                           + self.u.numeroCantidad + ";"
+                                           + self.u.espacio, encoding='UTF-8'))
+                self.file2.close()
+            self.file.close()
 
-        self.numeroProductos = len(self.usuarios)
-        self.contador = 0
-        self.elementosPorColumna = 1
+            self.numeroProductos = len(self.usuarios)
+            self.contador = 0
+            self.elementosPorColumna = 1
 
-        self.numeroFilas = math.ceil(self.numeroProductos / self.elementosPorColumna) + 1
+            self.numeroFilas = math.ceil(self.numeroProductos / self.elementosPorColumna) + 1
 
-        self.botones = QButtonGroup()
-        self.botones.setExclusive(True)
+            self.botones = QButtonGroup()
+            self.botones.setExclusive(True)
 
-        for fila in range(1, self.numeroFilas):
-            for columna in range(1, self.elementosPorColumna + 1):
-                if self.contador < self.numeroProductos:
-                    self.ventanaAux = QWidget()
+            for fila in range(1, self.numeroFilas):
+                for columna in range(1, self.elementosPorColumna + 1):
+                    if self.contador < self.numeroProductos:
+                        self.ventanaAux = QWidget()
 
-                    self.verticalCuadricula = QVBoxLayout()
+                        self.verticalCuadricula = QVBoxLayout()
 
-                    self.botonAccion = QPushButton(self.usuarios[self.contador].nombre)
-                    self.botonAccion.setFont(QFont("Arial", 12))
-                    self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
-                    self.botonAccion.setFixedHeight(50)
+                        self.botonAccion = QPushButton(self.usuarios[self.contador].nombre)
+                        self.botonAccion.setFont(QFont("Arial", 12))
+                        self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
+                        self.botonAccion.setFixedHeight(50)
 
-                    self.verticalCuadricula.addWidget(self.botonAccion)
+                        self.verticalCuadricula.addWidget(self.botonAccion)
 
-                    self.botones.addButton(self.botonAccion, int(self.usuarios[self.contador].idPosicion))
+                        self.botones.addButton(self.botonAccion, int(self.usuarios[self.contador].idPosicion))
 
-                    self.ventanaAux.setLayout(self.verticalCuadricula)
+                        self.ventanaAux.setLayout(self.verticalCuadricula)
 
-                    self.cuadricula.addWidget(self.ventanaAux, fila, columna)
+                        self.cuadricula.addWidget(self.ventanaAux, fila, columna)
 
-                    self.contador += 1
-        self.botones.idClicked.connect(self.metodo_accionProductos)
+                        self.contador += 1
+            self.botones.idClicked.connect(self.metodo_accionProductos)
 
-        print("Lista de productos actualizada correctamente.")
+        elif self.filtro.currentIndex() == self.ventanaAnterior.actualizadorFiltros and self.ventanaAnterior.actualizadorFiltros != 6:
+            self.file = open('datos/productos.txt', 'rb')
+            self.usuarios = []
+            self.arrayFiltros = []
 
+            while self.file:
+                linea = self.file.readline().decode('UTF-8')
+                self.idPosicion = len(self.usuarios) + 1
+                lista = linea.split(";")
+                if linea == '':
+                    break
+                self.u = Lista(
+                    lista[0],
+                    lista[1],
+                    lista[2],
+                    lista[3],
+                    lista[4],
+                    lista[5],
+                    lista[6],
+                    lista[7],
+                    lista[8]
+                )
+                self.usuarios.append(self.u)
+                self.u.idPosicion = self.idPosicion
+
+                if int(self.u.identificadorFiltro) == self.ventanaAnterior.actualizadorFiltros and self.ventanaAnterior.actualizadorFiltros != 6:
+                    self.listaFiltros = Lista(
+                        lista[0],
+                        lista[1],
+                        lista[2],
+                        lista[3],
+                        lista[4],
+                        lista[5],
+                        lista[6],
+                        lista[7],
+                        lista[8]
+                    )
+                    self.arrayFiltros.append(self.listaFiltros)
+                else:
+                    pass
+
+                self.file2 = open('datos/productos.txt', 'wb')
+                for self.u in self.usuarios:
+                    self.file2.write(bytes(str(self.u.idPosicion) + ";"
+                                           + self.u.identificadorFiltro + ";"
+                                           + self.u.nombre + ";"
+                                           + self.u.descripcion + ";"
+                                           + self.u.numeroDia + ";"
+                                           + self.u.numeroMes + ";"
+                                           + self.u.numeroAno + ";"
+                                           + self.u.numeroCantidad + ";"
+                                           + self.u.espacio, encoding='UTF-8'))
+                self.file2.close()
+            self.file.close()
+
+            self.numeroProductos = len(self.arrayFiltros)
+            self.contador = 0
+            self.elementosPorColumna = 1
+
+            self.numeroFilas = math.ceil(self.numeroProductos / self.elementosPorColumna) + 1
+
+            self.botones = QButtonGroup()
+            self.botones.setExclusive(True)
+
+            for fila in range(1, self.numeroFilas):
+                for columna in range(1, self.elementosPorColumna + 1):
+                    if self.contador < self.numeroProductos:
+                        self.ventanaAux = QWidget()
+
+                        self.verticalCuadricula = QVBoxLayout()
+
+                        self.botonAccion = QPushButton(self.arrayFiltros[self.contador].nombre)
+                        self.botonAccion.setFont(QFont("Arial", 12))
+                        self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
+                        self.botonAccion.setFixedHeight(50)
+
+                        self.verticalCuadricula.addWidget(self.botonAccion)
+
+                        self.botones.addButton(self.botonAccion, int(self.arrayFiltros[self.contador].idPosicion))
+
+                        self.ventanaAux.setLayout(self.verticalCuadricula)
+
+                        self.cuadricula.addWidget(self.ventanaAux, fila, columna)
+
+                        self.contador += 1
+            self.botones.idClicked.connect(self.metodo_accionProductos)
+            self.idPosicion = 0
     def metodo_accionProductos(self, idPosicion):
-        self.botones.button(self.contador).setStyleSheet("color: white; background-color: #9AC069;")
-        self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
-        self.contador = idPosicion
+        if self.idPosicion == 0:
+            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
+        if self.idPosicion > 0:
+            self.botones.button(self.idPosicion).setStyleSheet("color: white; background-color: #9AC069;")
+            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
 
         self.idPosicion = idPosicion
 
-        self.file = open('datos/productos.txt', 'rb')
+        if self.filtro.currentIndex() == 6:
+            self.file = open('datos/productos.txt', 'rb')
 
-        usuarios = []
+            usuarios = []
 
-        while self.file:
-            linea = self.file.readline().decode('UTF-8')
-            lista = linea.split(";")
-            if linea == '':
-                break
-            self.u = Lista(
-                lista[0],
-                lista[1],
-                lista[2],
-                lista[3],
-                lista[4],
-                lista[5],
-                lista[6],
-                lista[7],
-                lista[8]
-            )
-            usuarios.append(self.u)
-        self.file.close()
+            while self.file:
+                linea = self.file.readline().decode('UTF-8')
+                lista = linea.split(";")
+                if linea == '':
+                    break
+                self.u = Lista(
+                    lista[0],
+                    lista[1],
+                    lista[2],
+                    lista[3],
+                    lista[4],
+                    lista[5],
+                    lista[6],
+                    lista[7],
+                    lista[8]
+                )
+                usuarios.append(self.u)
+            self.file.close()
 
-        for self.u in usuarios:
-            if int(self.u.idPosicion) == self.idPosicion:
+            for self.u in usuarios:
+                if int(self.u.idPosicion) == self.idPosicion:
 
-                if self.u.identificadorFiltro == str(0):
-                    self.imagenFiltro.setPixmap(self.imagenGranos)
-                if self.u.identificadorFiltro == str(1):
-                    self.imagenFiltro.setPixmap(self.imagenEnlatados)
-                if self.u.identificadorFiltro == str(2):
-                    self.imagenFiltro.setPixmap(self.imagenParva)
-                if self.u.identificadorFiltro == str(3):
-                    self.imagenFiltro.setPixmap(self.imagenLacteos)
-                if self.u.identificadorFiltro == str(4):
-                    self.imagenFiltro.setPixmap(self.imagenCarnicos)
-                if self.u.identificadorFiltro == str(5):
-                    self.imagenFiltro.setPixmap(self.imagenPescados)
+                    if self.u.identificadorFiltro == str(0):
+                        self.imagenFiltro.setPixmap(self.imagenGranos)
+                    if self.u.identificadorFiltro == str(1):
+                        self.imagenFiltro.setPixmap(self.imagenEnlatados)
+                    if self.u.identificadorFiltro == str(2):
+                        self.imagenFiltro.setPixmap(self.imagenParva)
+                    if self.u.identificadorFiltro == str(3):
+                        self.imagenFiltro.setPixmap(self.imagenLacteos)
+                    if self.u.identificadorFiltro == str(4):
+                        self.imagenFiltro.setPixmap(self.imagenCarnicos)
+                    if self.u.identificadorFiltro == str(5):
+                        self.imagenFiltro.setPixmap(self.imagenPescados)
 
-                self.textoNombre.setText(self.u.nombre)
-                self.textoDescripcion.setText(self.u.descripcion)
-                self.caducidad.setText(self.u.numeroDia + "/" + self.u.numeroMes + "/" + self.u.numeroAno)
-                self.cantidad.setText(self.u.numeroCantidad)
-                break
+                    self.textoNombre.setText(self.u.nombre)
+                    self.textoDescripcion.setText(self.u.descripcion)
+                    self.caducidad.setText(self.u.numeroDia + "/" + self.u.numeroMes + "/" + self.u.numeroAno)
+                    self.cantidad.setText(self.u.numeroCantidad)
+                    break
+
+        elif self.filtro.currentIndex() == self.ventanaAnterior.actualizadorFiltros and self.ventanaAnterior.actualizadorFiltros != 6:
+            self.file = open('datos/productos.txt', 'rb')
+
+            usuarios = []
+            self.arrayFiltros = []
+
+            while self.file:
+                linea = self.file.readline().decode('UTF-8')
+                lista = linea.split(";")
+                if linea == '':
+                    break
+                self.u = Lista(
+                    lista[0],
+                    lista[1],
+                    lista[2],
+                    lista[3],
+                    lista[4],
+                    lista[5],
+                    lista[6],
+                    lista[7],
+                    lista[8]
+                )
+                usuarios.append(self.u)
+            self.file.close()
+
+            for self.u in self.usuarios:
+                if idPosicion == int(self.u.idPosicion):
+                    if self.u.identificadorFiltro == str(0):
+                        self.imagenFiltro.setPixmap(self.imagenGranos)
+                    if self.u.identificadorFiltro == str(1):
+                        self.imagenFiltro.setPixmap(self.imagenEnlatados)
+                    if self.u.identificadorFiltro == str(2):
+                        self.imagenFiltro.setPixmap(self.imagenParva)
+                    if self.u.identificadorFiltro == str(3):
+                        self.imagenFiltro.setPixmap(self.imagenLacteos)
+                    if self.u.identificadorFiltro == str(4):
+                        self.imagenFiltro.setPixmap(self.imagenCarnicos)
+                    if self.u.identificadorFiltro == str(5):
+                        self.imagenFiltro.setPixmap(self.imagenPescados)
+
+                    self.textoNombre.setText(self.u.nombre)
+                    self.textoDescripcion.setText(self.u.descripcion)
+                    self.caducidad.setText(
+                    self.u.numeroDia + "/" + self.u.numeroMes + "/" + self.u.numeroAno)
+                    self.cantidad.setText(self.u.numeroCantidad)
+                    break
 
     def metodo_crear_producto(self):
         self.ir_productosCrear = ProductosCrear(self)
@@ -484,3 +622,9 @@ class Productos(QMainWindow):
         self.textoDescripcion.setText("")
         self.caducidad.setText("")
         self.cantidad.setText("")
+
+    def metodo_actualizarFiltros(self):
+        self.ventanaAnterior.actualizadorFiltros = self.filtro.currentIndex()
+        self.hide()
+        self.ventanaAnterior.hide()
+        self.ventanaAnterior.ir_productos()
