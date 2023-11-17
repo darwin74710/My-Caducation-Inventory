@@ -128,6 +128,7 @@ class ProductosEliminar(QMainWindow):
 
         self.verticalValidar = QVBoxLayout()
 
+        self.ventanaValidar.setFixedWidth(330)
         self.mensaje = QLabel("Se ah eliminado el producto correctamente.")
         self.mensaje.setStyleSheet("color: white;")
         self.mensaje.setFont(QFont("Arial", 12))

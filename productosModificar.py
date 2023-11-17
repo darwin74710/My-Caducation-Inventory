@@ -379,6 +379,7 @@ class ProductosModificar(QMainWindow):
                                       + u.espacio, encoding='UTF-8'))
             self.file.close()
 
+            self.ventanaValidar.setFixedWidth(340)
             self.mensaje.setText("Se ah modificado el producto correctamente.")
             self.ventanaValidar.show()
             self.ventanaAnterior.ordenar_productos_lista()
