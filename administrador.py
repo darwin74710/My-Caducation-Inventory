@@ -326,7 +326,7 @@ class Administrador(QMainWindow):
         self.file.close()
 
     def notificacion_alertas(self):
-        if self.alertas > 1:
+        if self.alertas >= 1:
             self.fondoAlertas.setMovie(self.imagenAlertasPerpetua)
             self.imagenAlertasPerpetua.start()
             self.imagenAlertasVacia.stop()

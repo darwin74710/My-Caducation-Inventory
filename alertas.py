@@ -105,6 +105,7 @@ class Alertas(QMainWindow):
         self.imagenLacteos = QPixmap("Imagenes/Imagenes Productos/lacteos.png")
         self.imagenCarnicos = QPixmap("Imagenes/Imagenes Productos/carnicos.png")
         self.imagenPescados = QPixmap("Imagenes/Imagenes Productos/pescados.png")
+        self.imagenCaducados = QPixmap("Imagenes/Imagenes Productos/caducados.png")
 
         self.horizontalImagen.addStretch()
         self.horizontalImagen.addWidget(self.imagenFiltro)
@@ -339,7 +340,7 @@ class Alertas(QMainWindow):
 
                     self.verticalCuadricula = QVBoxLayout()
 
-                    self.botonAccion = QPushButton(self.arrayAlertas[self.contador].nombre)
+                    self.botonAccion = QPushButton(self.arrayAlertas[self.contador].nombre + " - " + self.arrayAlertas[self.contador].numeroDia + "/" +self.arrayAlertas[self.contador].numeroMes + "/" + self.arrayAlertas[self.contador].numeroAno)
                     self.botonAccion.setFont(QFont("Arial", 12))
                     self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
                     self.botonAccion.setFixedHeight(50)
@@ -404,6 +405,8 @@ class Alertas(QMainWindow):
                         self.imagenFiltro.setPixmap(self.imagenCarnicos)
                     if self.u.identificadorFiltro == str(5):
                         self.imagenFiltro.setPixmap(self.imagenPescados)
+                    if self.u.identificadorFiltro == str(7):
+                        self.imagenFiltro.setPixmap(self.imagenCaducados)
 
                     self.textoNombre.setText(self.u.nombre)
                     self.textoNombre.setText(self.u.nombre)

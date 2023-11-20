@@ -50,6 +50,9 @@ class Pruebas(QMainWindow):
             dateList.append(a - timedelta(days=x))
         print(dateList)
 
+        b = ["c", "d", "a", "e", "z", "m"]
+        print(sorted(b))
+
     def validaciones(self):
         if self.filtro.currentIndex() == 0:
             print("el numero es 1")

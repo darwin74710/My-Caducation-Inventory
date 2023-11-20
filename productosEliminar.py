@@ -99,9 +99,9 @@ class ProductosEliminar(QMainWindow):
         self.file = open("datos/productos.txt", 'wb')
 
         for u in usuarios:
-            self.file.write(bytes(u.idPosicion + ";"
+            self.file.write(bytes(u.nombre + ";"
+                                  + u.idPosicion + ";"
                                   + u.identificadorFiltro + ";"
-                                  + u.nombre + ";"
                                   + u.descripcion + ";"
                                   + u.numeroDia + ";"
                                   + u.numeroMes + ";"

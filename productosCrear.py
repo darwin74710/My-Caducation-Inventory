@@ -355,9 +355,9 @@ class ProductosCrear(QMainWindow):
         if self.datosCorrectos:
             self.idPosicion = len(self.usuarios) + 1
             self.file = open('datos/productos.txt', 'ab')
-            self.file.write(bytes(str(self.idPosicion) + ";"
+            self.file.write(bytes(self.nombre.text() + ";"
+                                  + str(self.idPosicion) + ";"
                                   + str(self.identificadorFiltro) + ";"
-                                  + self.nombre.text() + ";"
                                   + self.descripcionTexto + ";"
                                   + self.numeroDia + ";"
                                   + self.numeroMes + ";"
