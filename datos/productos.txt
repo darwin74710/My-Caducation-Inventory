@@ -1,4 +1,2 @@
-1;0;Arroz diana;muy rico en calorias y fertilizantes.;21;11;2023;12;
-2;1;Carne enlatada;Muy proteica y de buena definicion;22;11;2023;65;
-3;1;duraznos;asdsoajdiolasjf;25;11;2023;50;
-4;2;arroz hamaicano;asdasdasfasfas,f.mas.fmasl,mflñaskflñsakñlfasklfkasñlfkñslzkflsñfkalñskflñaskfñlasklfñsakñl;5;12;2023;23;
+1;1;DIana;asdsad;30;11;2023;32;
+2;7;ppaya;dasdsafsa;19;11;2023;124;

@@ -5,6 +5,8 @@ from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QWidget, QVBoxLayout, QLabel, \
     QGridLayout, QFormLayout, QPushButton, QHBoxLayout, QScrollArea, QButtonGroup, QDialog, \
     QTextEdit, QComboBox
+from datetime import date
+import calendar
 
 from productosCrear import ProductosCrear
 from productosModificar import ProductosModificar
@@ -16,6 +18,9 @@ class Productos(QMainWindow):
         super(Productos, self).__init__(anterior)
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
+
+        self.fechaActual = date.today()
+        self.calendario = calendar
 
         self.setWindowTitle("Productos")
 
@@ -59,7 +64,7 @@ class Productos(QMainWindow):
         self.filtro.setFixedHeight(20)
         self.filtro.setStyleSheet("background-color: white;")
         self.filtro.setFont(QFont("Arial", 12))
-        self.filtro.addItems(["Granos", "Enlatados", "Parva", "Lacteos", "Carnicos", "Pescados", "Todos"])
+        self.filtro.addItems(["Granos", "Enlatados", "Parva", "Lacteos", "Carnicos", "Pescados", "Todos", "Caducados"])
         self.horizontalFiltros.addWidget(self.filtro)
 
         self.filtros.setLayout(self.horizontalFiltros)
@@ -126,6 +131,7 @@ class Productos(QMainWindow):
         self.imagenLacteos = QPixmap("Imagenes/Imagenes Productos/lacteos.png")
         self.imagenCarnicos = QPixmap("Imagenes/Imagenes Productos/carnicos.png")
         self.imagenPescados = QPixmap("Imagenes/Imagenes Productos/pescados.png")
+        self.imagenCaducados = QPixmap("Imagenes/Imagenes Productos/caducados.png")
 
         self.minihorizontal.addWidget(self.imagenFiltro)
 
@@ -259,12 +265,43 @@ class Productos(QMainWindow):
         self.ventanaDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
         self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
         self.ventanaDialogo.setFixedWidth(300)
-        self.ventanaDialogo.setFixedHeight(100)
+        self.ventanaDialogo.setFixedHeight(80)
         self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
         self.ventanaDialogo.setWindowModality(Qt.ApplicationModal)
 
+        self.formularioValidarModificar = QFormLayout()
+
+        self.mensaje = QLabel()
+        self.mensaje.setStyleSheet("color: white;")
+        self.mensaje.setFont(QFont("Arial", 12))
+
+        self.formularioValidarModificar.addRow(self.mensaje)
+
+        self.eleccion = QLabel()
+        self.eleccion.setFixedHeight(40)
+        self.horizontalModificarOk = QHBoxLayout()
+
+        self.botonOk = QPushButton("Ok")
+        self.botonOk.setFixedWidth(80)
+        self.botonOk.setFixedHeight(25)
+        self.botonOk.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonOk.setFont(QFont("Arial", 12))
+        self.botonOk.clicked.connect(self.metodo_cerrar)
+
+        self.horizontalModificarOk.addStretch()
+        self.horizontalModificarOk.addWidget(self.botonOk)
+
+        self.eleccion.setLayout(self.horizontalModificarOk)
+        self.formularioValidarModificar.addRow(self.eleccion)
+
+        self.ventanaDialogo.setLayout(self.formularioValidarModificar)
+
     def ordenar_productos_lista(self):
         self.ventanaAnterior.actualizadorFiltros = int(self.filtro.currentIndex())
+
+        self.diaActual = int(self.fechaActual.day)
+        self.mesActual = int(self.fechaActual.month)
+        self.anoActual = int(self.fechaActual.year)
         if self.filtro.currentIndex() == 6:
             self.file = open('datos/productos.txt', 'rb')
             self.usuarios = []
@@ -288,6 +325,13 @@ class Productos(QMainWindow):
                 )
                 self.usuarios.append(self.u)
                 self.u.idPosicion = self.idPosicion
+
+                if int(self.u.numeroAno) < int(self.anoActual):
+                    self.u.identificadorFiltro = str(7)
+                elif (int(self.u.numeroAno) == int(self.anoActual)) and (int(self.u.numeroMes) < int(self.mesActual)):
+                    self.u.identificadorFiltro = str(7)
+                elif (int(self.u.numeroAno) == int(self.anoActual)) and (int(self.u.numeroMes) == int(self.mesActual)) and (int(self.u.numeroDia) <= int(self.diaActual)):
+                    self.u.identificadorFiltro = str(7)
 
                 self.file2 = open('datos/productos.txt', 'wb')
                 for self.u in self.usuarios:
@@ -470,6 +514,8 @@ class Productos(QMainWindow):
                         self.imagenFiltro.setPixmap(self.imagenCarnicos)
                     if self.u.identificadorFiltro == str(5):
                         self.imagenFiltro.setPixmap(self.imagenPescados)
+                    if self.u.identificadorFiltro == str(7):
+                        self.imagenFiltro.setPixmap(self.imagenCaducados)
 
                     self.textoNombre.setText(self.u.nombre)
                     self.textoDescripcion.setText(self.u.descripcion)
@@ -515,6 +561,8 @@ class Productos(QMainWindow):
                         self.imagenFiltro.setPixmap(self.imagenCarnicos)
                     if self.u.identificadorFiltro == str(5):
                         self.imagenFiltro.setPixmap(self.imagenPescados)
+                    if self.u.identificadorFiltro == str(7):
+                        self.imagenFiltro.setPixmap(self.imagenCaducados)
 
                     self.textoNombre.setText(self.u.nombre)
                     self.textoDescripcion.setText(self.u.descripcion)
@@ -530,39 +578,19 @@ class Productos(QMainWindow):
     def metodo_modificar_producto(self):
         self.ventanaDialogo.setWindowTitle("Modificar Producto")
         if self.idPosicion <= 0:
+            self.ventanaDialogo.setFixedWidth(300)
 
-            self.formularioValidarModificar = QFormLayout()
+            self.mensaje.setText("Seleccione un producto.")
 
-            self.mensaje = QLabel("Seleccione un producto.")
-            self.mensaje.setFixedHeight(45)
-            self.mensaje.setStyleSheet("color: white;")
-            self.mensaje.setFont(QFont("Arial", 12))
-
-            self.formularioValidarModificar.addRow(self.mensaje)
-
-            self.eleccion = QLabel()
-            self.eleccion.setFixedHeight(40)
-            self.horizontalModificarOk = QHBoxLayout()
-
-            self.botonOk = QPushButton("Ok")
-            self.botonOk.setFixedWidth(80)
-            self.botonOk.setFixedHeight(25)
-            self.botonOk.setStyleSheet("background-color: #8EA85D; color: white;")
-            self.botonOk.setFont(QFont("Arial", 12))
-            self.botonOk.clicked.connect(self.metodo_cerrar)
-
-            self.horizontalModificarOk.addStretch()
-            self.horizontalModificarOk.addWidget(self.botonOk)
-
-            self.eleccion.setLayout(self.horizontalModificarOk)
-            self.formularioValidarModificar.addRow(self.eleccion)
-
-            self.ventanaDialogo.setLayout(self.formularioValidarModificar)
             self.ventanaDialogo.exec_()
-
-        elif int(self.u.idPosicion) == self.idPosicion:
+        elif int(self.u.idPosicion) == self.idPosicion and int(self.u.identificadorFiltro) < 7:
             self.ir_productosModificar = ProductosModificar(self)
             self.ir_productosModificar.show()
+        elif int(self.u.identificadorFiltro) == 7:
+            self.ventanaDialogo.setFixedWidth(350)
+            self.mensaje.setText("No puedes modificar un producto caducado.")
+
+            self.ventanaDialogo.exec_()
 
     def metodo_eliminar_producto(self):
         # Ventana emergente para aceptar o negar la eliminación del producto seleccionado
