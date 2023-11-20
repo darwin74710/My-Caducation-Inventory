@@ -1,5 +1,4 @@
 from PyQt5.QtWidgets import QMainWindow
-
 from productos import Productos
 class Actualizador(QMainWindow):
     def __init__(self, anterior):

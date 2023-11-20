@@ -1,12 +1,9 @@
 import math
-import sys
-import time
-
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QIcon, QPixmap, QFont
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QToolBar, QAction, QWidget, QVBoxLayout, QLabel, \
-    QGridLayout, QFormLayout, QPushButton, QHBoxLayout, QLineEdit, QScrollArea, QButtonGroup, QDialog, QDialogButtonBox, \
+from PyQt5.QtGui import QPixmap, QFont
+from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QWidget, QVBoxLayout, QLabel, \
+    QGridLayout, QFormLayout, QPushButton, QHBoxLayout, QScrollArea, QButtonGroup, QDialog, \
     QTextEdit, QComboBox
 
 from productosCrear import ProductosCrear
@@ -484,7 +481,6 @@ class Productos(QMainWindow):
             self.file = open('datos/productos.txt', 'rb')
 
             usuarios = []
-            self.arrayFiltros = []
 
             while self.file:
                 linea = self.file.readline().decode('UTF-8')
@@ -613,6 +609,8 @@ class Productos(QMainWindow):
     def ir_administrador(self):
         # Metodo para volver a la ventana administrador
         self.hide()
+        self.ventanaAnterior.escanear_alertas()
+        self.ventanaAnterior.notificacion_alertas()
         self.ventanaAnterior.show()
 
     def limpiar(self):

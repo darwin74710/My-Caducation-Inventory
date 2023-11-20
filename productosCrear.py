@@ -1,18 +1,20 @@
-import math
-
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QLabel, QFormLayout, QTextEdit, QVBoxLayout, QHBoxLayout, \
-    QLineEdit, QPushButton, QButtonGroup, QWidget, QDialogButtonBox, QDialog, QMenu, QComboBox
+    QLineEdit, QPushButton, QDialog, QComboBox
 from productosLista import Lista
-
+from datetime import datetime
+import calendar
 
 class ProductosCrear(QMainWindow):
     def __init__(self, anterior):
         super(ProductosCrear, self).__init__(anterior)
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
+
+        self.fechaActual = datetime.today()
+        self.calendario = calendar
 
         self.setWindowTitle("Crear producto")
 
@@ -279,26 +281,80 @@ class ProductosCrear(QMainWindow):
         self.descripcionTexto = self.descripcion.toPlainText().replace("\n", " ")
         self.vacio = " "
 
-        self.limiteDia = int(31)
-        self.limiteAno = 2023
-        self.identificadorFiltro = self.filtro.currentIndex()
-        self.idPosicion = len(self.usuarios) + 1
+        self.diaActual = int(self.fechaActual.day)
+        self.mesActual = int(self.fechaActual.month)
+        self.anoActual = int(self.fechaActual.year)
 
-        if ((not self.numeroDia.isdigit() or not self.numeroMes.isdigit() or not self.numeroAno.isdigit() or not self.numeroCantidad.isdigit())
-            or ((self.numeroDia.isnumeric() and (int(self.numeroDia) <= 0)))
-            or ((self.numeroMes.isnumeric() and (int(self.numeroMes) <= 0)))
-            or not (int(self.numeroDia) <= int(self.limiteDia) and int(self.numeroMes) <= int(12))
-            or ((self.numeroAno.isnumeric() and int(self.numeroAno) < int(self.limiteAno)))
-            or ((self.numeroCantidad.isnumeric() and int(self.numeroCantidad) <= 0))
-        ):
-            self.ventanaValidar.setFixedHeight(100)
+        if not self.numeroDia.isdigit() or not self.numeroMes.isdigit() or not self.numeroAno.isdigit() or int(self.numeroMes) > 12:
+            self.ventanaValidar.setFixedWidth(440)
+            self.ventanaValidar.setFixedHeight(160)
             self.datosCorrectos = False
-            self.mensaje.setText("Debe ingresar los datos correctamente.")
+            self.mensaje.setText("- Debe ingresar los datos correctamente.\n\n- Los datos deben estar actualizados a la fecha: " + str(
+                self.diaActual) + "/" + str(self.mesActual) + "/" + str(self.anoActual) + "\n\n- La fecha no se puede modificar.")
             self.ventanaValidar.exec_()
+        else:
+            self.ultimoDia = self.calendario.monthrange(int(self.numeroAno), int(self.numeroMes))
+            self.limiteDia = self.ultimoDia[1]
+
+            self.identificadorFiltro = self.filtro.currentIndex()
+
+            if (int(self.numeroAno) > int(self.anoActual) or (
+                    int(self.anoActual) == int(self.numeroAno) and (int(self.numeroMes) > int(self.mesActual)))):
+                if ((
+                        not self.numeroDia.isdigit() or not self.numeroMes.isdigit() or not self.numeroAno.isdigit() or not self.numeroCantidad.isdigit())
+                        or ((self.numeroDia.isnumeric() and (int(self.numeroDia) < 1)))
+                        or ((self.numeroMes.isnumeric() and (int(self.numeroMes) < 1)))
+                        or not (int(self.numeroDia) <= int(self.limiteDia) and int(self.numeroMes) <= int(12))
+                        or ((self.numeroAno.isnumeric() and int(self.numeroAno) < int(self.anoActual)))
+                        or ((self.numeroCantidad.isnumeric() and int(self.numeroCantidad) <= 0))
+                ):
+                    self.ventanaValidar.setFixedWidth(440)
+                    self.ventanaValidar.setFixedHeight(160)
+                    self.datosCorrectos = False
+                    self.mensaje.setText(
+                        "- Debe ingresar los datos correctamente.\n\n- Los datos deben estar actualizados a la fecha: " + str(
+                            self.diaActual) + "/" + str(self.mesActual) + "/" + str(
+                            self.anoActual) + "\n\n- La fecha no se puede modificar.")
+                    self.ventanaValidar.exec_()
+            if (int(self.anoActual) == int(self.numeroAno) and (int(self.mesActual) == int(self.numeroMes))):
+                if ((
+                        not self.numeroDia.isdigit() or not self.numeroMes.isdigit() or not self.numeroAno.isdigit() or not self.numeroCantidad.isdigit())
+                        or ((self.numeroDia.isnumeric() and (int(self.numeroDia) < int(self.diaActual))))
+                        or ((self.numeroMes.isnumeric() and (int(self.numeroMes) < int(self.mesActual))))
+                        or not (int(self.numeroDia) <= int(self.limiteDia) and int(self.numeroMes) <= int(12))
+                        or ((self.numeroAno.isnumeric() and int(self.numeroAno) < int(self.anoActual)))
+                        or ((self.numeroCantidad.isnumeric() and int(self.numeroCantidad) <= 0))
+                ):
+                    self.ventanaValidar.setFixedWidth(440)
+                    self.ventanaValidar.setFixedHeight(160)
+                    self.datosCorrectos = False
+                    self.mensaje.setText(
+                        "- Debe ingresar los datos correctamente.\n\n- Los datos deben estar actualizados a la fecha: " + str(
+                            self.diaActual) + "/" + str(self.mesActual) + "/" + str(
+                            self.anoActual) + "\n\n- La fecha no se puede modificar.")
+                    self.ventanaValidar.exec_()
+            if (int(self.numeroAno) < int(self.anoActual)):
+                self.ventanaValidar.setFixedWidth(440)
+                self.ventanaValidar.setFixedHeight(160)
+                self.datosCorrectos = False
+                self.mensaje.setText(
+                    "- Debe ingresar los datos correctamente.\n\n- Los datos deben estar actualizados a la fecha: " + str(
+                        self.diaActual) + "/" + str(self.mesActual) + "/" + str(
+                        self.anoActual) + "\n\n- La fecha no se puede modificar.")
+                self.ventanaValidar.exec_()
+            if (int(self.anoActual) == int(self.numeroAno) and int(self.numeroMes) < int(self.mesActual)):
+                self.ventanaValidar.setFixedWidth(440)
+                self.ventanaValidar.setFixedHeight(160)
+                self.datosCorrectos = False
+                self.mensaje.setText(
+                    "- Debe ingresar los datos correctamente.\n\n- Los datos deben estar actualizados a la fecha: " + str(
+                        self.diaActual) + "/" + str(self.mesActual) + "/" + str(
+                        self.anoActual) + "\n\n- La fecha no se puede modificar.")
+                self.ventanaValidar.exec_()
 
         if self.datosCorrectos:
+            self.idPosicion = len(self.usuarios) + 1
             self.file = open('datos/productos.txt', 'ab')
-
             self.file.write(bytes(str(self.idPosicion) + ";"
                                   + str(self.identificadorFiltro) + ";"
                                   + self.nombre.text() + ";"
@@ -310,6 +366,7 @@ class ProductosCrear(QMainWindow):
                                   + self.vacio + "\n", encoding='UTF-8'))
             self.file.close()
 
+            self.ventanaValidar.setFixedWidth(300)
             self.ventanaValidar.setFixedHeight(125)
             self.mensaje.setText("Se a creado exitosamente el producto:\n" +
                                  self.nombre.text())

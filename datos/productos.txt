@@ -1,10 +1,4 @@
-1;0;Arroz Diana;Es un arroz deliciosos para el consumo y rico en proteinas.;12;11;2024;10;
-2;1;Carne Enlatada;Esta carne se encuentra enlatada para una mejor preservación;11;8;2056;3;
-3;5;Tilapia;Este pescado es de color rojo y se puede encontrar en colombia.;8;3;2024;20;
-4;3;Leche;Este producto proporciona gran cantidad de hierro en el cuerpo para su vasto crecimiento;12;11;2023;50;
-5;2;Cuca;Este producto es exquisito para el paladar y la degustación del humano.;1;5;2023;50;
-6;1;Chorizo enlatado;El chorizo es rico en grasas;29;4;2040;20;
-7;1;Frijol enlatado;Los frijoles son la mejor comida que puedes encontrar;24;6;2029;40;
-8;1;Sashimi enlatado;Un poco de sashimi en la vida no hace mal.;22;7;2027;77;
-9;1;Duraznos enlatados;Duraznos exquisitos para toda la familia;10;10;2043;38;
-10;1;Sopa enlatada;Una sopa echa con el amor de mama.;11;8;2056;3;
+1;0;Arroz diana;muy rico en calorias y fertilizantes.;21;11;2023;12;
+2;1;Carne enlatada;Muy proteica y de buena definicion;22;11;2023;65;
+3;1;duraznos;asdsoajdiolasjf;25;11;2023;50;
+4;2;arroz hamaicano;asdasdasfasfas,f.mas.fmasl,mflñaskflñsakñlfasklfkasñlfkñslzkflsñfkalñskflñaskfñlasklfñsakñl;5;12;2023;23;
