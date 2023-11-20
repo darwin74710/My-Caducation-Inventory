@@ -1,8 +1,9 @@
 import sys
-
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDesktopWidget, QLabel, QFormLayout, QComboBox, QPushButton
-
+from datetime import datetime
+from datetime import timedelta
+import calendar
 class Pruebas(QMainWindow):
     def __init__(self, parent=None):
         super(Pruebas, self).__init__(parent=parent)
@@ -33,6 +34,22 @@ class Pruebas(QMainWindow):
         self.formularioPrin.addRow(self.boton)
 
         self.ventanaDialogo.setLayout(self.formularioPrin)
+
+        self.fechaActual = datetime.today()
+        self.calendario = calendar
+        self.diaActual = format(self.fechaActual.day)
+        self.mesActual = format(self.fechaActual.month)
+        self.anoActual = format(self.fechaActual.year)
+        self.ultimoDia = self.calendario.monthrange(int(self.anoActual), int(self.mesActual))
+        print(format(self.ultimoDia[1]))
+
+        a = datetime.today()
+        numdays = 1
+        dateList = []
+        for x in range(0, numdays):
+            dateList.append(a - timedelta(days=x))
+        print(dateList)
+
     def validaciones(self):
         if self.filtro.currentIndex() == 0:
             print("el numero es 1")

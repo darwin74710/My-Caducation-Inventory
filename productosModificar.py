@@ -4,6 +4,8 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QLabel, QFormLayout, QTextEdit, QVBoxLayout, QHBoxLayout, \
     QLineEdit, QPushButton, QComboBox, QDialog
 from productosLista import Lista
+from datetime import datetime
+import calendar
 
 class ProductosModificar(QMainWindow):
     def __init__(self, anterior):
@@ -11,6 +13,9 @@ class ProductosModificar(QMainWindow):
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
         self.idPosicionModificar = anterior.idPosicion
+
+        self.fechaActual = datetime.today()
+        self.calendario = calendar
 
         self.setWindowTitle("Modificar producto")
 
@@ -298,8 +303,11 @@ class ProductosModificar(QMainWindow):
                 self.nombre.setText(u.nombre)
                 self.descripcion.setText(u.descripcion)
                 self.dia.setText(u.numeroDia)
+                self.dia.setReadOnly(True)
                 self.mes.setText(u.numeroMes)
+                self.mes.setReadOnly(True)
                 self.ano.setText(u.numeroAno)
+                self.ano.setReadOnly(True)
                 self.cantidad.setText(u.numeroCantidad)
                 self.cantidad.setReadOnly(True)
                 self.filtro.setCurrentIndex(int(u.identificadorFiltro))

@@ -1,10 +1,8 @@
-import sys
-
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QPixmap
-from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButton, QWidget, QLineEdit, QLabel, \
-    QVBoxLayout, QHBoxLayout, QGridLayout, QDialog, QDialogButtonBox, QFormLayout
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QPushButton, QLineEdit, QLabel, \
+    QVBoxLayout, QHBoxLayout, QDialog, QFormLayout
 
 class CrearUsuario(QMainWindow):
     def __init__(self, anteriorC):
@@ -470,4 +468,6 @@ class CrearUsuario(QMainWindow):
     def accion_botonatras(self):
         # Metodo para volver a la ventana del administrador
         self.hide()
+        self.ventanaAnteriorC.escanear_alertas()
+        self.ventanaAnteriorC.notificacion_alertas()
         self.ventanaAnteriorC.show()

@@ -1,17 +1,16 @@
-import math
-import sys
-
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtGui
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QIcon, QPixmap, QFont
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QToolBar, QAction, QWidget, QVBoxLayout, QLabel, \
-    QGridLayout, QFormLayout, QPushButton, QHBoxLayout, QLineEdit, QScrollArea, QButtonGroup, QDialog, QDialogButtonBox, \
-    QTextEdit
+from PyQt5.QtGui import QPixmap, QFont, QMovie
+from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QWidget, QVBoxLayout, QLabel, \
+    QFormLayout, QPushButton, QHBoxLayout
+from datetime import date
 
 from crearUsuario import CrearUsuario
 from manual import Manual
 from alertas import Alertas
 from productosActualizador import Actualizador
+from productosLista import Lista
+import calendar
 
 class Administrador(QMainWindow):
     def __init__(self, anterior):
@@ -20,6 +19,8 @@ class Administrador(QMainWindow):
         self.ventanaAnterior = anterior
         self.actualizador = Actualizador
         self.actualizadorFiltros = 6
+        self.fechaActual = date.today()
+        self.calendario = calendar
 
         self.setWindowTitle("Administrador")
 
@@ -181,15 +182,29 @@ class Administrador(QMainWindow):
         self.horizontalP.addWidget(self.manual)
 
         # Botón para ir a alertas
+        self.fondoAlertas = QLabel()
+        self.fondoAlertas.setStyleSheet("background-color: #8EA85D; padding: 0px;")
+        self.fondoAlertas.setContentsMargins(0, 0, 0, 0)
+        self.imagenAlertasVacia = QMovie("Imagenes/iconos/Alertas.gif")
+        self.imagenAlertasPerpetua = QMovie("Imagenes/iconos/AlertasGif.gif")
+        self.fondoAlertas.setMovie(self.imagenAlertasVacia)
+        self.imagenAlertasVacia.start()
+        self.fondoAlertas.setFixedWidth(175)
+        self.fondoAlertas.setFixedHeight(70)
+        self.fondoAlertas.setScaledContents(True)
+        self.verticalAlertas = QHBoxLayout()
+        self.verticalAlertas.setContentsMargins(0, 0, 0, 0)
+
         self.Alertas = QPushButton()
         self.Alertas.setFixedWidth(175)
         self.Alertas.setFixedHeight(70)
-        self.Alertas.setStyleSheet("background-color: #8EA85D; color: white;")
-        self.Alertas.setIcon(QtGui.QIcon('Imagenes/iconos/Alertas.png'))
-        self.Alertas.setIconSize(QSize(150, 60))
+        self.Alertas.setStyleSheet("background-color: none; color: none; border: 2px none;")
         self.Alertas.clicked.connect(self.ir_alertas)
 
-        self.horizontalP.addWidget(self.Alertas)
+        self.verticalAlertas.addWidget(self.Alertas)
+        self.fondoAlertas.setLayout(self.verticalAlertas)
+
+        self.horizontalP.addWidget(self.fondoAlertas)
         self.pestañas.setLayout(self.horizontalP)
         self.Formulario.addRow(self.pestañas)
 
@@ -209,6 +224,116 @@ class Administrador(QMainWindow):
         self.Fondo.setLayout(self.Horizontal)
         self.Principal.setLayout(self.vertical)
 
+        # Sistema para detectar productos aproximados a 10 días
+        self.escanear_alertas()
+        self.notificacion_alertas()
+
+    def escanear_alertas(self):
+        self.alertasCaducidad = False
+        self.alertas = 0
+        self.file = open('datos/productos.txt', 'rb')
+        self.usuarios = []
+
+        while self.file:
+            linea = self.file.readline().decode('UTF-8')
+            lista = linea.split(";")
+            if linea == '':
+                break
+            self.u = Lista(
+                lista[0],
+                lista[1],
+                lista[2],
+                lista[3],
+                lista[4],
+                lista[5],
+                lista[6],
+                lista[7],
+                lista[8]
+            )
+            self.usuarios.append(self.u)
+            self.numeroDiaProducto = self.u.numeroDia
+            self.numeroMesProducto = self.u.numeroMes
+            self.numeroAnoProducto = self.u.numeroAno
+
+            self.diaActual = int(self.fechaActual.day)
+            self.mesActual = int(self.fechaActual.month)
+            self.anoActual = int(self.fechaActual.year)
+
+            self.ultimoDia = self.calendario.monthrange(int(self.numeroAnoProducto), int(self.numeroMesProducto))
+            self.limiteDia = self.ultimoDia[1]
+
+            self.diaActualizado = 0
+            self.alertasCaducidad = False
+
+            if ((int(self.numeroAnoProducto) == int(self.anoActual))):
+                if (int(self.numeroMesProducto) == int(self.mesActual)):
+                    if (int(self.numeroDiaProducto) >= int(self.diaActual)):
+                        if (int(self.diaActual + 10) > int(self.limiteDia)):
+                            self.diaActualizado = int(self.numeroDiaProducto) - int(self.diaActual)
+                            if (int(self.mesActual) == 12):
+                                self.mesActual = 1
+                                self.anoActual += 1
+                                if (int(self.diaActualizado) <= 10):
+                                    self.alertasCaducidad = True
+                                if (int(self.diaActualizado) == 0):
+                                    self.alertasCaducidad = False
+                            elif (int(self.mesActual) < 12):
+                                self.mesActual += 1
+                                if (int(self.diaActualizado) <= 10):
+                                    self.alertasCaducidad = True
+                                if (int(self.diaActualizado) == 0):
+                                    self.alertasCaducidad = False
+                        elif (int(self.diaActual + 10) <= int(self.limiteDia)):
+                            while (int(self.diaActual) < int(self.numeroDiaProducto)):
+                                self.diaActualizado += 1
+                                self.diaActual += 1
+                            if (int(self.diaActualizado) <= 10):
+                                self.alertasCaducidad = True
+                            if (int(self.diaActualizado) == 0):
+                                self.alertasCaducidad = False
+
+                elif (int(self.numeroMesProducto) == int(self.mesActual) + 1):
+                    self.pasarDia = 0
+                    self.acumularDias = 0
+                    self.ultimoDia = self.calendario.monthrange(int(self.numeroAnoProducto),
+                                                                int(self.numeroMesProducto) - 1)
+                    self.limiteDia = self.ultimoDia[1]
+                    self.pasarDia = int(self.limiteDia) + int(self.numeroDiaProducto) - int(self.diaActual)
+                    if (int(self.pasarDia) < int(self.diaActual)):
+                        if (int(self.diaActual + 10) > int(self.limiteDia)):
+                            if int(self.pasarDia) <= 10:
+                                self.alertasCaducidad = True
+                            if int(self.pasarDia) == 0:
+                                self.alertasCaducidad = False
+            elif int(self.numeroAnoProducto) == int(self.anoActual) + 1:
+                if (int(self.mesActual) == 12):
+                    if (int(self.numeroMesProducto) == 1):
+                        self.pasarDia = 0
+                        self.acumularDias = 0
+                        self.ultimoDia = self.calendario.monthrange(int(self.anoActual),
+                                                                    int(self.mesActual))
+                        self.limiteDia = self.ultimoDia[1]
+                        self.pasarDia = int(self.limiteDia) + int(self.numeroDiaProducto) - int(self.diaActual)
+                        if (int(self.pasarDia) < int(self.diaActual)):
+                            if (int(self.diaActual + 10) > int(self.limiteDia)):
+                                if int(self.pasarDia) <= 10:
+                                    self.alertasCaducidad = True
+                                if int(self.pasarDia) == 0:
+                                    self.alertasCaducidad = False
+
+            if (self.alertasCaducidad == True):
+                self.alertas += 1
+        self.file.close()
+
+    def notificacion_alertas(self):
+        if self.alertas > 1:
+            self.fondoAlertas.setMovie(self.imagenAlertasPerpetua)
+            self.imagenAlertasPerpetua.start()
+            self.imagenAlertasVacia.stop()
+        if self.alertas == 0:
+            self.fondoAlertas.setMovie(self.imagenAlertasVacia)
+            self.imagenAlertasVacia.start()
+            self.imagenAlertasPerpetua.stop()
     def ir_productos(self):
         # Metodo para ir a la ventana productos
         self.hide()

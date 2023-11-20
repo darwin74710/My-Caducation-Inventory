@@ -1,12 +1,9 @@
 import math
-import sys
-
-from PyQt5 import QtCore, QtGui
+from PyQt5 import  QtGui
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QIcon, QPixmap, QFont
-from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QToolBar, QAction, QWidget, QVBoxLayout, QLabel, \
-    QGridLayout, QFormLayout, QPushButton, QHBoxLayout, QLineEdit, QScrollArea, QButtonGroup, QDialog, QDialogButtonBox, \
-    QTextEdit
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QWidget, QVBoxLayout, QLabel, \
+    QGridLayout, QPushButton, QHBoxLayout, QScrollArea, QButtonGroup
 
 class Manual(QMainWindow):
     def __init__(self, anterior):
@@ -122,4 +119,6 @@ class Manual(QMainWindow):
     def ir_administrador(self):
         # Metodo para volver a la ventana del administrador
         self.hide()
+        self.ventanaAnterior.escanear_alertas()
+        self.ventanaAnterior.notificacion_alertas()
         self.ventanaAnterior.show()
