@@ -1,8 +1,10 @@
+import sys
+
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QPushButton, QLineEdit, QLabel, \
-    QVBoxLayout, QHBoxLayout, QDialog, QFormLayout
+from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButton, QWidget, QLineEdit, QLabel, \
+    QVBoxLayout, QHBoxLayout, QGridLayout, QDialog, QDialogButtonBox, QFormLayout
 
 class CrearUsuario(QMainWindow):
     def __init__(self, anteriorC):
@@ -32,35 +34,47 @@ class CrearUsuario(QMainWindow):
         self.ventanaDatos = QLabel()
         self.horizontal = QHBoxLayout()
 
+        self.tnumero1 = QLabel()
+        self.tnumero1.setText(" <b>Registrar Usuario</b>")
+        self.tnumero1.setFont(QFont("arial", 24))
+        # self.tnumero1.setFixedWidth(340)
+        self.tnumero1.setFixedHeight(100)
+        self.tnumero1.setStyleSheet("color: white; margin-bottom: 30px;"
+                                    "margin-top: 20px;"
+                                    "padding-bottom: 10px;"
+                                    "border: 2px solid white;"
+                                    "border-left: none;"
+                                    "border-right: none;"
+                                    "border-top: none;")
+
+        self.verticalP.addWidget(self.tnumero1)
+
+        self.textnum1 = QLabel()
+        # self.textnum1.setFixedWidth(340)
+        self.textnum1.setFixedHeight(130)
+        self.textnum1.setText("Bienvenido a My Caducation Inventory."
+                              "\nPor favor, ingrese la información solicitada en el formulario para"
+                              " proceder con la crearción de su nuevo usuario"
+                              "\ncon éxito.")
+
+        '''self.textnum1.setText("Ingrese la informacion que se esta solicitando"
+                               "\nen el formulario. Los campos marcados con un"
+                               "\nasterisco (*) son obligatorios.")'''
+        self.textnum1.setFont(QFont("arial", 12))
+        self.textnum1.setStyleSheet("color: white; margin-bottom: 40px;"
+                                    "margin-top: 20px;"
+                                    "padding-bottom: 15px;"
+                                    "border: 2px solid white;"
+                                    "border-left: none;"
+                                    "border-right: none;"
+                                    "border-top: none;")
+
+        self.verticalP.addWidget(self.textnum1)
+
         # Desde aquí se trabaja el lado izquierdo de la ventana en donde se puede crear el usuario
-        # Se explica lo que debe hacer el usuario en este lado
         # Se pueden crear layouts y almacenarlos dentro de otros sin crear ventanas
         # Pero las ventanas se crean primero para poder establecer su tamaño al gusto junto al layout
         self.ladoIzquierdo = QFormLayout()
-        self.letreroI = QLabel()
-        self.letreroI.setText("Registar Usuario")
-        self.letreroI.setFont(QFont("arial", 24))
-        self.letreroI.setStyleSheet("color: white;")
-
-        self.ladoIzquierdo.addRow(self.letreroI)
-
-        # Se coloca la descripción del lado izquierdo
-        self.letreroI2 = QLabel()
-        self.letreroI2.setFixedWidth(340)
-        self.letreroI2.setFixedHeight(130)
-        self.letreroI2.setText("Ingrese la informacion que se esta solicitando"
-                             "\nen el formulario. Los campos marcados con un"
-                             "\nasterisco (*) son obligatorios.")
-        self.letreroI2.setFont(QFont("arial", 12))
-        self.letreroI2.setStyleSheet("color: white; margin-bottom: 40px;"
-                                     "margin-top: 20px;"
-                                     "padding-bottom: 10px;"
-                                     "border: 2px solid white;"
-                                     "border-left: none;"
-                                     "border-right: none;"
-                                     "border-top: none;")
-
-        self.ladoIzquierdo.addRow(self.letreroI2)
 
         # Se crean los campos para ingresar los datos del usuario
         self.titulo1 = QLabel("Nombre completo*")
@@ -164,31 +178,7 @@ class CrearUsuario(QMainWindow):
         self.horizontal.addLayout(self.ladoIzquierdo)
 
         # Desde aquí se trabaja el lado derecho de la ventana en donde se crean y responden las preguntas de recuperación de usuario
-        # explica lo que debe hacer el usuario en este lado
         self.ladoDerecho = QFormLayout()
-        self.letreroD = QLabel()
-        self.letreroD.setText("Recuperar contraseña")
-        self.letreroD.setFont(QFont("arial", 24))
-        self.letreroD.setStyleSheet("color: white;")
-
-        self.ladoDerecho.addRow(self.letreroD)
-
-        # Creamos la explicación de la ventana
-        self.letreroD2 = QLabel()
-        self.letreroD2.setFixedWidth(340)
-        self.letreroD2.setFixedHeight(130)
-        self.letreroD2.setText("Ingrese la informacion para recuperar"
-                               "\nla contraseña. los campos marcados"
-                               "\ncon asterisco (*) son obligatorios.")
-        self.letreroD2.setFont(QFont("arial", 12))
-        self.letreroD2.setStyleSheet("color: white; margin-bottom: 40px;"
-                                     "margin-top: 20px;"
-                                     "padding-bottom: 10px;"
-                                     "border: 2px solid white;"
-                                     "border-left: none;"
-                                     "border-right: none;"
-                                     "border-top: none;")
-        self.ladoDerecho.addRow(self.letreroD2)
 
         # Se construyen los elementos para el ingreso de preguntas
         self.tituloPregunta1 = QLabel("Pregunta de verificacion 1*")
@@ -401,7 +391,10 @@ class CrearUsuario(QMainWindow):
             self.file.write(bytes(self.nombreCompleto.text() + ";"
                                   + self.NombredeUsuario.text() + ";"
                                   + self.password.text() + ";"
-                                  + self.password2.text() + ";"
+                                    #Se eliminó la función de guardar la contraseña número 2
+                                    #para no tener problema con la función
+                                    #recuperar usuario.
+                                  #+ self.password2.text() + ";"
                                   + self.Documento.text() + ";"
                                   + self.correo.text() + ";"
                                   + self.pregunta1.text() + ";"
@@ -468,6 +461,4 @@ class CrearUsuario(QMainWindow):
     def accion_botonatras(self):
         # Metodo para volver a la ventana del administrador
         self.hide()
-        self.ventanaAnteriorC.escanear_alertas()
-        self.ventanaAnteriorC.notificacion_alertas()
         self.ventanaAnteriorC.show()

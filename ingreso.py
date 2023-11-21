@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QFormLayo
     QPushButton, QHBoxLayout, QVBoxLayout
 
 from administrador import Administrador
-
+from recuperarUsuario import RecuperarUsuario
 class Ingreso(QMainWindow):
     def __init__(self, parent=None):
         super(Ingreso, self).__init__(parent=parent)
@@ -92,6 +92,7 @@ class Ingreso(QMainWindow):
         self.botonRecuperar.setFixedHeight(45)
         self.botonRecuperar.setStyleSheet("background-color: #8EA85D; color: white;")
         self.botonRecuperar.setFont(QFont("Arial", 12))
+        self.botonRecuperar.clicked.connect(self.accion_botonRecuperar)
 
         self.horizontal2.addWidget(self.botonRecuperar)
 
@@ -121,6 +122,11 @@ class Ingreso(QMainWindow):
 
         self.ventanaA = Administrador(self)
         self.ventanaA.show()
+
+    def accion_botonRecuperar(self):
+        self.hide()
+        self.ventanaRec = RecuperarUsuario(self)
+        self.ventanaRec.show()
 
     def alternar_contrasena(self):
         # Metodo para poder ver o no ver la contraseña ingresada

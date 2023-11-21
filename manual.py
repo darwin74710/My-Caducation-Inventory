@@ -8,7 +8,6 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QWidget, QVBoxLayout, Q
 
 from manualLista import Lista
 
-
 class Manual(QMainWindow):
     def __init__(self, anterior):
         super(Manual, self).__init__(anterior)
