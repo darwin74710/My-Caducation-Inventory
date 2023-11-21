@@ -126,19 +126,8 @@ class Manual(QMainWindow):
         self.botonDerecha.clicked.connect(self.boton_Derecha)
 
         self.horizontalB.addWidget(self.botonIzquierda)
-        self.horizontalB.addWidget(self.botonDerecha)
-
         self.horizontalB.addStretch()
-
-        self.botonBuscar = QPushButton("Buscar")
-        self.botonBuscar.setFixedWidth(90)
-        self.botonBuscar.setFixedHeight(40)
-        self.botonBuscar.setStyleSheet("background-color: #8EA85D;")
-        self.botonBuscar.setStyleSheet("background-color: #8EA85D; color: white;")
-        self.botonBuscar.setFont(QFont("Arial", 12))
-        self.botonBuscar.clicked.connect(self.boton_buscar)
-
-        self.horizontalB.addWidget(self.botonBuscar)
+        self.horizontalB.addWidget(self.botonDerecha)
 
         self.vB.setLayout(self.horizontalB)
         self.vertical.addWidget(self.vB)
@@ -210,6 +199,3 @@ class Manual(QMainWindow):
         if self.contador < len(self.informacion):
             self.contador += 1
             self.actualizar_manual()
-
-    def boton_buscar(self):
-        pass
