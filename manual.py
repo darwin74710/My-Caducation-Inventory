@@ -8,6 +8,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QDesktopWidget, QToolBar,
     QGridLayout, QFormLayout, QPushButton, QHBoxLayout, QLineEdit, QScrollArea, QButtonGroup, QDialog, QDialogButtonBox, \
     QTextEdit
 
+from manualLista import Lista
+
+
 class Manual(QMainWindow):
     def __init__(self, anterior):
         super(Manual, self).__init__(anterior)
@@ -61,65 +64,152 @@ class Manual(QMainWindow):
         self.vertical.addWidget(self.regreso)
         self.vertical.addStretch()
 
-        # Creamos la ventana en dónde apareceran los elementos del manual
-        self.scrollArea = QScrollArea()
-        self.scrollArea.setStyleSheet("background-color: #8EA85D;")
-        self.scrollArea.setFixedHeight(470)
-        self.scrollArea.setWidgetResizable(True)
+        #- SE CREA LABEL PARA AGREGAR INFORMACION -
+        self.vA = QLabel()
+        self.horizontalA = QHBoxLayout()
+        self.vA.setStyleSheet("background-color: white;")
+        self.vA.setFixedHeight(400)
 
-        self.contenedora = QWidget()
-        self.cuadricula = QGridLayout(self.contenedora)
-        self.scrollArea.setWidget(self.contenedora)
-        self.vertical.addWidget(self.scrollArea)
+        #---- AQUI VA EL TEXTO RELACIONADO CON LA INFORMACION
+        self.textoIzquierda = QLabel()
+        self.verticalI = QVBoxLayout()
+        self.textoIzquierda.setFixedWidth(600)
+        self.verticalI.setAlignment(Qt.AlignTop)
 
-        self.numeroElementos = 12
-        self.contador = 0
-        self.elementosPorColumna = 1
+        self.tituloDescripcion = QLabel()
+        self.tituloDescripcion.setAlignment(Qt.AlignCenter)
+        self.tituloDescripcion.setFixedHeight(35)
+        self.tituloDescripcion.setFont(QFont("Arial", 20))
+        self.tituloDescripcion.setStyleSheet("color: #9AC069;"
+                                             "border: 2px solid white")
 
-        # Redondeamos al entero superior + 1, mostraremos 3 columnas por fila
-        # por eso dividimos por 3
-        self.numeroFilas = math.ceil(self.numeroElementos / self.elementosPorColumna) + 1
 
-        self.botones = QButtonGroup()
-        self.botones.setExclusive(False)
+        self.verticalI.addWidget(self.tituloDescripcion)
 
-        # Ciclos for para crear los datos en el manual
-        for fila in range(1, self.numeroFilas):
-            for columna in range(1, self.elementosPorColumna + 1):
-                if self.contador < self.numeroElementos:
-                    # En cada celda de la cuadricula se crea un nuevo dato según el numero de elementos
-                    self.ventanaAux = QWidget()
+        self.textoDescripcion = QTextEdit()
+        self.textoDescripcion.setReadOnly(True)
+        self.textoDescripcion.setFixedHeight(291)
+        self.textoDescripcion.setFont(QFont("Arial", 12))
+        self.textoDescripcion.setStyleSheet("border: 2px solid #9AC069;")
 
-                    self.verticalCuadricula = QVBoxLayout()
+        self.verticalI.addWidget(self.textoDescripcion)
 
-                    self.botonAccion = QPushButton("Manual " + str(self.contador + 1))
-                    self.botonAccion.setFont(QFont("Arial", 12))
-                    self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
-                    self.botonAccion.setFixedHeight(50)
+        self.textoIzquierda.setLayout(self.verticalI)
+        self.horizontalA.addWidget(self.textoIzquierda)
 
-                    self.verticalCuadricula.addWidget(self.botonAccion)
+        #---- AQUI VAN LAS IMAGENES RELACIONADAS CON AL INFORMACION ----
+        self.imagenInfomacion = QLabel()
+        self.imagenInfomacion.setFixedWidth(300)
+        self.imagenInfomacion.setFixedHeight(300)
+        self.imagenInfomacion.setScaledContents(True)
+        self.imagenInfomacion.setStyleSheet("border: 2px solid #9AC069;")
 
-                    # Agregamos el boton al grupo con el contador como id
-                    self.botones.addButton(self.botonAccion, self.contador + 1)
+        self.horizontalA.addWidget(self.imagenInfomacion)
 
-                    self.ventanaAux.setLayout(self.verticalCuadricula)
-                    # a la cuadricula le agregamos la ventana en la posicion de la fila y la columna
-                    self.cuadricula.addWidget(self.ventanaAux, fila, columna)
+        self.vA.setLayout(self.horizontalA)
+        self.vertical.addWidget(self.vA)
 
-                    self.contador += 1
+        #- SE AGREGA LABEL PARA COLOCAR LOS BOTONES -
+        self.vB = QLabel()
+        self.horizontalB = QHBoxLayout()
+        self.vB.setFixedHeight(60)
 
-        self.botones.idClicked.connect(self.metodo_accion_boton)
+        self.botonIzquierda = QPushButton("Izquierda")
+        self.botonIzquierda.setFixedWidth(90)
+        self.botonIzquierda.setFixedHeight(40)
+        self.botonIzquierda.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonIzquierda.setFont(QFont("Arial", 12))
+        self.botonIzquierda.clicked.connect(self.boton_izquierda)
 
+        self.botonDerecha = QPushButton("Derecha")
+        self.botonDerecha.setFixedWidth(90)
+        self.botonDerecha.setFixedHeight(40)
+        self.botonDerecha.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonDerecha.setFont(QFont("Arial", 12))
+        self.botonDerecha.clicked.connect(self.boton_Derecha)
+
+        self.horizontalB.addWidget(self.botonIzquierda)
+        self.horizontalB.addWidget(self.botonDerecha)
+
+        self.horizontalB.addStretch()
+
+        self.botonBuscar = QPushButton("Buscar")
+        self.botonBuscar.setFixedWidth(90)
+        self.botonBuscar.setFixedHeight(40)
+        self.botonBuscar.setStyleSheet("background-color: #8EA85D;")
+        self.botonBuscar.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonBuscar.setFont(QFont("Arial", 12))
+        self.botonBuscar.clicked.connect(self.boton_buscar)
+
+        self.horizontalB.addWidget(self.botonBuscar)
+
+        self.vB.setLayout(self.horizontalB)
+        self.vertical.addWidget(self.vB)
+
+        # -- SE COLOCA AL FINAL --
         self.fondo.setLayout(self.vertical)
 
-    def metodo_accion_boton(self, idBoton):
-        # Metodo para cambiar los colores del botón seleccionado
-        self.botones.button(self.contador).setStyleSheet("color: white; background-color: #9AC069;")
-        self.botones.button(idBoton).setStyleSheet("color: white; background-color: #65783E;")
-        self.contador = idBoton
-        print(idBoton)
+        self.contador = 1
+
+        self.informacion = ["sjdsanflksdnfs",
+                            "sadasdafsdfsdf",
+                            "asadasadasadada"]
+
+        self.file = open('datos/manual.txt', 'rb')
+        self.manuales = []
+
+        self.imagen1 = QPixmap('Imagenes/logo sin fondo.png')
+        self.imagen2 = QPixmap('Imagenes/logo.png')
+        self.imagen3 = QPixmap('Imagenes/logo blanco.png')
+
+        while self.file:
+            linea = self.file.readline().decode('UTF-8')
+            lista = linea.split(";")
+            if linea == '':
+                break
+            self.m = Lista(
+                lista[0],
+                lista[1],
+                lista[2],
+                lista[3],
+            )
+            self.manuales.append(self.m)
+        self.file.close()
+
+        #varible para cargar informacion cuando ingrese a la ventana manual
+        self.actualizar_manual()
+
+    def actualizar_manual(self):
+        for self.m in self.manuales:
+            if self.m.idPosicion == str(self.contador):
+
+                self.tituloDescripcion.setText(self.m.titulo)
+                self.textoDescripcion.setText(self.informacion[int(self.m.idtexto) - 1])
+
+                if self.m.idPosicion == str(1):
+                    self.imagenInfomacion.setPixmap(self.imagen1)
+                if self.m.idPosicion == str(2):
+                    self.imagenInfomacion.setPixmap(self.imagen2)
+                if self.m.idPosicion == str(3):
+                    self.imagenInfomacion.setPixmap(self.imagen3)
 
     def ir_administrador(self):
         # Metodo para volver a la ventana del administrador
         self.hide()
         self.ventanaAnterior.show()
+
+    def boton_izquierda(self):
+
+        if not self.contador == 0:
+
+            self.contador -= 1
+            self.actualizar_manual()
+
+    def boton_Derecha(self):
+
+        if self.contador < len(self.informacion):
+            self.contador += 1
+            self.actualizar_manual()
+
+    def boton_buscar(self):
+        pass
