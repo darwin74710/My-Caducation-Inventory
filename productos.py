@@ -158,6 +158,7 @@ class Productos(QMainWindow):
 
         self.textoDescripcion = QTextEdit()
         self.textoDescripcion.setReadOnly(True)
+        self.textoDescripcion.setContextMenuPolicy(Qt.NoContextMenu)
         self.textoDescripcion.setFixedHeight(100)
         self.textoDescripcion.setFont(QFont("Arial", 12))
         self.textoDescripcion.setStyleSheet("border: 2px solid #9AC069;"
@@ -580,7 +581,7 @@ class Productos(QMainWindow):
     def metodo_modificar_producto(self):
         self.ventanaDialogo.setWindowTitle("Modificar Producto")
         if self.idPosicion <= 0:
-            self.ventanaDialogo.setFixedWidth(300)
+            self.ventanaDialogo.setFixedWidth(200)
 
             self.mensaje.setText("Seleccione un producto.")
 
@@ -598,34 +599,10 @@ class Productos(QMainWindow):
         # Ventana emergente para aceptar o negar la eliminación del producto seleccionado
         self.ventanaDialogo.setWindowTitle("Eliminar Producto")
         if self.idPosicion <= 0:
+            self.ventanaDialogo.setFixedWidth(200)
 
-            self.formularioValidarModificar = QFormLayout()
+            self.mensaje.setText("Seleccione un producto.")
 
-            self.mensaje = QLabel("Seleccione un producto.")
-            self.mensaje.setFixedHeight(45)
-            self.mensaje.setStyleSheet("color: white;")
-            self.mensaje.setFont(QFont("Arial", 12))
-
-            self.formularioValidarModificar.addRow(self.mensaje)
-
-            self.eleccion = QLabel()
-            self.eleccion.setFixedHeight(40)
-            self.horizontalModificarOk = QHBoxLayout()
-
-            self.botonOk = QPushButton("Ok")
-            self.botonOk.setFixedWidth(80)
-            self.botonOk.setFixedHeight(25)
-            self.botonOk.setStyleSheet("background-color: #8EA85D; color: white;")
-            self.botonOk.setFont(QFont("Arial", 12))
-            self.botonOk.clicked.connect(self.metodo_cerrar)
-
-            self.horizontalModificarOk.addStretch()
-            self.horizontalModificarOk.addWidget(self.botonOk)
-
-            self.eleccion.setLayout(self.horizontalModificarOk)
-            self.formularioValidarModificar.addRow(self.eleccion)
-
-            self.ventanaDialogo.setLayout(self.formularioValidarModificar)
             self.ventanaDialogo.exec_()
 
         elif int(self.u.idPosicion) == self.idPosicion:
