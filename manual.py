@@ -2,6 +2,7 @@ import math
 from PyQt5 import  QtGui
 from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QWidget, QVBoxLayout, QLabel, \
     QGridLayout, QPushButton, QHBoxLayout, QScrollArea, QButtonGroup, QTextEdit
 
@@ -83,11 +84,9 @@ class Manual(QMainWindow):
 
         self.verticalI.addWidget(self.tituloDescripcion)
 
-        self.textoDescripcion = QTextEdit()
-        self.textoDescripcion.setReadOnly(True)
+        self.textoDescripcion = QWebEngineView()
+        self.textoDescripcion.setContextMenuPolicy(Qt.NoContextMenu)
         self.textoDescripcion.setFixedHeight(291)
-        self.textoDescripcion.setFont(QFont("Arial", 12))
-        self.textoDescripcion.setStyleSheet("border: 2px solid #9AC069;")
 
         self.verticalI.addWidget(self.textoDescripcion)
 
@@ -99,7 +98,6 @@ class Manual(QMainWindow):
         self.imagenInfomacion.setFixedWidth(300)
         self.imagenInfomacion.setFixedHeight(300)
         self.imagenInfomacion.setScaledContents(True)
-        self.imagenInfomacion.setStyleSheet("border: 2px solid #9AC069;")
 
         self.horizontalA.addWidget(self.imagenInfomacion)
 
@@ -137,14 +135,15 @@ class Manual(QMainWindow):
 
         self.contador = 1
 
-        self.informacion = ["sjdsanflksdnfs",
-                            "sadasdafsdfsdf",
-                            "asadasadasadada"]
+        self.manual1 = open("manual/1.html"); self.pag1 = self.manual1.read(); self.manual1.close()
+        self.manual2 = open("manual/2.html"); self.pag2 = self.manual2.read(); self.manual2.close()
+
+        self.informacion = [self.pag1, self.pag2, "asadasadasadada"]
 
         self.file = open('datos/manual.txt', 'rb')
         self.manuales = []
 
-        self.imagen1 = QPixmap('Imagenes/logo sin fondo.png')
+        self.imagen1 = QPixmap('Imagenes/Imagenes manual/1.png')
         self.imagen2 = QPixmap('Imagenes/logo.png')
         self.imagen3 = QPixmap('Imagenes/logo blanco.png')
 
@@ -170,7 +169,7 @@ class Manual(QMainWindow):
             if self.m.idPosicion == str(self.contador):
 
                 self.tituloDescripcion.setText(self.m.titulo)
-                self.textoDescripcion.setText(self.informacion[int(self.m.idtexto) - 1])
+                self.textoDescripcion.setHtml(self.informacion[int(self.m.idtexto) - 1])
 
                 if self.m.idPosicion == str(1):
                     self.imagenInfomacion.setPixmap(self.imagen1)

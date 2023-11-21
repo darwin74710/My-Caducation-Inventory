@@ -138,6 +138,7 @@ class Alertas(QMainWindow):
         self.tituloDescripcion.setFont(QFont("Arial", 12))
 
         self.textoDescripcion = QTextEdit()
+        self.textoDescripcion.setContextMenuPolicy(Qt.NoContextMenu)
         self.textoDescripcion.setReadOnly(True)
         self.textoDescripcion.setFixedHeight(100)
         self.textoDescripcion.setFont(QFont("Arial", 12))
