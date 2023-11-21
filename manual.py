@@ -188,14 +188,13 @@ class Manual(QMainWindow):
         self.ventanaAnterior.show()
 
     def boton_izquierda(self):
-
-        if not self.contador == 0:
-
+        if self.contador == 1:
+            self.actualizar_manual()
+        elif not self.contador == 0:
             self.contador -= 1
             self.actualizar_manual()
 
     def boton_Derecha(self):
-
         if self.contador < len(self.informacion):
             self.contador += 1
             self.actualizar_manual()
