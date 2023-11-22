@@ -90,7 +90,7 @@ class RecuperarUsuario(QMainWindow):
         self.dialogo2 = QLabel()
         self.dialogo2.setFixedHeight(60)
         self.dialogo2.setText("1. Ingrese su documento y presione ''Buscar''."
-                              "\n2. Ingrese las respuestas de las"
+                              "\n2. Ingrese las respuestas de las "
                               "preguntas de \nseguridad.")
         self.dialogo2.setFont(QFont("arial", 12))
         self.dialogo2.setStyleSheet("color: white;")
