@@ -1,11 +1,13 @@
 import sys
-from PyQt5 import QtGui
+from PyQt5 import QtGui, QtCore
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QFormLayout, QLabel, QWidget, QLineEdit, \
-    QPushButton, QHBoxLayout, QVBoxLayout
+    QPushButton, QHBoxLayout, QVBoxLayout, QDialog
 
 from administrador import Administrador
 from recuperarUsuario import RecuperarUsuario
+from cliente import Cliente
 class Ingreso(QMainWindow):
     def __init__(self, parent=None):
         super(Ingreso, self).__init__(parent=parent)
@@ -114,14 +116,143 @@ class Ingreso(QMainWindow):
         self.ventana1.setLayout(self.formulario)
         self.fondo.setLayout(self.horizontal)
 
-    def accion_botonIngresar(self):
-        # Metodo para iniciar sesión e ir a la ventana Administrador
-        self.hide()
-        self.usuario.setText('')
-        self.contraseña.setText('')
+        self.file = open('datos/usuarios.txt', 'rb')
+        self.usuarios = []
 
-        self.ventanaA = Administrador(self)
-        self.ventanaA.show()
+        while self.file:
+            linea = self.file.readline().decode('UTF-8')
+            lista = linea.split(";")
+            if linea == '':
+                break
+
+            self.u = Cliente(
+                lista[0],
+                lista[1],
+                lista[2],
+                lista[3],
+                lista[4],
+                lista[5],
+                lista[6],
+                lista[7],
+                lista[8],
+                lista[9],
+                lista[10]
+            )
+
+            self.usuarios.append(self.u)
+
+        self.file.close()
+
+        self.ventanaDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
+        self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
+        self.ventanaDialogo.setWindowTitle("Ingreso")
+        self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
+        self.ventanaDialogo.setWindowModality(Qt.ApplicationModal)
+        self.vertical = QVBoxLayout()
+
+        self.mensaje = QLabel("")
+        self.mensaje.setFont(QFont("Arial", 12))
+        self.mensaje.setStyleSheet("color: white;")
+        self.vertical.addWidget(self.mensaje)
+
+        self.cajaBoton = QLabel()
+        self.cajaBH = QHBoxLayout()
+        self.cajaBH.addStretch()
+
+        self.botonOk = QPushButton("Ok")
+        self.botonOk.setFixedWidth(70)
+        self.botonOk.setFixedHeight(25)
+        self.botonOk.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonOk.setFont(QFont("Arial", 12))
+        self.botonOk.clicked.connect(self.accion_botonOk)
+
+        self.cajaBH.addWidget(self.botonOk)
+        self.cajaBoton.setLayout(self.cajaBH)
+        self.vertical.addWidget(self.cajaBoton)
+        self.ventanaDialogo.setLayout(self.vertical)
+
+    def accion_botonIngresar(self):
+
+        self.file = open('datos/usuarios.txt', 'rb')
+        self.usuarios = []
+
+        while self.file:
+            linea = self.file.readline().decode('UTF-8')
+            lista = linea.split(";")
+            if linea == '':
+                break
+
+            self.u = Cliente(
+                lista[0],
+                lista[1],
+                lista[2],
+                lista[3],
+                lista[4],
+                lista[5],
+                lista[6],
+                lista[7],
+                lista[8],
+                lista[9],
+                lista[10]
+            )
+
+            self.usuarios.append(self.u)
+
+        self.file.close()
+
+        datosCorrectos = False
+        for self.u in self.usuarios:
+            if self.u.usuario == self.usuario.text():
+                if self.u.password == self.contraseña.text():
+                    datosCorrectos = True
+                    break
+                else:
+                    datosCorrectos = False
+            else:
+                datosCorrectos = False
+
+        if not self.usuario.text() == "":
+            if not self.contraseña.text() == "":
+                if datosCorrectos == False:
+                    self.ventanaDialogo.setFixedWidth(320)
+                    self.ventanaDialogo.setFixedHeight(100)
+                    self.mensaje.setText("El usuario o la contraseña son incorrectos.")
+                    self.ventanaDialogo.exec_()
+                else:
+                    self.ventanaDialogo.setFixedWidth(240)
+                    self.ventanaDialogo.setFixedHeight(100)
+                    self.mensaje.setText("Ah ingresado correctamente.")
+                    self.ventanaDialogo.exec_()
+
+                    self.hide()
+                    self.usuario.setText('')
+                    self.contraseña.setText('')
+
+                    self.ventanaA = Administrador(self)
+                    self.ventanaA.show()
+            elif self.contraseña.text() == "" and not self.usuario.text() == "":
+                self.ventanaDialogo.setFixedWidth(300)
+                self.ventanaDialogo.setFixedHeight(100)
+                self.mensaje.setText("Ingrese una contraseña para continuar.")
+                self.ventanaDialogo.exec_()
+        elif self.usuario.text() == "" and not self.contraseña.text() == "":
+            self.ventanaDialogo.setFixedWidth(270)
+            self.ventanaDialogo.setFixedHeight(100)
+            self.mensaje.setText("Ingrese un usuario para continuar.")
+            self.ventanaDialogo.exec_()
+        elif self.usuario.text() == "" and self.contraseña.text() == "":
+            self.hide()
+            self.usuario.setText('')
+            self.contraseña.setText('')
+
+            self.ventanaA = Administrador(self)
+            self.ventanaA.show()
+
+            #Quitar el acceso dela ventana y colocar este de abajo al finalizar.
+            '''self.ventanaDialogo.setFixedWidth(350)
+            self.ventanaDialogo.setFixedHeight(100)
+            self.mensaje.setText("Ingrese un usuario y contraseña para continuar.")
+            self.ventanaDialogo.exec_()'''
 
     def accion_botonRecuperar(self):
         self.hide()
@@ -138,6 +269,9 @@ class Ingreso(QMainWindow):
             self.activacion = True
             self.contraseña.setEchoMode(QLineEdit.Password)
             self.cambiarContra.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
+
+    def accion_botonOk(self):
+        self.ventanaDialogo.hide()
 
 if __name__ == '__main__':
 

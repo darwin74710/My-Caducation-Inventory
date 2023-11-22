@@ -12,7 +12,7 @@ class CrearUsuario(QMainWindow):
         # Se crea la ventana principal junto a sus propiedades
         self.ventanaAnteriorC = anteriorC
 
-        self.setWindowTitle("Creación de usuario")
+        self.setWindowTitle("Crear usuario")
         self.setStyleSheet("background-color: #9AC069;")
 
         self.ancho = 1000
@@ -300,90 +300,81 @@ class CrearUsuario(QMainWindow):
 
         self.fondo.setLayout(self.verticalP)
 
-    def accion_botonRegistrar(self):
-        # Metodo para guardar el usuario en un archivo plano
-        # Se crea la ventana de validación
         self.ventanadeDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
-        self.formulario = QFormLayout()
+        self.verticalDialogo = QVBoxLayout()
         self.ventanadeDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
-        self.ventanadeDialogo.setFixedWidth(300)
-        self.ventanadeDialogo.setFixedHeight(90)
         self.ventanadeDialogo.setStyleSheet("background-color: #9AC069;")
-        self.ventanadeDialogo.setWindowTitle("Formulario de registro")
+        self.ventanadeDialogo.setWindowTitle("Crear usuario")
         self.ventanadeDialogo.setWindowModality(Qt.ApplicationModal)
 
-        # Se crean los elementos a mostrar
-        self.espacio2 = QLabel()
-        self.espacio2.setFixedHeight(5)
-        self.formulario.addRow(self.espacio2)
 
         self.mensaje = QLabel("")
         self.mensaje.setFont(QFont("Arial", 12))
         self.mensaje.setStyleSheet("color: white;")
 
-        self.formulario.addRow(self.mensaje)
-        self.formulario.addRow(self.espacio2)
+        self.verticalDialogo.addWidget(self.mensaje)
 
         self.espacio = QLabel()
-        self.espacio.setFixedWidth(190)
+        self.espacioHorizontal = QHBoxLayout()
 
-        self.atras = QPushButton("Atrás")
-        self.atras.setFixedWidth(80)
-        self.atras.setFixedHeight(25)
-        self.atras.setFont(QFont("Arial", 12))
-        self.atras.setStyleSheet("background-color: #8EA85D; color: white;")
-        self.atras.clicked.connect(self.cerrar_mensaje)
+        self.botonOk = QPushButton("Ok")
+        self.botonOk.setFixedWidth(80)
+        self.botonOk.setFixedHeight(25)
+        self.botonOk.setFont(QFont("Arial", 12))
+        self.botonOk.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonOk.clicked.connect(self.cerrar_mensaje)
 
-        self.formulario.addRow(self.espacio, self.atras)
+        self.espacioHorizontal.addStretch()
+        self.espacioHorizontal.addWidget(self.botonOk)
+        self.espacio.setLayout(self.espacioHorizontal)
+        self.verticalDialogo.addWidget(self.espacio)
 
-        self.ventanadeDialogo.setLayout(self.formulario)
+        self.ventanadeDialogo.setLayout(self.verticalDialogo)
 
         self.datosCorrectos = True
 
-        # Validación para no repetir la contraseña
-        if (
-            self.password.text() != self.password2.text()
-        ):
-            self.datosCorrectos = False
-
-            self.mensaje.setText("Las contraseñas no son iguales")
-
-            self.ventanadeDialogo.exec_()
-
-        # Validación para evitar campos vacios
+    def accion_botonRegistrar(self):
+        self.datosCorrectos = True
         if (
                 self.nombreCompleto.text() == ''
                 or self.NombredeUsuario.text() == ''
                 or self.password.text() == ''
                 or self.password2.text() == ''
-                or self.Documento.setText == ''
-                or self.correo.setText == ''
-                or self.pregunta1.setText == ''
-                or self.respuesta1.setText == ''
-                or self.pregunta2.setText == ''
-                or self.respuesta2.setText == ''
-                or self.pregunta3.setText == ''
-                or self.respuesta3.setText == ''
+                or self.Documento.text() == ''
+                or self.correo.text() == ''
+                or self.pregunta1.text() == ''
+                or self.respuesta1.text() == ''
+                or self.pregunta2.text() == ''
+                or self.respuesta2.text() == ''
+                or self.pregunta3.text() == ''
+                or self.respuesta3.text() == ''
         ):
             self.datosCorrectos = False
-
-            self.mensaje.setText("Debe ingresar todos los campos")
-
+            self.ventanadeDialogo.setFixedWidth(260)
+            self.ventanadeDialogo.setFixedHeight(100)
+            self.mensaje.setText("Debe ingresar todos los campos.")
             self.ventanadeDialogo.exec_()
+        else:
+            if (self.password.text() != self.password2.text()):
+                self.datosCorrectos = False
+                self.ventanadeDialogo.setFixedWidth(260)
+                self.ventanadeDialogo.setFixedHeight(100)
+                self.mensaje.setText("Las contraseñas no son iguales.")
+                self.ventanadeDialogo.exec_()
 
-        # Sl ingresar datos correctos
+            if not self.Documento.text().isdigit():
+                self.datosCorrectos = False
+                self.ventanadeDialogo.setFixedWidth(272)
+                self.ventanadeDialogo.setFixedHeight(100)
+                self.mensaje.setText("El documento debe ser en numeros.")
+                self.ventanadeDialogo.exec_()
+
+
         if self.datosCorrectos:
-            # Se abre el archivo plano y se añade la información en binario decodificandola en formato occidental
-            # El ab se establece para guardar información
             self.file = open('datos/usuarios.txt', 'ab')
-
             self.file.write(bytes(self.nombreCompleto.text() + ";"
                                   + self.NombredeUsuario.text() + ";"
                                   + self.password.text() + ";"
-                                    #Se eliminó la función de guardar la contraseña número 2
-                                    #para no tener problema con la función
-                                    #recuperar usuario.
-                                  #+ self.password2.text() + ";"
                                   + self.Documento.text() + ";"
                                   + self.correo.text() + ";"
                                   + self.pregunta1.text() + ";"
@@ -394,16 +385,12 @@ class CrearUsuario(QMainWindow):
                                   + self.respuesta3.text() + "\n", encoding='UTF-8'))
             self.file.close()
 
-            # Se abre el archivo plano en modo lectura y se muestra la inforamción de el
-            # El rb se establece para leer información
-            self.file = open('datos/usuarios.txt', 'rb')
-            #se recorre el archivo linea por linea
-            while self.file:
-                linea = self.file.readline().decode('UTF-8')
-                print(linea)
-                if linea == '':
-                    break
-            self.file.close()
+            self.ventanadeDialogo.setFixedWidth(250)
+            self.ventanadeDialogo.setFixedHeight(100)
+            self.mensaje.setText("Usuario creado exitosamente.")
+            self.ventanadeDialogo.exec_()
+
+            self.accion_botonLimpiar()
 
     def accion_botonLimpiar(self):
         # Metodo para vaciar los campos de información

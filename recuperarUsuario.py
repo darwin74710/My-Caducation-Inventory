@@ -364,7 +364,7 @@ class RecuperarUsuario(QMainWindow):
                 self.respuesta2.text().lower().strip() == resp2.lower().strip() and
                 self.respuesta3.text().lower().strip() == resp3.lower().strip()):
 
-                self.ventanaDialogo.setFixedWidth(200)
+                self.ventanaDialogo.setFixedWidth(320)
                 self.ventanaDialogo.setFixedHeight(97)
                 self.accion_botonLimpiar()
                 self.mensaje.setText("Contraseña: " + passw)
@@ -393,16 +393,15 @@ class RecuperarUsuario(QMainWindow):
             self.mensaje.setText("Si va a buscar las preguntas para recuperar la contraseña"
                                  "\nprimero debe ingresar el documento.")
             self.ventanaDialogo.exec_()
+        else:
+            if (not self.Documento.text().isdigit()):
+                self.datosCorrectos = False
+                self.ventanaDialogo.setFixedWidth(350)
+                self.ventanaDialogo.setFixedHeight(100)
+                self.mensaje.setText("El documento debe ser numérico."
+                                     "\nNo ingrese letras ni carácteres especiales.")
 
-        if (not self.Documento.text().isnumeric()):
-            self.datosCorrectos = False
-            self.ventanaDialogo.setFixedWidth(350)
-            self.ventanaDialogo.setFixedHeight(100)
-            self.mensaje.setText("El documento debe ser numérico."
-                                 "\nNo ingrese letras ni carácteres especiales.")
-
-            self.ventanaDialogo.exec_()
-            self.Documento.setText('')
+                self.ventanaDialogo.exec_()
 
         if (self.datosCorrectos):
             self.file = open('datos/usuarios.txt', 'rb')
