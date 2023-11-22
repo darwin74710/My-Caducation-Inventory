@@ -213,16 +213,7 @@ class RecuperarUsuario(QMainWindow):
         self.botonBuscar.clicked.connect(self.accion_botonBuscar)
         #ESPACIO PARA CONECTAR EL BOTÓN A UNA FUNCIÓN
         self.horizontalB.addWidget(self.botonBuscar)
-
-        # Creamos el botón para registrar los usuarios
-        self.botonRecuperar = QPushButton("Recuperar")
-        self.botonRecuperar.setFixedWidth(100)
-        self.botonRecuperar.setFixedHeight(40)
-        self.botonRecuperar.setFont(QFont("Arial", 12))
-        self.botonRecuperar.setStyleSheet("background-color: #8EA85D; color: white;")
-        self.botonRecuperar.clicked.connect(self.accion_botonRecuperar)
-
-        self.horizontalB.addWidget(self.botonRecuperar)
+        self.horizontalB.addStretch()
 
         # Creamos el botón para limpiar los campos de texto
         self.botonLimpiar = QPushButton("Limpiar")
@@ -234,6 +225,17 @@ class RecuperarUsuario(QMainWindow):
 
         self.horizontalB.addWidget(self.botonLimpiar)
         self.horizontalB.addStretch()
+
+        # Creamos el botón para registrar los usuarios
+        self.botonRecuperar = QPushButton("Recuperar")
+        self.botonRecuperar.setFixedWidth(100)
+        self.botonRecuperar.setFixedHeight(40)
+        self.botonRecuperar.setFont(QFont("Arial", 12))
+        self.botonRecuperar.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonRecuperar.clicked.connect(self.accion_botonRecuperar)
+
+        self.horizontalB.addWidget(self.botonRecuperar)
+
 
         self.ventanaBotones.setLayout(self.horizontalB)
         self.verticalP.addWidget(self.ventanaBotones)
