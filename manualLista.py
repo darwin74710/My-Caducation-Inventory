@@ -1,10 +1,8 @@
 class Lista:
     def __init__(self, idPosicion,
-                 identidicadorimagen,
                  idtexto,
                  titulo):
         self.idPosicion = idPosicion
-        self.identidicadorimagen = identidicadorimagen
         self.idtexto = idtexto
         self.titulo = titulo
 

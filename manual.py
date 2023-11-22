@@ -1,6 +1,6 @@
 import math
 from PyQt5 import  QtGui
-from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtCore import QSize, Qt, QUrl
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QWidget, QVBoxLayout, QLabel, \
@@ -134,8 +134,8 @@ class Manual(QMainWindow):
 
         self.contador = 1
 
-        self.manual1 = open("manual/1.html"); self.pag1 = self.manual1.read(); self.manual1.close()
-        self.manual2 = open("manual/2.html"); self.pag2 = self.manual2.read(); self.manual2.close()
+        self.manual1 = open("manual/1.html", "rb"); self.pag1 = self.manual1.read().decode("UTF-8"); self.manual1.close()
+        self.manual2 = open("manual/2.html", "rb"); self.pag2 = self.manual2.read().decode("UTF-8"); self.manual2.close()
 
         self.informacion = [self.pag1, self.pag2, "asadasadasadada"]
 
@@ -154,8 +154,7 @@ class Manual(QMainWindow):
             self.m = Lista(
                 lista[0],
                 lista[1],
-                lista[2],
-                lista[3],
+                lista[2]
             )
             self.manuales.append(self.m)
         self.file.close()
