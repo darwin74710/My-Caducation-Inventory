@@ -75,8 +75,7 @@ class Manual(QMainWindow):
 
         self.tituloDescripcion = QLabel()
         self.tituloDescripcion.setAlignment(Qt.AlignCenter)
-        self.tituloDescripcion.setFixedHeight(35)
-        self.tituloDescripcion.setFont(QFont("Arial", 20))
+        self.tituloDescripcion.setFont(QFont("Arial", 15))
         self.tituloDescripcion.setStyleSheet("color: #9AC069;"
                                              "border: 2px solid white")
 
@@ -136,15 +135,20 @@ class Manual(QMainWindow):
 
         self.manual1 = open("manual/1.html", "rb"); self.pag1 = self.manual1.read().decode("UTF-8"); self.manual1.close()
         self.manual2 = open("manual/2.html", "rb"); self.pag2 = self.manual2.read().decode("UTF-8"); self.manual2.close()
+        self.manual3 = open("manual/3.html", "rb"); self.pag3 = self.manual3.read().decode("UTF-8"); self.manual3.close()
+        self.manual4 = open("manual/4.html", "rb"); self.pag4 = self.manual4.read().decode("UTF-8"); self.manual4.close()
+        self.manual5 = open("manual/5.html", "rb"); self.pag5 = self.manual5.read().decode("UTF-8"); self.manual5.close()
 
-        self.informacion = [self.pag1, self.pag2, "asadasadasadada"]
+        self.informacion = [self.pag1, self.pag2, self.pag3, self.pag4, self.pag5]
 
         self.file = open('datos/manual.txt', 'rb')
         self.manuales = []
 
         self.imagen1 = QPixmap('Imagenes/Imagenes manual/1.png')
-        self.imagen2 = QPixmap('Imagenes/logo.png')
-        self.imagen3 = QPixmap('Imagenes/logo blanco.png')
+        self.imagen2 = QPixmap('Imagenes/Imagenes manual/2.jpg')
+        self.imagen3 = QPixmap('Imagenes/Imagenes manual/3.png')
+        self.imagen4 = QPixmap('Imagenes/Imagenes manual/4.jpg')
+        self.imagen5 = QPixmap('Imagenes/Imagenes manual/5.png')
 
         while self.file:
             linea = self.file.readline().decode('UTF-8')
@@ -175,6 +179,10 @@ class Manual(QMainWindow):
                     self.imagenInfomacion.setPixmap(self.imagen2)
                 if self.m.idPosicion == str(3):
                     self.imagenInfomacion.setPixmap(self.imagen3)
+                if self.m.idPosicion == str(4):
+                    self.imagenInfomacion.setPixmap(self.imagen4)
+                if self.m.idPosicion == str(5):
+                    self.imagenInfomacion.setPixmap(self.imagen5)
 
     def ir_administrador(self):
         # Metodo para volver a la ventana del administrador

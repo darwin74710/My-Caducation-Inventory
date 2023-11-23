@@ -101,10 +101,10 @@ class Alertas(QMainWindow):
         self.imagenVacia = QPixmap("Imagenes/Imagenes Productos/vacio.png")
         self.imagenGranos = QPixmap("Imagenes/Imagenes Productos/granos.png")
         self.imagenEnlatados = QPixmap("Imagenes/Imagenes Productos/enlatados.png")
-        self.imagenParva = QPixmap("Imagenes/Imagenes Productos/parva.png")
         self.imagenLacteos = QPixmap("Imagenes/Imagenes Productos/lacteos.png")
         self.imagenCarnicos = QPixmap("Imagenes/Imagenes Productos/carnicos.png")
         self.imagenPescados = QPixmap("Imagenes/Imagenes Productos/pescados.png")
+        self.imagenOtros = QPixmap("Imagenes/Imagenes Productos/otros.png")
         self.imagenCaducados = QPixmap("Imagenes/Imagenes Productos/caducados.png")
 
         self.horizontalImagen.addStretch()
@@ -399,13 +399,13 @@ class Alertas(QMainWindow):
                     if self.u.identificadorFiltro == str(1):
                         self.imagenFiltro.setPixmap(self.imagenEnlatados)
                     if self.u.identificadorFiltro == str(2):
-                        self.imagenFiltro.setPixmap(self.imagenParva)
-                    if self.u.identificadorFiltro == str(3):
                         self.imagenFiltro.setPixmap(self.imagenLacteos)
-                    if self.u.identificadorFiltro == str(4):
+                    if self.u.identificadorFiltro == str(3):
                         self.imagenFiltro.setPixmap(self.imagenCarnicos)
-                    if self.u.identificadorFiltro == str(5):
+                    if self.u.identificadorFiltro == str(4):
                         self.imagenFiltro.setPixmap(self.imagenPescados)
+                    if self.u.identificadorFiltro == str(5):
+                        self.imagenFiltro.setPixmap(self.imagenOtros)
                     if self.u.identificadorFiltro == str(7):
                         self.imagenFiltro.setPixmap(self.imagenCaducados)
 

@@ -180,7 +180,7 @@ class ProductosCrear(QMainWindow):
         self.filtro.setFixedHeight(20)
         self.filtro.setStyleSheet("background-color: white;")
         self.filtro.setFont(QFont("Arial", 12))
-        self.filtro.addItems(["Granos", "Enlatados", "Parva", "Lacteos", "Carnicos", "Pescados"])
+        self.filtro.addItems(["Granos", "Enlatados", "Lacteos", "Carnicos", "Pescados", "Otros"])
 
         self.formularioMensaje.addRow(self.titulo4, self.filtro)
 
