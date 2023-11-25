@@ -255,18 +255,10 @@ class Ingreso(QMainWindow):
             self.mensaje.setText("Ingrese un usuario para continuar.")
             self.ventanaDialogo.exec_()
         elif self.usuario.text() == "" and self.contraseña.text() == "":
-            self.hide()
-            self.usuario.setText('')
-            self.contraseña.setText('')
-
-            self.ventanaA = Administrador(self)
-            self.ventanaA.show()
-
-            #Quitar el acceso de la ventana y colocar este de abajo al finalizar.
-            '''self.ventanaDialogo.setFixedWidth(350)
+            self.ventanaDialogo.setFixedWidth(350)
             self.ventanaDialogo.setFixedHeight(100)
             self.mensaje.setText("Ingrese un usuario y contraseña para continuar.")
-            self.ventanaDialogo.exec_()'''
+            self.ventanaDialogo.exec_()
 
     def accion_botonRecuperar(self):
         self.hide()
