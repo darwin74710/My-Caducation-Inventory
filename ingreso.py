@@ -13,6 +13,7 @@ class Ingreso(QMainWindow):
         super(Ingreso, self).__init__(parent=parent)
 
         self.esAdministrador = True
+        self.nombreUsuario = ""
         # Se crea la ventana principal junto a sus modificaciones
         self.setWindowTitle("Login")
         self.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
@@ -237,6 +238,7 @@ class Ingreso(QMainWindow):
                     self.ventanaDialogo.setFixedHeight(100)
                     self.mensaje.setText("Ah ingresado correctamente.")
                     self.ventanaDialogo.exec_()
+                    self.nombreUsuario = str(self.u.usuario)
 
                     self.hide()
                     self.usuario.setText('')

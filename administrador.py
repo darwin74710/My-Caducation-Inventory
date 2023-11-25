@@ -20,6 +20,7 @@ class Administrador(QMainWindow):
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
         self.esAdministrador = anterior.esAdministrador
+        self.usuarioActual = anterior.nombreUsuario
         self.actualizador = Actualizador
         self.actualizadorFiltros = 6
         self.fechaActual = date.today()
@@ -118,27 +119,43 @@ class Administrador(QMainWindow):
         # Creamos un texto que explica cosas basicas de la aplicación
         self.explicacion = QLabel()
         self.explicacion.setFixedHeight(125)
-        self.explicacion.setText("Bienvenid@ a My Caducation Inventory, desde aquí podras navegar a las diferentes\n"
-                                 "pestañas, si quieres volver a este lugar dale click al botón arriba a la derecha\n"
-                                 "con un icono de casa que aparece en las otras pestañas.\n\n"
-                                 "Puedes crear un usuario o desconectarte con los botones que se encuentran arriba\n"
-                                 "a la derecha de esta ventana.\n")
+
+        self.nombreUsuario = ""
+        self.nombreUsuario = str(self.usuarioActual)
+        if self.esAdministrador == True:
+            self.explicacion.setText(
+                "Bienvenido " + self.nombreUsuario + ".\n\n"
+                "En esta ventana puedes navegar a las diferentes funciones de la aplicación.\n\n"
+                "Puedes crear o modificar usuarios con los botones que se encuentran arriba a la\n"
+                "derecha de esta ventana, también puedes desconectarte.\n")
+        else:
+            self.explicacion.setText(
+                "Bienvenido " + self.nombreUsuario + ".\n\n"
+                "En esta ventana puedes navegar a las diferentes funciones de la aplicación.\n\n"
+                "Para acceder a todas las funciones debes de tener los permisos de administrador,\n"
+                "por ahora solo puedes visualizar y desconectarte.\n")
         self.explicacion.setFont(QFont("arial", 12))
 
         self.Formulario.addRow(self.explicacion)
         # Se agrega el label vacio del inicio para hacer un espacio con el layout formulario
         self.Formulario.addRow(self.vacio)
 
-        # Creamos el titulo de productos
+        # Creamos el título de productos
         self.Titulo2 = QLabel()
         self.Titulo2.setText("Productos: ")
         self.Titulo2.setFont(QFont("arial", 15))
         self.Titulo2.setStyleSheet("color: #9AC069;")
 
         # Creamos la explicación de los productos
-        self.descripcion2 = QLabel("En esta pestaña encontraras todos los productos que\n"
-                                   "tengas almacenados, puedes crear, eliminar, modificar,\n"
-                                   "actualizar y visualizar cada producto registrado.")
+        self.descripcion2 = QLabel()
+        if self.esAdministrador == True:
+            self.descripcion2.setText("En esta pestaña encontraras todos los productos que\n"
+                                       "tengas almacenados, puedes crear, eliminar, modificar,\n"
+                                       "actualizar y visualizar cada producto registrado.")
+        else:
+            self.descripcion2.setText("En esta pestaña encontraras todos los productos que\n"
+                                      "tengas almacenados, puedes visualizar cada producto\n"
+                                      "registrado.")
         self.descripcion2.setFont(QFont("arial", 12))
 
         self.Formulario.addRow(self.Titulo2, self.descripcion2)
@@ -152,7 +169,7 @@ class Administrador(QMainWindow):
 
         # Creamos la explicación del manual
         self.descripcion3 = QLabel("En esta pestaña encontraras el manual en dónde podras\n"
-                                   "leer acerca de información adicional que te podria ayudar.")
+                                   "leer acerca de información adicional que te puede ayudar.")
         self.descripcion3.setFont(QFont("arial", 12))
 
         self.Formulario.addRow(self.Titulo3, self.descripcion3)
