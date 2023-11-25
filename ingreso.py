@@ -11,6 +11,8 @@ from cliente import Cliente
 class Ingreso(QMainWindow):
     def __init__(self, parent=None):
         super(Ingreso, self).__init__(parent=parent)
+
+        self.esAdministrador = True
         # Se crea la ventana principal junto a sus modificaciones
         self.setWindowTitle("Login")
         self.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
@@ -60,7 +62,7 @@ class Ingreso(QMainWindow):
         self.usuario.setMaxLength(14)
         self.formulario.addRow(self.usuario)
 
-        # Creamos el ingreso de contraseña con su titulo y un campo para escribirlo
+        # Creamos el ingreso de contraseña con su título y un campo para escribirlo
         self.letrero2 = QLabel("Ingrese su contraseña")
         self.letrero2.setFixedHeight(30)
         self.letrero2.setStyleSheet("color: white;")
@@ -78,6 +80,7 @@ class Ingreso(QMainWindow):
         self.cambiarContra = QPushButton()
         self.cambiarContra.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
         self.cambiarContra.setFixedWidth(25)
+        self.cambiarContra.setStyleSheet("background-color: #8EA85D;")
         self.cambiarContra.clicked.connect(self.alternar_contrasena)
         self.activacion = True
 
@@ -136,7 +139,10 @@ class Ingreso(QMainWindow):
                 lista[7],
                 lista[8],
                 lista[9],
-                lista[10]
+                lista[10],
+                lista[11],
+                lista[12],
+                lista[13]
             )
 
             self.usuarios.append(self.u)
@@ -193,7 +199,10 @@ class Ingreso(QMainWindow):
                 lista[7],
                 lista[8],
                 lista[9],
-                lista[10]
+                lista[10],
+                lista[11],
+                lista[12],
+                lista[13]
             )
 
             self.usuarios.append(self.u)
@@ -205,6 +214,10 @@ class Ingreso(QMainWindow):
             if self.u.usuario == self.usuario.text():
                 if self.u.password == self.contraseña.text():
                     datosCorrectos = True
+                    if self.u.validar == "Administrador":
+                        self.esAdministrador = True
+                    if self.u.validar == "Usuario":
+                        self.esAdministrador = False
                     break
                 else:
                     datosCorrectos = False
@@ -219,6 +232,7 @@ class Ingreso(QMainWindow):
                     self.mensaje.setText("El usuario o la contraseña son incorrectos.")
                     self.ventanaDialogo.exec_()
                 else:
+                    # Aquí se ingresa.
                     self.ventanaDialogo.setFixedWidth(240)
                     self.ventanaDialogo.setFixedHeight(100)
                     self.mensaje.setText("Ah ingresado correctamente.")
@@ -248,7 +262,7 @@ class Ingreso(QMainWindow):
             self.ventanaA = Administrador(self)
             self.ventanaA.show()
 
-            #Quitar el acceso dela ventana y colocar este de abajo al finalizar.
+            #Quitar el acceso de la ventana y colocar este de abajo al finalizar.
             '''self.ventanaDialogo.setFixedWidth(350)
             self.ventanaDialogo.setFixedHeight(100)
             self.mensaje.setText("Ingrese un usuario y contraseña para continuar.")

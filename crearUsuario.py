@@ -4,7 +4,9 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QFont, QPixmap
 from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButton, QWidget, QLineEdit, QLabel, \
-    QVBoxLayout, QHBoxLayout, QGridLayout, QDialog, QDialogButtonBox, QFormLayout
+    QVBoxLayout, QHBoxLayout, QGridLayout, QDialog, QDialogButtonBox, QFormLayout, QComboBox
+
+from cliente import Cliente
 
 class CrearUsuario(QMainWindow):
     def __init__(self, anteriorC):
@@ -36,7 +38,7 @@ class CrearUsuario(QMainWindow):
         self.titulo.setFixedHeight(60)
 
         self.tnumero1 = QLabel()
-        self.tnumero1.setText("REGISTRAR USUARIOS")
+        self.tnumero1.setText("CREAR USUARIOS")
         self.tnumero1.setFont(QFont("Arial", 40))
         self.tnumero1.setStyleSheet("color: white;")
 
@@ -69,6 +71,16 @@ class CrearUsuario(QMainWindow):
         self.ladoIzquierdo = QFormLayout()
 
         # Se crean los campos para ingresar los datos del usuario
+
+        self.filtro = QComboBox()
+        self.filtro.setFixedWidth(250)
+        self.filtro.setFixedHeight(20)
+        self.filtro.setStyleSheet("background-color: white;")
+        self.filtro.setFont(QFont("Arial", 12))
+        self.filtro.addItems(["Administrador", "Usuario"])
+
+        self.ladoIzquierdo.addRow(self.filtro)
+
         self.titulo1 = QLabel("Nombre completo")
         self.titulo1.setFont(QFont("Arial", 12))
         self.titulo1.setStyleSheet("color: white;")
@@ -93,7 +105,7 @@ class CrearUsuario(QMainWindow):
         self.NombredeUsuario.setStyleSheet("background-color: white;")
         self.NombredeUsuario.setFixedWidth(250)
         self.NombredeUsuario.setFont(QFont("Arial", 12))
-        self.NombredeUsuario.setMaxLength(30)
+        self.NombredeUsuario.setMaxLength(20)
 
         self.ladoIzquierdo.addRow(self.NombredeUsuario)
 
@@ -112,6 +124,7 @@ class CrearUsuario(QMainWindow):
 
         self.cambiarContra1 = QPushButton()
         self.cambiarContra1.setFixedWidth(25)
+        self.cambiarContra1.setStyleSheet("background-color: #9AC069;")
         self.cambiarContra1.clicked.connect(self.alternar_contrasena1)
         self.activacion1 = True
         self.cambiarContra1.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
@@ -133,6 +146,7 @@ class CrearUsuario(QMainWindow):
 
         self.cambiarContra2 = QPushButton()
         self.cambiarContra2.setFixedWidth(25)
+        self.cambiarContra2.setStyleSheet("background-color: #9AC069;")
         self.cambiarContra2.clicked.connect(self.alternar_contrasena2)
         self.activacion2 = True
         self.cambiarContra2.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
@@ -173,6 +187,10 @@ class CrearUsuario(QMainWindow):
         # Desde aquí se trabaja el lado derecho de la ventana en donde se crean y responden las preguntas de recuperación de usuario
         self.labelDerecho = QLabel()
         self.ladoDerecho = QFormLayout()
+
+        self.espaciado = QLabel()
+        self.espaciado.setFixedHeight(20)
+        self.ladoDerecho.addRow(self.espaciado)
 
         # Se construyen los elementos para el ingreso de preguntas
         self.tituloPregunta1 = QLabel("Pregunta de verificacion 1")
@@ -333,6 +351,36 @@ class CrearUsuario(QMainWindow):
 
         self.datosCorrectos = True
 
+        self.vacio = ""
+        self.posicion = 0
+
+        self.file = open('datos/usuarios.txt', 'rb')
+        self.usuarios = []
+
+        while self.file:
+            linea = self.file.readline().decode('UTF-8')
+            lista = linea.split(";")
+            if linea == '':
+                break
+            u = Cliente(
+                lista[0],
+                lista[1],
+                lista[2],
+                lista[3],
+                lista[4],
+                lista[5],
+                lista[6],
+                lista[7],
+                lista[8],
+                lista[9],
+                lista[10],
+                lista[11],
+                lista[12],
+                lista[13]
+            )
+            self.usuarios.append(u)
+        self.file.close()
+
     def accion_botonRegistrar(self):
         self.datosCorrectos = True
         if (
@@ -371,8 +419,15 @@ class CrearUsuario(QMainWindow):
 
 
         if self.datosCorrectos:
+            if self.filtro.currentIndex() == 0:
+                self.identificadorFiltro = "Administrador"
+            elif self.filtro.currentIndex() == 1:
+                self.identificadorFiltro = "Usuario"
+            self.posicion = len(self.usuarios) + 1
+
             self.file = open('datos/usuarios.txt', 'ab')
-            self.file.write(bytes(self.nombreCompleto.text() + ";"
+            self.file.write(bytes(str(self.posicion) + ";"
+                                  + self.nombreCompleto.text() + ";"
                                   + self.NombredeUsuario.text() + ";"
                                   + self.password.text() + ";"
                                   + self.Documento.text() + ";"
@@ -382,7 +437,9 @@ class CrearUsuario(QMainWindow):
                                   + self.pregunta2.text() + ";"
                                   + self.respuesta2.text() + ";"
                                   + self.pregunta3.text() + ";"
-                                  + self.respuesta3.text() + "\n", encoding='UTF-8'))
+                                  + self.respuesta3.text() + ";"
+                                  + self.identificadorFiltro + ";"
+                                  + self.vacio + "\n", encoding='UTF-8'))
             self.file.close()
 
             self.ventanadeDialogo.setFixedWidth(250)

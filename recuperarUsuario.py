@@ -326,7 +326,7 @@ class RecuperarUsuario(QMainWindow):
                 if linea == '':
                     break
 
-                u= Cliente(
+                u = Cliente(
                     lista[0],
                     lista[1],
                     lista[2],
@@ -337,7 +337,10 @@ class RecuperarUsuario(QMainWindow):
                     lista[7],
                     lista[8],
                     lista[9],
-                    lista[10]
+                    lista[10],
+                    lista[11],
+                    lista[12],
+                    lista[13]
                     )
 
                 usuarios.append(u)
@@ -349,6 +352,7 @@ class RecuperarUsuario(QMainWindow):
             resp2 = ''
             resp3 = ''
             passw = ''
+            name = ''
 
             for u in usuarios:
                 if u.documento == self.Documento.text():
@@ -358,6 +362,7 @@ class RecuperarUsuario(QMainWindow):
                     resp2 = u.respuesta2
                     resp3 = u.respuesta3
                     passw = u.password
+                    name = u.usuario
                     break
 
             if(self.respuesta1.text().lower().strip() == resp1.lower().strip() and
@@ -365,9 +370,10 @@ class RecuperarUsuario(QMainWindow):
                 self.respuesta3.text().lower().strip() == resp3.lower().strip()):
 
                 self.ventanaDialogo.setFixedWidth(320)
-                self.ventanaDialogo.setFixedHeight(97)
+                self.ventanaDialogo.setFixedHeight(100)
                 self.accion_botonLimpiar()
-                self.mensaje.setText("Contraseña: " + passw)
+                self.mensaje.setText("Usuario: " + name +
+                                    "\nContraseña: " + passw)
                 self.ventanaDialogo.exec_()
 
             else:
@@ -425,6 +431,9 @@ class RecuperarUsuario(QMainWindow):
                     lista[8],
                     lista[9],
                     lista[10],
+                    lista[11],
+                    lista[12],
+                    lista[13]
                 )
                 usuarios.append(u)
 

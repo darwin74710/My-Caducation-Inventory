@@ -6,10 +6,12 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QWidget, QVBoxLayout, Q
 from datetime import date
 
 from crearUsuario import CrearUsuario
+from modificarUsuario import ModificarUsuario
 from manual import Manual
 from alertas import Alertas
 from productosActualizador import Actualizador
 from productosLista import Lista
+from cliente import Cliente
 import calendar
 
 class Administrador(QMainWindow):
@@ -17,12 +19,16 @@ class Administrador(QMainWindow):
         super(Administrador, self).__init__(anterior)
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
+        self.esAdministrador = anterior.esAdministrador
         self.actualizador = Actualizador
         self.actualizadorFiltros = 6
         self.fechaActual = date.today()
         self.calendario = calendar
 
-        self.setWindowTitle("Administrador")
+        if self.esAdministrador == True:
+            self.setWindowTitle("Administrador")
+        else:
+            self.setWindowTitle("Usuario")
 
         self.ancho = 1000
         self.alto = 563
@@ -48,7 +54,11 @@ class Administrador(QMainWindow):
         self.ventana.setFixedHeight(60)
 
         # Creamos label para poner el titulo
-        self.titulo1 = QLabel("ADMINISTRADOR")
+        self.titulo1 = QLabel()
+        if self.esAdministrador == True:
+            self.titulo1.setText("ADMINISTRADOR")
+        else:
+            self.titulo1.setText("USUARIO")
         self.titulo1.setFont(QFont("Arial", 40))
         self.titulo1.setStyleSheet("color: white;")
         self.titulo1.setAlignment(Qt.AlignCenter)
@@ -57,15 +67,26 @@ class Administrador(QMainWindow):
         self.horizontal.addStretch()
 
         # Creamos botón para ir a la ventana CrearUsuario
-        self.botonCrearUsuario = QPushButton()
-        self.botonCrearUsuario.setFixedWidth(50)
-        self.botonCrearUsuario.setFixedHeight(50)
-        self.botonCrearUsuario.setStyleSheet("background-color: #8EA85D;")
-        self.botonCrearUsuario.setIcon(QtGui.QIcon('Imagenes/iconos/usuario.png'))
-        self.botonCrearUsuario.setIconSize(QSize(40, 40))
-        self.botonCrearUsuario.clicked.connect(self.ir_crear_usuario)
+        if self.esAdministrador == True:
+            self.botonCrearUsuario = QPushButton()
+            self.botonCrearUsuario.setFixedWidth(50)
+            self.botonCrearUsuario.setFixedHeight(50)
+            self.botonCrearUsuario.setStyleSheet("background-color: #8EA85D;")
+            self.botonCrearUsuario.setIcon(QtGui.QIcon('Imagenes/iconos/usuario.png'))
+            self.botonCrearUsuario.setIconSize(QSize(40, 40))
+            self.botonCrearUsuario.clicked.connect(self.ir_crear_usuario)
 
-        self.horizontal.addWidget(self.botonCrearUsuario)
+            self.horizontal.addWidget(self.botonCrearUsuario)
+
+            self.botonModificarUsuario = QPushButton()
+            self.botonModificarUsuario.setFixedWidth(50)
+            self.botonModificarUsuario.setFixedHeight(50)
+            self.botonModificarUsuario.setStyleSheet("background-color: #8EA85D;")
+            self.botonModificarUsuario.setIcon(QtGui.QIcon('Imagenes/iconos/editar.png'))
+            self.botonModificarUsuario.setIconSize(QSize(40, 40))
+            self.botonModificarUsuario.clicked.connect(self.ir_modificar_usuario)
+
+            self.horizontal.addWidget(self.botonModificarUsuario)
 
         # Creamos botón para desconectar la sesión
         self.botonDesconectar = QPushButton()
@@ -356,6 +377,11 @@ class Administrador(QMainWindow):
         self.crear_usuario = CrearUsuario(self)
         self.hide()
         self.crear_usuario.show()
+
+    def ir_modificar_usuario(self):
+        self.modificar_usuario = ModificarUsuario(self)
+        self.hide()
+        self.modificar_usuario.show()
 
     def desconectar(self):
         # Metodo para cerar la sesion

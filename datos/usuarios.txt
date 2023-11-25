@@ -1,3 +1,4 @@
-Darwin;si777;123;777;777@77.com;si;no;hola;chao;azul;rojo
-Darwin;si888;456;888;888@88.com;no;si;chao;hola;rojo;azul
-Darwin;si999;789;999;999@99.com;si;no;hola;chao;azul;rojo
+1;Darwin;si777;123;777;777@77.com;si;no;hola;chao;azul;rojo;Administrador;
+2;Darwin;si888;456;888;888@88.com;no;si;chao;hola;rojo;azul;Usuario;
+3;Darwin;si999;789;999;999@99.com;si;no;hola;chao;azul;rojo;Usuario;
+4;a;a;a;1;a;a;a;a;a;a;a;Administrador;

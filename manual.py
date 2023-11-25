@@ -107,17 +107,21 @@ class Manual(QMainWindow):
         self.horizontalB = QHBoxLayout()
         self.vB.setFixedHeight(60)
 
-        self.botonIzquierda = QPushButton("Izquierda")
+        self.botonIzquierda = QPushButton()
         self.botonIzquierda.setFixedWidth(90)
         self.botonIzquierda.setFixedHeight(40)
-        self.botonIzquierda.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonIzquierda.setStyleSheet("background-color: #8EA85D;")
+        self.botonIzquierda.setIcon(QtGui.QIcon('Imagenes/iconos/flechaIzquierda.png'))
+        self.botonIzquierda.setIconSize(QSize(60, 20))
         self.botonIzquierda.setFont(QFont("Arial", 12))
         self.botonIzquierda.clicked.connect(self.boton_izquierda)
 
-        self.botonDerecha = QPushButton("Derecha")
+        self.botonDerecha = QPushButton()
         self.botonDerecha.setFixedWidth(90)
         self.botonDerecha.setFixedHeight(40)
-        self.botonDerecha.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonDerecha.setStyleSheet("background-color: #8EA85D;")
+        self.botonDerecha.setIcon(QtGui.QIcon('Imagenes/iconos/flechaDerecha.png'))
+        self.botonDerecha.setIconSize(QSize(60, 20))
         self.botonDerecha.setFont(QFont("Arial", 12))
         self.botonDerecha.clicked.connect(self.boton_Derecha)
 
@@ -167,6 +171,7 @@ class Manual(QMainWindow):
         self.file.close()
 
         #varible para cargar informacion cuando ingrese a la ventana manual
+        self.botonIzquierda.hide()
         self.actualizar_manual()
 
     def actualizar_manual(self):
@@ -198,13 +203,25 @@ class Manual(QMainWindow):
         self.ventanaAnterior.show()
 
     def boton_izquierda(self):
-        if self.contador == 1:
+        if self.contador == 2:
+            self.contador -= 1
+            self.botonIzquierda.hide()
             self.actualizar_manual()
         elif not self.contador == 0:
             self.contador -= 1
             self.actualizar_manual()
+            self.botonDerecha.show()
+            self.botonIzquierda.show()
+        elif self.contador == 1:
+            pass
 
     def boton_Derecha(self):
-        if self.contador < len(self.informacion):
+        if self.contador < len(self.informacion) - 1:
             self.contador += 1
             self.actualizar_manual()
+            self.botonIzquierda.show()
+            self.botonDerecha.show()
+        elif self.contador == len(self.informacion) - 1:
+            self.contador += 1
+            self.actualizar_manual()
+            self.botonDerecha.hide()

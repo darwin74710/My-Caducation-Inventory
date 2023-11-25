@@ -18,6 +18,7 @@ class Productos(QMainWindow):
         super(Productos, self).__init__(anterior)
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
+        self.esAdministrador = anterior.esAdministrador
 
         self.fechaActual = date.today()
         self.calendario = calendar
@@ -71,7 +72,7 @@ class Productos(QMainWindow):
         self.verticalProductos.addWidget(self.filtros)
 
         self.scrollArea = QScrollArea()
-        self.scrollArea.setStyleSheet("background-color: #8EA85D;")
+        self.scrollArea.setStyleSheet("background-color: #8EA85D; border: none;")
         self.scrollArea.setWidgetResizable(True)
 
         self.contenedora = QWidget()
@@ -213,46 +214,47 @@ class Productos(QMainWindow):
         self.verticalInfo.addWidget(self.ventanaDatos)
 
         # Se crea la ventana para los botones interactuables con los productos
-        self.ventanaBotones = QLabel()
-        self.horizontalBotones = QHBoxLayout()
-        self.ventanaBotones.setFixedHeight(35)
+        if self.esAdministrador == True:
+            self.ventanaBotones = QLabel()
+            self.horizontalBotones = QHBoxLayout()
+            self.ventanaBotones.setFixedHeight(35)
 
-        # Botón para crear productos
-        self.crear = QPushButton("Crear")
-        self.crear.setFixedWidth(85)
-        self.crear.setFixedHeight(27)
-        self.crear.setStyleSheet("background-color: #9AC069; color: white;")
-        self.crear.setFont(QFont("Arial", 12))
-        self.crear.clicked.connect(self.metodo_crear_producto)
+            # Botón para crear productos
+            self.crear = QPushButton("Crear")
+            self.crear.setFixedWidth(85)
+            self.crear.setFixedHeight(27)
+            self.crear.setStyleSheet("background-color: #9AC069; color: white;")
+            self.crear.setFont(QFont("Arial", 12))
+            self.crear.clicked.connect(self.metodo_crear_producto)
 
-        self.horizontalBotones.addWidget(self.crear)
-        self.horizontalBotones.addStretch()
+            self.horizontalBotones.addWidget(self.crear)
+            self.horizontalBotones.addStretch()
 
-        # Botón para modificar productos
-        self.Modificar = QPushButton("Modificar")
-        self.Modificar.setFixedWidth(85)
-        self.Modificar.setFixedHeight(27)
-        self.Modificar.setStyleSheet("background-color: #9AC069; color: white;")
-        self.Modificar.setFont(QFont("Arial", 12))
-        self.Modificar.clicked.connect(self.metodo_modificar_producto)
+            # Botón para modificar productos
+            self.Modificar = QPushButton("Modificar")
+            self.Modificar.setFixedWidth(85)
+            self.Modificar.setFixedHeight(27)
+            self.Modificar.setStyleSheet("background-color: #9AC069; color: white;")
+            self.Modificar.setFont(QFont("Arial", 12))
+            self.Modificar.clicked.connect(self.metodo_modificar_producto)
 
-        self.horizontalBotones.addWidget(self.Modificar)
-        self.horizontalBotones.addStretch()
+            self.horizontalBotones.addWidget(self.Modificar)
+            self.horizontalBotones.addStretch()
 
-        # Botón para eliminar productos
-        self.eliminar = QPushButton("Eliminar")
-        self.eliminar.setFixedWidth(85)
-        self.eliminar.setFixedHeight(27)
-        self.eliminar.setStyleSheet("background-color: #9AC069; color: white;")
-        self.eliminar.setFont(QFont("Arial", 12))
-        self.eliminar.clicked.connect(self.metodo_eliminar_producto)
+            # Botón para eliminar productos
+            self.eliminar = QPushButton("Eliminar")
+            self.eliminar.setFixedWidth(85)
+            self.eliminar.setFixedHeight(27)
+            self.eliminar.setStyleSheet("background-color: #9AC069; color: white;")
+            self.eliminar.setFont(QFont("Arial", 12))
+            self.eliminar.clicked.connect(self.metodo_eliminar_producto)
 
-        self.horizontalBotones.addWidget(self.eliminar)
+            self.horizontalBotones.addWidget(self.eliminar)
 
-        self.ventanaBotones.setLayout(self.horizontalBotones)
+            self.ventanaBotones.setLayout(self.horizontalBotones)
 
-        self.verticalInfo.addStretch()
-        self.verticalInfo.addWidget(self.ventanaBotones)
+            self.verticalInfo.addStretch()
+            self.verticalInfo.addWidget(self.ventanaBotones)
 
         self.ventanainfo.setLayout(self.verticalInfo)
         self.vertical2.addWidget(self.ventanainfo)
@@ -333,7 +335,6 @@ class Productos(QMainWindow):
                     self.u.identificadorFiltro = str(7)
                 elif (int(self.u.numeroAno) == int(self.anoActual)) and (int(self.u.numeroMes) == int(self.mesActual)) and (int(self.u.numeroDia) <= int(self.diaActual)):
                     self.u.identificadorFiltro = str(7)
-                print(self.u)
 
                 self.file2 = open('datos/productos.txt', 'wb')
                 for self.u in self.usuarios:

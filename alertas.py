@@ -67,7 +67,7 @@ class Alertas(QMainWindow):
 
         # Creamos la ventana para mostrar los elementos de las alertas
         self.scrollArea = QScrollArea()
-        self.scrollArea.setStyleSheet("background-color: #8EA85D;")
+        self.scrollArea.setStyleSheet("background-color: #8EA85D; border: none;")
         self.scrollArea.setFixedHeight(470)
         self.scrollArea.setWidgetResizable(True)
 
