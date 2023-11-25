@@ -143,9 +143,11 @@ class Manual(QMainWindow):
         self.manual4 = open("manual/4.html", "rb"); self.pag4 = self.manual4.read().decode("UTF-8"); self.manual4.close()
         self.manual5 = open("manual/5.html", "rb"); self.pag5 = self.manual5.read().decode("UTF-8"); self.manual5.close()
         self.manual6 = open("manual/6.html", "rb"); self.pag6 = self.manual6.read().decode("UTF-8"); self.manual6.close()
+        self.manual7 = open("manual/7.html", "rb"); self.pag7 = self.manual7.read().decode("UTF-8"); self.manual7.close()
+        self.manual8 = open("manual/8.html", "rb"); self.pag8 = self.manual8.read().decode("UTF-8"); self.manual8.close()
 
 
-        self.informacion = [self.pag1, self.pag2, self.pag3, self.pag4, self.pag5, self.pag6]
+        self.informacion = [self.pag1, self.pag2, self.pag3, self.pag4, self.pag5, self.pag6, self.pag7, self.pag8]
 
         self.file = open('datos/manual.txt', 'rb')
         self.manuales = []
@@ -156,6 +158,8 @@ class Manual(QMainWindow):
         self.imagen4 = QPixmap('Imagenes/Imagenes manual/4.jpg')
         self.imagen5 = QPixmap('Imagenes/Imagenes manual/5.png')
         self.imagen6 = QPixmap('Imagenes/Imagenes manual/6.png')
+        self.imagen7 = QPixmap('Imagenes/Imagenes manual/7.png')
+        self.imagen8 = QPixmap('Imagenes/Imagenes manual/8.png')
 
         while self.file:
             linea = self.file.readline().decode('UTF-8')
@@ -193,6 +197,10 @@ class Manual(QMainWindow):
                     self.imagenInfomacion.setPixmap(self.imagen5)
                 if self.m.idPosicion == str(6):
                     self.imagenInfomacion.setPixmap(self.imagen6)
+                if self.m.idPosicion == str(7):
+                    self.imagenInfomacion.setPixmap(self.imagen7)
+                if self.m.idPosicion == str(8):
+                    self.imagenInfomacion.setPixmap(self.imagen8)
 
     def ir_administrador(self):
         # Metodo para volver a la ventana del administrador
