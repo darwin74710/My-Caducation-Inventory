@@ -9,13 +9,25 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButt
 from cliente import Cliente
 
 class RecuperarUsuario(QMainWindow):
-    def __init__(self, anteriorC):
-        super(RecuperarUsuario, self).__init__(anteriorC)
+    def __init__(self, anterior):
+        super(RecuperarUsuario, self).__init__(anterior)
         # Se crea la ventana principal junto a sus propiedades
-        self.ventanaAnteriorC = anteriorC
+        self.ventanaAnteriorC = anterior
+        self.ventanaAnteriorC.cambio_colores()
+
+        self.colorFondo1 = anterior.colorFondo1
+        self.colorFondo2 = anterior.colorFondo2
+        self.colorFondo3 = anterior.colorFondo3
+        self.colorLetra1 = anterior.colorLetra1
+        self.colorLetra2 = anterior.colorLetra2
+        self.colorLetra3 = anterior.colorLetra3
+        self.colorBotones1 = anterior.colorBotones1
+        self.colorBotones2 = anterior.colorBotones2
+        self.colorBotones3 = anterior.colorBotones3
+        self.colorLogo = anterior.colorLogo
 
         self.setWindowTitle("Recuperar Usuario")
-        self.setStyleSheet("background-color: #9AC069;")
+        self.setStyleSheet("background-color: " + self.colorFondo1 + ";")
 
         self.ancho = 1000
         self.alto = 563
@@ -40,7 +52,7 @@ class RecuperarUsuario(QMainWindow):
         self.tnumero1 = QLabel()
         self.tnumero1.setText("RECUPERAR USUARIOS")
         self.tnumero1.setFont(QFont("Arial", 40))
-        self.tnumero1.setStyleSheet("color: white;")
+        self.tnumero1.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.tituloHorizontal.addWidget(self.tnumero1)
         self.tituloHorizontal.addStretch()
@@ -48,7 +60,7 @@ class RecuperarUsuario(QMainWindow):
         self.botonDesconectar = QPushButton()
         self.botonDesconectar.setFixedWidth(50)
         self.botonDesconectar.setFixedHeight(50)
-        self.botonDesconectar.setStyleSheet("background-color: #8EA85D;")
+        self.botonDesconectar.setStyleSheet("background-color: " + self.colorBotones1 + ";")
         self.botonDesconectar.setIcon(QtGui.QIcon('Imagenes/iconos/casa.png'))
         self.botonDesconectar.setIconSize(QSize(40, 40))
         self.botonDesconectar.clicked.connect(self.accion_botonatras)
@@ -63,7 +75,7 @@ class RecuperarUsuario(QMainWindow):
         # Se pueden crear layouts y almacenarlos dentro de otros sin crear ventanas
         # Pero las ventanas se crean primero para poder establecer su tamaño al gusto junto al layout
         self.ventanaDatos = QLabel()
-        self.ventanaDatos.setStyleSheet("background-color: #8EA85D;")
+        self.ventanaDatos.setStyleSheet("background-color: " + self.colorFondo2 + ";")
         self.ventanaDatos.setFixedHeight(400)
         self.horizontal = QHBoxLayout()
 
@@ -75,7 +87,7 @@ class RecuperarUsuario(QMainWindow):
         self.tituloD.setFixedHeight(100)
         self.tituloD.setAlignment(Qt.AlignBottom)
         self.tituloD.setFont(QFont("Arial", 12))
-        self.tituloD.setStyleSheet("color: white;")
+        self.tituloD.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.tituloD)
 
@@ -93,7 +105,7 @@ class RecuperarUsuario(QMainWindow):
                               "\n2. Ingrese las respuestas de las "
                               "preguntas de \nseguridad.")
         self.dialogo2.setFont(QFont("arial", 12))
-        self.dialogo2.setStyleSheet("color: white;")
+        self.dialogo2.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.dialogo2)
 
@@ -106,7 +118,7 @@ class RecuperarUsuario(QMainWindow):
 
         # Se construyen los elementos para el ingreso de preguntas
         self.tituloPregunta1 = QLabel("Pregunta de verificacion 1")
-        self.tituloPregunta1.setStyleSheet("color: white;")
+        self.tituloPregunta1.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloPregunta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloPregunta1)
@@ -122,7 +134,7 @@ class RecuperarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.pregunta1)
 
         self.tituloRespuesta1 = QLabel("Respuesta de verificacion 1")
-        self.tituloRespuesta1.setStyleSheet("color: white;")
+        self.tituloRespuesta1.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloRespuesta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloRespuesta1)
@@ -136,7 +148,7 @@ class RecuperarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.respuesta1)
 
         self.tituloPregunta2 = QLabel("Pregunta de verificacion 2")
-        self.tituloPregunta2.setStyleSheet("color: white;")
+        self.tituloPregunta2.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloPregunta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloPregunta2)
@@ -152,7 +164,7 @@ class RecuperarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.pregunta2)
 
         self.tituloRespuesta2 = QLabel("Respuesta de verificacion 2")
-        self.tituloRespuesta2.setStyleSheet("color: white;")
+        self.tituloRespuesta2.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloRespuesta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloRespuesta2)
@@ -166,7 +178,7 @@ class RecuperarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.respuesta2)
 
         self.tituloPregunta3 = QLabel("Pregunta de verificacion 3")
-        self.tituloPregunta3.setStyleSheet("color: white;")
+        self.tituloPregunta3.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloPregunta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloPregunta3)
@@ -182,7 +194,7 @@ class RecuperarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.pregunta3)
 
         self.tituloRespuesta3 = QLabel("Respuesta de verificacion 3")
-        self.tituloRespuesta3.setStyleSheet("color: white;")
+        self.tituloRespuesta3.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloRespuesta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloRespuesta3)
@@ -209,7 +221,7 @@ class RecuperarUsuario(QMainWindow):
         self.botonBuscar.setFixedWidth(100)
         self.botonBuscar.setFixedHeight(40)
         self.botonBuscar.setFont(QFont("Arial", 12))
-        self.botonBuscar.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonBuscar.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonBuscar.clicked.connect(self.accion_botonBuscar)
         #ESPACIO PARA CONECTAR EL BOTÓN A UNA FUNCIÓN
         self.horizontalB.addWidget(self.botonBuscar)
@@ -220,7 +232,7 @@ class RecuperarUsuario(QMainWindow):
         self.botonLimpiar.setFixedWidth(100)
         self.botonLimpiar.setFixedHeight(40)
         self.botonLimpiar.setFont(QFont("Arial", 12))
-        self.botonLimpiar.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonLimpiar.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonLimpiar.clicked.connect(self.accion_botonLimpiar)
 
         self.horizontalB.addWidget(self.botonLimpiar)
@@ -231,7 +243,7 @@ class RecuperarUsuario(QMainWindow):
         self.botonRecuperar.setFixedWidth(100)
         self.botonRecuperar.setFixedHeight(40)
         self.botonRecuperar.setFont(QFont("Arial", 12))
-        self.botonRecuperar.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonRecuperar.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonRecuperar.clicked.connect(self.accion_botonRecuperar)
 
         self.horizontalB.addWidget(self.botonRecuperar)
@@ -252,7 +264,7 @@ class RecuperarUsuario(QMainWindow):
 
         self.mensaje = QLabel("")
         self.mensaje.setFont(QFont("Arial", 12))
-        self.mensaje.setStyleSheet("color: white;")
+        self.mensaje.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.vertical.addWidget(self.mensaje)
 
@@ -263,7 +275,7 @@ class RecuperarUsuario(QMainWindow):
         self.botonOk = QPushButton("Ok")
         self.botonOk.setFixedWidth(70)
         self.botonOk.setFixedHeight(25)
-        self.botonOk.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonOk.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonOk.setFont(QFont("Arial", 12))
         self.botonOk.clicked.connect(self.accion_botonOk)
 
@@ -288,9 +300,9 @@ class RecuperarUsuario(QMainWindow):
         self.datosCorrectos = True
 
         self.ventanaDialogo.setWindowTitle("Recuperar usuario")
-        self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
-        self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
-        self.mensaje.setStyleSheet("color: white;")
+        self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/" + self.colorLogo))
+        self.ventanaDialogo.setStyleSheet("background-color: " + self.colorFondo1 + ";")
+        self.mensaje.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         if (self.pregunta1.text() == '' or self.pregunta2.text() == '' or self.pregunta3.text() == ''):
             self.datosCorrectos = False
@@ -386,9 +398,9 @@ class RecuperarUsuario(QMainWindow):
 
     def accion_botonBuscar(self):
         self.ventanaDialogo.setWindowTitle("Recuperar usuario")
-        self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
-        self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
-        self.mensaje.setStyleSheet("color: white;")
+        self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/" + self.colorLogo))
+        self.ventanaDialogo.setStyleSheet("background-color: " + self.colorFondo1 + ";")
+        self.mensaje.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.datosCorrectos = True
 

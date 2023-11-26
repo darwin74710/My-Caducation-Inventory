@@ -9,13 +9,24 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButt
 from cliente import Cliente
 
 class CrearUsuario(QMainWindow):
-    def __init__(self, anteriorC):
-        super(CrearUsuario, self).__init__(anteriorC)
+    def __init__(self, anterior):
+        super(CrearUsuario, self).__init__(anterior)
         # Se crea la ventana principal junto a sus propiedades
-        self.ventanaAnteriorC = anteriorC
+        self.ventanaAnteriorC = anterior
+
+        self.colorFondo1 = anterior.colorFondo1
+        self.colorFondo2 = anterior.colorFondo2
+        self.colorFondo3 = anterior.colorFondo3
+        self.colorLetra1 = anterior.colorLetra1
+        self.colorLetra2 = anterior.colorLetra2
+        self.colorLetra3 = anterior.colorLetra3
+        self.colorBotones1 = anterior.colorBotones1
+        self.colorBotones2 = anterior.colorBotones2
+        self.colorBotones3 = anterior.colorBotones3
+        self.colorLogo = anterior.colorLogo
 
         self.setWindowTitle("Crear usuario")
-        self.setStyleSheet("background-color: #9AC069;")
+        self.setStyleSheet("background-color: " + self.colorFondo1 + ";")
 
         self.ancho = 1000
         self.alto = 563
@@ -40,7 +51,7 @@ class CrearUsuario(QMainWindow):
         self.tnumero1 = QLabel()
         self.tnumero1.setText("CREAR USUARIOS")
         self.tnumero1.setFont(QFont("Arial", 40))
-        self.tnumero1.setStyleSheet("color: white;")
+        self.tnumero1.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.tituloHorizontal.addWidget(self.tnumero1)
         self.tituloHorizontal.addStretch()
@@ -48,7 +59,7 @@ class CrearUsuario(QMainWindow):
         self.botonDesconectar = QPushButton()
         self.botonDesconectar.setFixedWidth(50)
         self.botonDesconectar.setFixedHeight(50)
-        self.botonDesconectar.setStyleSheet("background-color: #8EA85D;")
+        self.botonDesconectar.setStyleSheet("background-color: " + self.colorBotones1 + ";")
         self.botonDesconectar.setIcon(QtGui.QIcon('Imagenes/iconos/casa.png'))
         self.botonDesconectar.setIconSize(QSize(40, 40))
         self.botonDesconectar.clicked.connect(self.accion_botonatras)
@@ -63,7 +74,7 @@ class CrearUsuario(QMainWindow):
         # Se pueden crear layouts y almacenarlos dentro de otros sin crear ventanas
         # Pero las ventanas se crean primero para poder establecer su tamaño al gusto junto al layout
         self.ventanaDatos = QLabel()
-        self.ventanaDatos.setStyleSheet("background-color: #8EA85D;")
+        self.ventanaDatos.setStyleSheet("background-color: " + self.colorFondo2 + ";")
         self.ventanaDatos.setFixedHeight(400)
         self.horizontal = QHBoxLayout()
 
@@ -83,7 +94,7 @@ class CrearUsuario(QMainWindow):
 
         self.titulo1 = QLabel("Nombre completo")
         self.titulo1.setFont(QFont("Arial", 12))
-        self.titulo1.setStyleSheet("color: white;")
+        self.titulo1.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo1)
 
@@ -97,7 +108,7 @@ class CrearUsuario(QMainWindow):
 
         self.titulo2 = QLabel("Nombre de usuario")
         self.titulo2.setFont(QFont("Arial", 12))
-        self.titulo2.setStyleSheet("color: white;")
+        self.titulo2.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo2)
 
@@ -111,7 +122,7 @@ class CrearUsuario(QMainWindow):
 
         self.titulo3 = QLabel("Contraseña")
         self.titulo3.setFont(QFont("Arial", 12))
-        self.titulo3.setStyleSheet("color: white;")
+        self.titulo3.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo3)
 
@@ -124,7 +135,7 @@ class CrearUsuario(QMainWindow):
 
         self.cambiarContra1 = QPushButton()
         self.cambiarContra1.setFixedWidth(25)
-        self.cambiarContra1.setStyleSheet("background-color: #9AC069;")
+        self.cambiarContra1.setStyleSheet("background-color: " + self.colorBotones2 + ";")
         self.cambiarContra1.clicked.connect(self.alternar_contrasena1)
         self.activacion1 = True
         self.cambiarContra1.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
@@ -133,7 +144,7 @@ class CrearUsuario(QMainWindow):
 
         self.titulo4 = QLabel("Confirmar Contraseña")
         self.titulo4.setFont(QFont("Arial", 12))
-        self.titulo4.setStyleSheet("color: white;")
+        self.titulo4.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo4)
 
@@ -146,7 +157,7 @@ class CrearUsuario(QMainWindow):
 
         self.cambiarContra2 = QPushButton()
         self.cambiarContra2.setFixedWidth(25)
-        self.cambiarContra2.setStyleSheet("background-color: #9AC069;")
+        self.cambiarContra2.setStyleSheet("background-color: " + self.colorBotones2 + ";")
         self.cambiarContra2.clicked.connect(self.alternar_contrasena2)
         self.activacion2 = True
         self.cambiarContra2.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
@@ -155,7 +166,7 @@ class CrearUsuario(QMainWindow):
 
         self.titulo5 = QLabel("Documento de identidad")
         self.titulo5.setFont(QFont("Arial", 12))
-        self.titulo5.setStyleSheet("color: white;")
+        self.titulo5.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo5)
 
@@ -169,7 +180,7 @@ class CrearUsuario(QMainWindow):
 
         self.titulo6 = QLabel("Correo electronico")
         self.titulo6.setFont(QFont("Arial", 12))
-        self.titulo6.setStyleSheet("color: white;")
+        self.titulo6.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo6)
 
@@ -194,7 +205,7 @@ class CrearUsuario(QMainWindow):
 
         # Se construyen los elementos para el ingreso de preguntas
         self.tituloPregunta1 = QLabel("Pregunta de verificacion 1")
-        self.tituloPregunta1.setStyleSheet("color: white;")
+        self.tituloPregunta1.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloPregunta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloPregunta1)
@@ -208,7 +219,7 @@ class CrearUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.pregunta1)
 
         self.tituloRespuesta1 = QLabel("Respuesta de verificacion 1")
-        self.tituloRespuesta1.setStyleSheet("color: white;")
+        self.tituloRespuesta1.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloRespuesta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloRespuesta1)
@@ -222,7 +233,7 @@ class CrearUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.respuesta1)
 
         self.tituloPregunta2 = QLabel("Pregunta de verificacion 2")
-        self.tituloPregunta2.setStyleSheet("color: white;")
+        self.tituloPregunta2.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloPregunta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloPregunta2)
@@ -236,7 +247,7 @@ class CrearUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.pregunta2)
 
         self.tituloRespuesta2 = QLabel("Respuesta de verificacion 2")
-        self.tituloRespuesta2.setStyleSheet("color: white;")
+        self.tituloRespuesta2.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloRespuesta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloRespuesta2)
@@ -250,7 +261,7 @@ class CrearUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.respuesta2)
 
         self.tituloPregunta3 = QLabel("Pregunta de verificacion 3")
-        self.tituloPregunta3.setStyleSheet("color: white;")
+        self.tituloPregunta3.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloPregunta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloPregunta3)
@@ -264,7 +275,7 @@ class CrearUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.pregunta3)
 
         self.tituloRespuesta3 = QLabel("Respuesta de verificacion 3")
-        self.tituloRespuesta3.setStyleSheet("color: white;")
+        self.tituloRespuesta3.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloRespuesta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloRespuesta3)
@@ -293,7 +304,7 @@ class CrearUsuario(QMainWindow):
         self.botonRegistrar.setFixedWidth(100)
         self.botonRegistrar.setFixedHeight(40)
         self.botonRegistrar.setFont(QFont("Arial", 12))
-        self.botonRegistrar.setStyleSheet("background-color: #8EA85D;"
+        self.botonRegistrar.setStyleSheet("background-color: " + self.colorBotones1 + ";"
                                           "color: white;")
         self.botonRegistrar.clicked.connect(self.accion_botonRegistrar)
 
@@ -305,7 +316,7 @@ class CrearUsuario(QMainWindow):
         self.botonLimpiar.setFixedWidth(100)
         self.botonLimpiar.setFixedHeight(40)
         self.botonLimpiar.setFont(QFont("Arial", 12))
-        self.botonLimpiar.setStyleSheet("background-color: #8EA85D;"
+        self.botonLimpiar.setStyleSheet("background-color: " + self.colorBotones1 + ";"
                                         "color: white;")
         self.botonLimpiar.clicked.connect(self.accion_botonLimpiar)
 
@@ -320,15 +331,15 @@ class CrearUsuario(QMainWindow):
 
         self.ventanadeDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
         self.verticalDialogo = QVBoxLayout()
-        self.ventanadeDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
-        self.ventanadeDialogo.setStyleSheet("background-color: #9AC069;")
+        self.ventanadeDialogo.setWindowIcon(QtGui.QIcon("Imagenes/" + self.colorLogo))
+        self.ventanadeDialogo.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.ventanadeDialogo.setWindowTitle("Crear usuario")
         self.ventanadeDialogo.setWindowModality(Qt.ApplicationModal)
 
 
         self.mensaje = QLabel("")
         self.mensaje.setFont(QFont("Arial", 12))
-        self.mensaje.setStyleSheet("color: white;")
+        self.mensaje.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.verticalDialogo.addWidget(self.mensaje)
 
@@ -339,7 +350,7 @@ class CrearUsuario(QMainWindow):
         self.botonOk.setFixedWidth(80)
         self.botonOk.setFixedHeight(25)
         self.botonOk.setFont(QFont("Arial", 12))
-        self.botonOk.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonOk.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonOk.clicked.connect(self.cerrar_mensaje)
 
         self.espacioHorizontal.addStretch()

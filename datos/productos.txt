@@ -1,4 +1,4 @@
 Zucaritas;1;7;dasflñsafklasñ;21;11;2023;124;
-Palta;2;2;dasflñsafklasñ;25;11;2023;124;
+Palta;2;7;dasflñsafklasñ;25;11;2023;124;
 Arroz;3;0;dasflñsafklasñ;28;11;2023;111;
 asd;4;7;asd;23;11;2023;23;

@@ -20,6 +20,17 @@ class Productos(QMainWindow):
         self.ventanaAnterior = anterior
         self.esAdministrador = anterior.esAdministrador
 
+        self.colorFondo1 = anterior.colorFondo1
+        self.colorFondo2 = anterior.colorFondo2
+        self.colorFondo3 = anterior.colorFondo3
+        self.colorLetra1 = anterior.colorLetra1
+        self.colorLetra2 = anterior.colorLetra2
+        self.colorLetra3 = anterior.colorLetra3
+        self.colorBotones1 = anterior.colorBotones1
+        self.colorBotones2 = anterior.colorBotones2
+        self.colorBotones3 = anterior.colorBotones3
+        self.colorLogo = anterior.colorLogo
+
         self.fechaActual = date.today()
         self.calendario = calendar
 
@@ -38,7 +49,7 @@ class Productos(QMainWindow):
         # Se crea la ventana de fondo para establecer otras ventanas de forma horizontal
         self.ventana = QWidget()
         self.horizontal = QHBoxLayout()
-        self.ventana.setStyleSheet("background-color: #9AC069;")
+        self.ventana.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.setCentralWidget(self.ventana)
 
         # Ventana para la distribución de productos mas los filtros
@@ -48,17 +59,16 @@ class Productos(QMainWindow):
         self.filtros = QLabel()
         self.horizontalFiltros = QHBoxLayout()
         self.filtros.setFixedHeight(30)
-        self.filtros.setStyleSheet("background-color: #9AC069;")
 
         self.tituloListaProductos = QLabel("LISTA DE PRODUCTOS")
         self.tituloListaProductos.setFont(QFont("Arial", 12))
-        self.tituloListaProductos.setStyleSheet("color: white;")
+        self.tituloListaProductos.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.horizontalFiltros.addWidget(self.tituloListaProductos)
         self.horizontalFiltros.addStretch()
 
         self.tituloFiltros = QLabel("Filtros: ")
         self.tituloFiltros.setFont(QFont("Arial", 12))
-        self.tituloFiltros.setStyleSheet("color: white;")
+        self.tituloFiltros.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.horizontalFiltros.addWidget(self.tituloFiltros)
 
         self.filtro = QComboBox()
@@ -72,7 +82,7 @@ class Productos(QMainWindow):
         self.verticalProductos.addWidget(self.filtros)
 
         self.scrollArea = QScrollArea()
-        self.scrollArea.setStyleSheet("background-color: #8EA85D; border: none;")
+        self.scrollArea.setStyleSheet("background-color: " + self.colorFondo2 + "; border: none;")
         self.scrollArea.setWidgetResizable(True)
 
         self.contenedora = QWidget()
@@ -100,7 +110,7 @@ class Productos(QMainWindow):
         self.letreroP = QLabel()
         self.letreroP.setText("PRODUCTOS")
         self.letreroP.setFont(QFont("Arial", 30))
-        self.letreroP.setStyleSheet("color: white;")
+        self.letreroP.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.horizontalP.addWidget(self.letreroP)
         self.horizontalP.addStretch()
@@ -108,7 +118,7 @@ class Productos(QMainWindow):
         self.devolver = QPushButton()
         self.devolver.setFixedWidth(50)
         self.devolver.setFixedHeight(50)
-        self.devolver.setStyleSheet("background-color: #8EA85D;")
+        self.devolver.setStyleSheet("background-color: " + self.colorBotones1 + ";")
         self.devolver.setIcon(QtGui.QIcon('Imagenes/iconos/casa.png'))
         self.devolver.setIconSize(QSize(40, 40))
         self.devolver.clicked.connect(self.ir_administrador)
@@ -142,14 +152,14 @@ class Productos(QMainWindow):
         self.ventanainfo = QLabel()
         self.verticalInfo = QVBoxLayout()
         self.ventanainfo.setFixedHeight(267)
-        self.ventanainfo.setStyleSheet("background-color: #8EA85D;")
+        self.ventanainfo.setStyleSheet("background-color: " + self.colorFondo2 + ";")
         self.verticalInfo.setContentsMargins(10, 0, 10, 10)
 
         self.textoNombre = QLabel()
         self.textoNombre.setAlignment(Qt.AlignCenter)
         self.textoNombre.setFixedHeight(40)
-        self.textoNombre.setStyleSheet("color: white;"
-                                  "border: 2px solid #9AC069;"
+        self.textoNombre.setStyleSheet("color: " + self.colorLetra1 + ";"
+                                  "border: 2px solid " + self.colorLetra3 + ";"
                                   "border-left: none;"
                                   "border-right: none;"
                                   "border-top: none;")
@@ -162,7 +172,8 @@ class Productos(QMainWindow):
         self.textoDescripcion.setContextMenuPolicy(Qt.NoContextMenu)
         self.textoDescripcion.setFixedHeight(100)
         self.textoDescripcion.setFont(QFont("Arial", 12))
-        self.textoDescripcion.setStyleSheet("border: 2px solid #9AC069;"
+        self.textoDescripcion.setStyleSheet("color: " + self.colorLetra1 + ";"
+                                  "border: 2px solid " + self.colorLetra3 + ";"
                                   "border-left: none;"
                                   "border-right: none;"
                                   "border-top: none;")
@@ -176,7 +187,7 @@ class Productos(QMainWindow):
         self.caducidadTitulo = QLabel("Caducidad: ")
         self.caducidadTitulo.setFixedWidth(90)
         self.caducidadTitulo.setFixedHeight(12)
-        self.caducidadTitulo.setStyleSheet("color: white;")
+        self.caducidadTitulo.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.caducidadTitulo.setFont(QFont("Arial", 12))
 
         self.horizontalTitulos.addWidget(self.caducidadTitulo)
@@ -184,7 +195,7 @@ class Productos(QMainWindow):
         self.cantidadTitulo = QLabel("Cantidad: ")
         self.cantidadTitulo.setFixedWidth(90)
         self.cantidadTitulo.setFixedHeight(12)
-        self.cantidadTitulo.setStyleSheet("color: white;")
+        self.cantidadTitulo.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.cantidadTitulo.setFont(QFont("Arial", 12))
 
         self.horizontalTitulos.addWidget(self.cantidadTitulo)
@@ -199,6 +210,7 @@ class Productos(QMainWindow):
         self.caducidad = QLabel()
         self.caducidad.setFixedWidth(90)
         self.caducidad.setFixedHeight(12)
+        self.caducidad.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.caducidad.setFont(QFont("Arial", 12))
 
         self.horizontalDatos.addWidget(self.caducidad)
@@ -206,6 +218,7 @@ class Productos(QMainWindow):
         self.cantidad = QLabel()
         self.cantidad.setFixedWidth(90)
         self.cantidad.setFixedHeight(12)
+        self.cantidad.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.cantidad.setFont(QFont("Arial", 12))
 
         self.horizontalDatos.addWidget(self.cantidad)
@@ -223,7 +236,7 @@ class Productos(QMainWindow):
             self.crear = QPushButton("Crear")
             self.crear.setFixedWidth(85)
             self.crear.setFixedHeight(27)
-            self.crear.setStyleSheet("background-color: #9AC069; color: white;")
+            self.crear.setStyleSheet("background-color: " + self.colorBotones2 + "; color: white;")
             self.crear.setFont(QFont("Arial", 12))
             self.crear.clicked.connect(self.metodo_crear_producto)
 
@@ -234,7 +247,7 @@ class Productos(QMainWindow):
             self.Modificar = QPushButton("Modificar")
             self.Modificar.setFixedWidth(85)
             self.Modificar.setFixedHeight(27)
-            self.Modificar.setStyleSheet("background-color: #9AC069; color: white;")
+            self.Modificar.setStyleSheet("background-color: " + self.colorBotones2 + "; color: white;")
             self.Modificar.setFont(QFont("Arial", 12))
             self.Modificar.clicked.connect(self.metodo_modificar_producto)
 
@@ -245,7 +258,7 @@ class Productos(QMainWindow):
             self.eliminar = QPushButton("Eliminar")
             self.eliminar.setFixedWidth(85)
             self.eliminar.setFixedHeight(27)
-            self.eliminar.setStyleSheet("background-color: #9AC069; color: white;")
+            self.eliminar.setStyleSheet("background-color: " + self.colorBotones2 + "; color: white;")
             self.eliminar.setFont(QFont("Arial", 12))
             self.eliminar.clicked.connect(self.metodo_eliminar_producto)
 
@@ -266,16 +279,16 @@ class Productos(QMainWindow):
         self.idPosicion = 0
 
         self.ventanaDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
-        self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
+        self.ventanaDialogo.setWindowIcon(QtGui.QIcon("Imagenes/" + self.colorLogo))
         self.ventanaDialogo.setFixedWidth(300)
         self.ventanaDialogo.setFixedHeight(80)
-        self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
+        self.ventanaDialogo.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.ventanaDialogo.setWindowModality(Qt.ApplicationModal)
 
         self.formularioValidarModificar = QFormLayout()
 
         self.mensaje = QLabel()
-        self.mensaje.setStyleSheet("color: white;")
+        self.mensaje.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.mensaje.setFont(QFont("Arial", 12))
 
         self.formularioValidarModificar.addRow(self.mensaje)
@@ -287,7 +300,7 @@ class Productos(QMainWindow):
         self.botonOk = QPushButton("Ok")
         self.botonOk.setFixedWidth(80)
         self.botonOk.setFixedHeight(25)
-        self.botonOk.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonOk.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonOk.setFont(QFont("Arial", 12))
         self.botonOk.clicked.connect(self.metodo_cerrar)
 
@@ -368,7 +381,7 @@ class Productos(QMainWindow):
 
                         self.botonAccion = QPushButton(self.usuarios[self.contador].nombre)
                         self.botonAccion.setFont(QFont("Arial", 12))
-                        self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
+                        self.botonAccion.setStyleSheet("color: white; background-color: " + self.colorBotones2 + ";")
                         self.botonAccion.setFixedHeight(50)
 
                         self.verticalCuadricula.addWidget(self.botonAccion)
@@ -455,7 +468,7 @@ class Productos(QMainWindow):
 
                         self.botonAccion = QPushButton(self.arrayFiltros[self.contador].nombre)
                         self.botonAccion.setFont(QFont("Arial", 12))
-                        self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
+                        self.botonAccion.setStyleSheet("color: white; background-color: " + self.colorBotones2 + ";")
                         self.botonAccion.setFixedHeight(50)
 
                         self.verticalCuadricula.addWidget(self.botonAccion)
@@ -472,10 +485,10 @@ class Productos(QMainWindow):
 
     def metodo_accionProductos(self, idPosicion):
         if self.idPosicion == 0:
-            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
+            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: " + self.colorBotones3 + ";")
         if self.idPosicion > 0:
-            self.botones.button(self.idPosicion).setStyleSheet("color: white; background-color: #9AC069;")
-            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
+            self.botones.button(self.idPosicion).setStyleSheet("color: white; background-color: " + self.colorBotones2 + ";")
+            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: " + self.colorBotones3 + ";")
 
         self.idPosicion = idPosicion
 

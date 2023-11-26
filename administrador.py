@@ -19,12 +19,27 @@ class Administrador(QMainWindow):
         super(Administrador, self).__init__(anterior)
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
+        self.ventanaAnterior.cambio_colores()
+        self.cambio_colores = self.ventanaAnterior.cambio_colores()
+
+
         self.esAdministrador = anterior.esAdministrador
         self.usuarioActual = anterior.nombreUsuario
         self.actualizador = Actualizador
         self.actualizadorFiltros = 6
         self.fechaActual = date.today()
         self.calendario = calendar
+
+        self.colorFondo1 = anterior.colorFondo1
+        self.colorFondo2 = anterior.colorFondo2
+        self.colorFondo3 = anterior.colorFondo3
+        self.colorLetra1 = anterior.colorLetra1
+        self.colorLetra2 = anterior.colorLetra2
+        self.colorLetra3 = anterior.colorLetra3
+        self.colorBotones1 = anterior.colorBotones1
+        self.colorBotones2 = anterior.colorBotones2
+        self.colorBotones3 = anterior.colorBotones3
+        self.colorLogo = anterior.colorLogo
 
         if self.esAdministrador == True:
             self.setWindowTitle("Administrador")
@@ -46,7 +61,7 @@ class Administrador(QMainWindow):
         # Se establece una ventana de fondo para distribuir elementos en ella
         self.Principal = QWidget()
         self.vertical = QVBoxLayout()
-        self.Principal.setStyleSheet("background-color: #9AC069;")
+        self.Principal.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.setCentralWidget(self.Principal)
 
         # Se crea una ventana para almacenar el titulo y los botones de crear usuario o desconexión
@@ -61,7 +76,7 @@ class Administrador(QMainWindow):
         else:
             self.titulo1.setText("USUARIO")
         self.titulo1.setFont(QFont("Arial", 40))
-        self.titulo1.setStyleSheet("color: white;")
+        self.titulo1.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.titulo1.setAlignment(Qt.AlignCenter)
 
         self.horizontal.addWidget(self.titulo1)
@@ -72,7 +87,7 @@ class Administrador(QMainWindow):
             self.botonCrearUsuario = QPushButton()
             self.botonCrearUsuario.setFixedWidth(50)
             self.botonCrearUsuario.setFixedHeight(50)
-            self.botonCrearUsuario.setStyleSheet("background-color: #8EA85D;")
+            self.botonCrearUsuario.setStyleSheet("background-color: " + self.colorBotones1 + ";")
             self.botonCrearUsuario.setIcon(QtGui.QIcon('Imagenes/iconos/usuario.png'))
             self.botonCrearUsuario.setIconSize(QSize(40, 40))
             self.botonCrearUsuario.clicked.connect(self.ir_crear_usuario)
@@ -82,7 +97,7 @@ class Administrador(QMainWindow):
             self.botonModificarUsuario = QPushButton()
             self.botonModificarUsuario.setFixedWidth(50)
             self.botonModificarUsuario.setFixedHeight(50)
-            self.botonModificarUsuario.setStyleSheet("background-color: #8EA85D;")
+            self.botonModificarUsuario.setStyleSheet("background-color: " + self.colorBotones1 + ";")
             self.botonModificarUsuario.setIcon(QtGui.QIcon('Imagenes/iconos/editar.png'))
             self.botonModificarUsuario.setIconSize(QSize(40, 40))
             self.botonModificarUsuario.clicked.connect(self.ir_modificar_usuario)
@@ -93,7 +108,7 @@ class Administrador(QMainWindow):
         self.botonDesconectar = QPushButton()
         self.botonDesconectar.setFixedWidth(50)
         self.botonDesconectar.setFixedHeight(50)
-        self.botonDesconectar.setStyleSheet("background-color: #8EA85D;")
+        self.botonDesconectar.setStyleSheet("background-color: " + self.colorBotones1 + ";")
         self.botonDesconectar.setIcon(QtGui.QIcon('Imagenes/iconos/computador.png'))
         self.botonDesconectar.setIconSize(QSize(50, 50))
         self.botonDesconectar.clicked.connect(self.desconectar)
@@ -108,7 +123,7 @@ class Administrador(QMainWindow):
         # Se crea una ventana para colocar la información y botones para ir a las demás ventanas
         self.Fondo = QLabel()
         self.Horizontal = QHBoxLayout()
-        self.Fondo.setStyleSheet("background-color: white;")
+        self.Fondo.setStyleSheet("background-color: " + self.colorFondo3 + ";")
         self.Fondo.setFixedHeight(480)
 
         # Se crea una ventana para colocar la información del lado izquierdo
@@ -144,10 +159,11 @@ class Administrador(QMainWindow):
         self.Titulo2 = QLabel()
         self.Titulo2.setText("Productos: ")
         self.Titulo2.setFont(QFont("arial", 15))
-        self.Titulo2.setStyleSheet("color: #9AC069;")
+        self.Titulo2.setStyleSheet("color: " + self.colorLetra3 + ";")
 
         # Creamos la explicación de los productos
         self.descripcion2 = QLabel()
+        self.descripcion2.setStyleSheet("color: " + self.colorLetra2 + ";")
         if self.esAdministrador == True:
             self.descripcion2.setText("En esta pestaña encontraras todos los productos que\n"
                                        "tengas almacenados, puedes crear, eliminar, modificar,\n"
@@ -165,11 +181,12 @@ class Administrador(QMainWindow):
         self.Titulo3 = QLabel()
         self.Titulo3.setText("Manual: ")
         self.Titulo3.setFont(QFont("arial", 15))
-        self.Titulo3.setStyleSheet("color: #9AC069;")
+        self.Titulo3.setStyleSheet("color: " + self.colorLetra3 + ";")
 
         # Creamos la explicación del manual
         self.descripcion3 = QLabel("En esta pestaña encontraras el manual en dónde podras\n"
                                    "leer acerca de información adicional que te puede ayudar.")
+        self.descripcion3.setStyleSheet("color: " + self.colorLetra2 + ";")
         self.descripcion3.setFont(QFont("arial", 12))
 
         self.Formulario.addRow(self.Titulo3, self.descripcion3)
@@ -179,12 +196,13 @@ class Administrador(QMainWindow):
         self.Titulo4 = QLabel()
         self.Titulo4.setText("Alertas: ")
         self.Titulo4.setFont(QFont("arial", 15))
-        self.Titulo4.setStyleSheet("color: #9AC069;")
+        self.Titulo4.setStyleSheet("color: " + self.colorLetra3 + ";")
 
         # Creamos la explicación de alertas
         self.descripcion4 = QLabel("En esta pestaña recibiras notificaciones acerca de\n"
                                    "productos que se encuentren pronto a caducar.")
         self.descripcion4.setFont(QFont("arial", 12))
+        self.descripcion4.setStyleSheet("color: " + self.colorLetra2 + ";")
 
         self.Formulario.addRow(self.Titulo4, self.descripcion4)
         self.Formulario.addRow(self.vacio)
@@ -195,13 +213,13 @@ class Administrador(QMainWindow):
         self.pestañas.setFixedWidth(560)
         self.pestañas.setFixedHeight(100)
         self.pestañas.setFont(QFont("arial", 15))
-        self.pestañas.setStyleSheet("color: #9AC069; border: 2px solid #9AC069;")
+        self.pestañas.setStyleSheet("color: " + self.colorLetra3 + "; border: 2px solid " + self.colorLetra3 + ";")
 
         # Botón para ir a productos
         self.productos = QPushButton()
         self.productos.setFixedWidth(175)
         self.productos.setFixedHeight(70)
-        self.productos.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.productos.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.productos.setIcon(QtGui.QIcon('Imagenes/iconos/Productos.png'))
         self.productos.setIconSize(QSize(150, 60))
         self.productos.clicked.connect(self.ir_productos)
@@ -212,7 +230,7 @@ class Administrador(QMainWindow):
         self.manual = QPushButton()
         self.manual.setFixedWidth(175)
         self.manual.setFixedHeight(70)
-        self.manual.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.manual.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.manual.setIcon(QtGui.QIcon('Imagenes/iconos/Manual.png'))
         self.manual.setIconSize(QSize(150, 60))
         self.manual.clicked.connect(self.ir_manual)
@@ -221,7 +239,7 @@ class Administrador(QMainWindow):
 
         # Botón para ir a alertas
         self.fondoAlertas = QLabel()
-        self.fondoAlertas.setStyleSheet("background-color: #8EA85D; padding: 0px;")
+        self.fondoAlertas.setStyleSheet("background-color: " + self.colorBotones1 + "; padding: 0px;")
         self.fondoAlertas.setContentsMargins(0, 0, 0, 0)
         self.imagenAlertasVacia = QMovie("Imagenes/iconos/Alertas.gif")
         self.imagenAlertasPerpetua = QMovie("Imagenes/iconos/AlertasGif.gif")
@@ -251,7 +269,7 @@ class Administrador(QMainWindow):
 
         # Se crea una ventana para colocar la imagen de la aplicación del lado derecho
         self.ventanad = QLabel()
-        self.imagenD = QPixmap("Imagenes/logo blanco.png")
+        self.imagenD = QPixmap("Imagenes/" + self.colorLogo)
         self.ventanad.setPixmap(self.imagenD)
         self.ventanad.setScaledContents(True)
         self.ventanad.setFixedHeight(350)

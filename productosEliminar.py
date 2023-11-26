@@ -11,8 +11,19 @@ class ProductosEliminar(QMainWindow):
         self.ventanaAnterior = anterior
         self.idPosicionEliminar = anterior.idPosicion
 
+        self.colorFondo1 = anterior.colorFondo1
+        self.colorFondo2 = anterior.colorFondo2
+        self.colorFondo3 = anterior.colorFondo3
+        self.colorLetra1 = anterior.colorLetra1
+        self.colorLetra2 = anterior.colorLetra2
+        self.colorLetra3 = anterior.colorLetra3
+        self.colorBotones1 = anterior.colorBotones1
+        self.colorBotones2 = anterior.colorBotones2
+        self.colorBotones3 = anterior.colorBotones3
+        self.colorLogo = anterior.colorLogo
+
         self.setWindowTitle("Eliminar Producto")
-        self.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
+        self.setWindowIcon(QtGui.QIcon("Imagenes/" + self.colorFondo2))
 
         self.ancho = 300
         self.alto = 100
@@ -28,11 +39,11 @@ class ProductosEliminar(QMainWindow):
         self.ventanaDialogo = QLabel()
         self.setCentralWidget(self.ventanaDialogo)
         self.formularioPrin = QFormLayout()
-        self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
+        self.ventanaDialogo.setStyleSheet("background-color: " + self.colorFondo1 + ";")
 
         self.mensaje = QLabel("¿Desea eliminar este producto?")
         self.mensaje.setFixedHeight(45)
-        self.mensaje.setStyleSheet("color: white;")
+        self.mensaje.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.mensaje.setFont(QFont("Arial", 12))
 
         self.formularioPrin.addRow(self.mensaje)
@@ -45,14 +56,14 @@ class ProductosEliminar(QMainWindow):
         self.botonSi = QPushButton("Si")
         self.botonSi.setFixedWidth(80)
         self.botonSi.setFixedHeight(25)
-        self.botonSi.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonSi.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonSi.setFont(QFont("Arial", 12))
         self.botonSi.clicked.connect(self.funcion_eliminar)
 
         self.botonNo = QPushButton("No")
         self.botonNo.setFixedWidth(80)
         self.botonNo.setFixedHeight(25)
-        self.botonNo.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonNo.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonNo.setFont(QFont("Arial", 12))
         self.botonNo.clicked.connect(self.salir)
 
@@ -118,18 +129,18 @@ class ProductosEliminar(QMainWindow):
         self.hide()
         # Metodo para cerrar las subventanas abiertas en las funciones crear, modificar y eliminar
         self.ventanaValidar = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
-        self.ventanaValidar.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
+        self.ventanaValidar.setWindowIcon(QtGui.QIcon("Imagenes/" + self.colorLogo))
         self.ventanaValidar.setFixedWidth(300)
         self.ventanaValidar.setFixedHeight(100)
         self.ventanaValidar.setWindowTitle("Validación")
-        self.ventanaValidar.setStyleSheet("background-color: #9AC069;")
+        self.ventanaValidar.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.ventanaValidar.setWindowModality(Qt.ApplicationModal)
 
         self.verticalValidar = QVBoxLayout()
 
         self.ventanaValidar.setFixedWidth(330)
         self.mensaje = QLabel("Se ah eliminado el producto correctamente.")
-        self.mensaje.setStyleSheet("color: white;")
+        self.mensaje.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.mensaje.setFont(QFont("Arial", 12))
 
         self.verticalValidar.addWidget(self.mensaje)
@@ -141,7 +152,7 @@ class ProductosEliminar(QMainWindow):
         self.Ok = QPushButton("Ok")
         self.Ok.setFixedWidth(80)
         self.Ok.setFixedHeight(25)
-        self.Ok.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.Ok.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.Ok.setFont(QFont("Arial", 12))
         self.Ok.clicked.connect(self.metodo_cerrar_validacion)
 

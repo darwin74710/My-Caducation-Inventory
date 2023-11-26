@@ -15,6 +15,17 @@ class Alertas(QMainWindow):
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
 
+        self.colorFondo1 = anterior.colorFondo1
+        self.colorFondo2 = anterior.colorFondo2
+        self.colorFondo3 = anterior.colorFondo3
+        self.colorLetra1 = anterior.colorLetra1
+        self.colorLetra2 = anterior.colorLetra2
+        self.colorLetra3 = anterior.colorLetra3
+        self.colorBotones1 = anterior.colorBotones1
+        self.colorBotones2 = anterior.colorBotones2
+        self.colorBotones3 = anterior.colorBotones3
+        self.colorLogo = anterior.colorLogo
+
         self.fechaActual = date.today()
         self.calendario = calendar
 
@@ -33,7 +44,7 @@ class Alertas(QMainWindow):
         # Creamos la ventana de fondo para establecer las ventanas de forma vertical
         self.fondo = QWidget()
         self.vertical = QVBoxLayout()
-        self.fondo.setStyleSheet("background-color: #9AC069;")
+        self.fondo.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.setCentralWidget(self.fondo)
 
         # Creamos la ventana para almacenar el titulo y el botón de regreso
@@ -44,7 +55,7 @@ class Alertas(QMainWindow):
         # Creamos el titulo
         self.titulo1 = QLabel("ALERTAS")
         self.titulo1.setFont(QFont("Arial", 40))
-        self.titulo1.setStyleSheet("color: white;")
+        self.titulo1.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.titulo1.setAlignment(Qt.AlignCenter)
 
         self.horizontalP.addWidget(self.titulo1)
@@ -54,7 +65,7 @@ class Alertas(QMainWindow):
         self.devolver = QPushButton()
         self.devolver.setFixedWidth(50)
         self.devolver.setFixedHeight(50)
-        self.devolver.setStyleSheet("background-color: #8EA85D;")
+        self.devolver.setStyleSheet("background-color: " + self.colorBotones1 + ";")
         self.devolver.setIcon(QtGui.QIcon('Imagenes/iconos/casa.png'))
         self.devolver.setIconSize(QSize(40, 40))
         self.devolver.clicked.connect(self.ir_administrador)
@@ -67,7 +78,7 @@ class Alertas(QMainWindow):
 
         # Creamos la ventana para mostrar los elementos de las alertas
         self.scrollArea = QScrollArea()
-        self.scrollArea.setStyleSheet("background-color: #8EA85D; border: none;")
+        self.scrollArea.setStyleSheet("background-color: " + self.colorFondo2 + "; border: none;")
         self.scrollArea.setFixedHeight(470)
         self.scrollArea.setWidgetResizable(True)
 
@@ -80,9 +91,9 @@ class Alertas(QMainWindow):
         self.fondo.setLayout(self.vertical)
 
         self.ventanaValidar = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
-        self.ventanaValidar.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
+        self.ventanaValidar.setWindowIcon(QtGui.QIcon("Imagenes/" + self.colorLogo))
         self.ventanaValidar.setWindowTitle("Validación")
-        self.ventanaValidar.setStyleSheet("background-color: #9AC069;")
+        self.ventanaValidar.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.ventanaValidar.setWindowModality(Qt.ApplicationModal)
 
         self.verticalValidar = QVBoxLayout()
@@ -116,25 +127,25 @@ class Alertas(QMainWindow):
         self.verticalValidar.addStretch()
 
         self.informacion = QLabel()
-        self.informacion.setStyleSheet("background-color: #8EA85D;")
+        self.informacion.setStyleSheet("background-color: " + self.colorFondo2 + ";")
         self.informacion.setFixedHeight(260)
         self.formularioInformacion = QFormLayout()
 
         self.tituloNombre = QLabel("Nombre: ")
         self.tituloNombre.setFixedHeight(30)
-        self.tituloNombre.setStyleSheet("color: white;")
+        self.tituloNombre.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloNombre.setFont(QFont("Arial", 12))
 
         self.textoNombre = QLabel()
         self.textoNombre.setFixedHeight(30)
-        self.textoNombre.setStyleSheet("color: white;")
+        self.textoNombre.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.textoNombre.setFont(QFont("Arial", 12))
 
         self.formularioInformacion.addRow(self.tituloNombre, self.textoNombre)
 
         self.tituloDescripcion = QLabel("Descripción: ")
         self.tituloDescripcion.setFixedHeight(30)
-        self.tituloDescripcion.setStyleSheet("color: white;")
+        self.tituloDescripcion.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloDescripcion.setFont(QFont("Arial", 12))
 
         self.textoDescripcion = QTextEdit()
@@ -142,29 +153,31 @@ class Alertas(QMainWindow):
         self.textoDescripcion.setReadOnly(True)
         self.textoDescripcion.setFixedHeight(100)
         self.textoDescripcion.setFont(QFont("Arial", 12))
-        self.textoDescripcion.setStyleSheet("border: 2px solid #9AC069; color: white;")
+        self.textoDescripcion.setStyleSheet("border: 2px solid " + self.colorLetra3 + "; color: " + self.colorLetra1 + ";")
 
         self.formularioInformacion.addRow(self.tituloDescripcion, self.textoDescripcion)
 
         self.tituloCaducidad = QLabel("Caducidad: ")
         self.tituloCaducidad.setFixedHeight(30)
-        self.tituloCaducidad.setStyleSheet("color: white;")
+        self.tituloCaducidad.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloCaducidad.setFont(QFont("Arial", 12))
 
         self.caducidad = QLabel()
         self.caducidad.setFixedHeight(30)
         self.caducidad.setFont(QFont("Arial", 12))
+        self.caducidad.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.formularioInformacion.addRow(self.tituloCaducidad, self.caducidad)
 
         self.tituloCantidad = QLabel("Cantidad: ")
         self.tituloCantidad.setFixedHeight(30)
-        self.tituloCantidad.setStyleSheet("color: white;")
+        self.tituloCantidad.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloCantidad.setFont(QFont("Arial", 12))
 
         self.cantidad = QLabel()
         self.cantidad.setFixedHeight(30)
         self.cantidad.setFont(QFont("Arial", 12))
+        self.cantidad.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.formularioInformacion.addRow(self.tituloCantidad, self.cantidad)
 
@@ -174,7 +187,7 @@ class Alertas(QMainWindow):
         self.fechaLimite = QLabel()
         self.fechaLimite.setFixedHeight(50)
         self.fechaLimite.setAlignment(Qt.AlignCenter)
-        self.fechaLimite.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.fechaLimite.setStyleSheet("background-color: " + self.colorFondo2 + "; color: " + self.colorLetra1 + ";")
         self.fechaLimite.setFont(QFont("Arial", 12))
 
         self.verticalValidar.addWidget(self.fechaLimite)
@@ -187,7 +200,7 @@ class Alertas(QMainWindow):
         self.Ok = QPushButton("Ok")
         self.Ok.setFixedWidth(80)
         self.Ok.setFixedHeight(25)
-        self.Ok.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.Ok.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.Ok.setFont(QFont("Arial", 12))
         self.horizontalValidacion.addWidget(self.Ok)
         self.Ok.clicked.connect(self.metodo_cerrar_validacion)
@@ -343,7 +356,7 @@ class Alertas(QMainWindow):
 
                     self.botonAccion = QPushButton(self.arrayAlertas[self.contador].nombre + " - " + self.arrayAlertas[self.contador].numeroDia + "/" +self.arrayAlertas[self.contador].numeroMes + "/" + self.arrayAlertas[self.contador].numeroAno)
                     self.botonAccion.setFont(QFont("Arial", 12))
-                    self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
+                    self.botonAccion.setStyleSheet("color: white; background-color: " + self.colorBotones2 + ";")
                     self.botonAccion.setFixedHeight(50)
 
                     self.verticalCuadricula.addWidget(self.botonAccion)
@@ -363,10 +376,10 @@ class Alertas(QMainWindow):
     def metodo_accionProductos(self, idPosicion):
         # Metodo para cambiar los colores del botón seleccionado
         if self.idPosicion == 0:
-            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
+            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: " + self.colorBotones3 + ";")
         if self.idPosicion > 0:
-            self.botones.button(self.idPosicion).setStyleSheet("color: white; background-color: #9AC069;")
-            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: #65783E;")
+            self.botones.button(self.idPosicion).setStyleSheet("color: white; background-color: " + self.colorBotones2 + ";")
+            self.botones.button(idPosicion).setStyleSheet("color: white; background-color: " + self.colorBotones3 + ";")
         self.idPosicion = idPosicion
         if self.idPosicion == self.idPosicion:
             self.file = open('datos/productos.txt', 'rb')

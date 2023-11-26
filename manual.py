@@ -14,6 +14,17 @@ class Manual(QMainWindow):
         # Se crea la ventana principal junto a sus modificaciones
         self.ventanaAnterior = anterior
 
+        self.colorFondo1 = anterior.colorFondo1
+        self.colorFondo2 = anterior.colorFondo2
+        self.colorFondo3 = anterior.colorFondo3
+        self.colorLetra1 = anterior.colorLetra1
+        self.colorLetra2 = anterior.colorLetra2
+        self.colorLetra3 = anterior.colorLetra3
+        self.colorBotones1 = anterior.colorBotones1
+        self.colorBotones2 = anterior.colorBotones2
+        self.colorBotones3 = anterior.colorBotones3
+        self.colorLogo = anterior.colorLogo
+
         self.setWindowTitle("Manual")
 
         self.ancho = 1000
@@ -29,7 +40,7 @@ class Manual(QMainWindow):
         # Creamos la ventana de fondo para establecer las ventanas de forma vertical
         self.fondo = QWidget()
         self.vertical = QVBoxLayout()
-        self.fondo.setStyleSheet("background-color: #9AC069;")
+        self.fondo.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.setCentralWidget(self.fondo)
 
         # Creamos una ventana horizontal para establecer el titulo y el botón de regreso
@@ -40,7 +51,7 @@ class Manual(QMainWindow):
         # Creamos el titulo
         self.titulo1 = QLabel("MANUAL")
         self.titulo1.setFont(QFont("Arial", 40))
-        self.titulo1.setStyleSheet("color: white;")
+        self.titulo1.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.titulo1.setAlignment(Qt.AlignCenter)
 
         self.horizontalP.addWidget(self.titulo1)
@@ -50,7 +61,7 @@ class Manual(QMainWindow):
         self.devolver = QPushButton()
         self.devolver.setFixedWidth(50)
         self.devolver.setFixedHeight(50)
-        self.devolver.setStyleSheet("background-color: #8EA85D;")
+        self.devolver.setStyleSheet("background-color: " + self.colorBotones1 + ";")
         self.devolver.setIcon(QtGui.QIcon('Imagenes/iconos/casa.png'))
         self.devolver.setIconSize(QSize(40, 40))
         self.devolver.clicked.connect(self.ir_administrador)
@@ -64,7 +75,7 @@ class Manual(QMainWindow):
         #- SE CREA LABEL PARA AGREGAR INFORMACION -
         self.vA = QLabel()
         self.horizontalA = QHBoxLayout()
-        self.vA.setStyleSheet("background-color: white;")
+        self.vA.setStyleSheet("background-color: " + self.colorFondo3 + ";")
         self.vA.setFixedHeight(400)
 
         #---- AQUI VA EL TEXTO RELACIONADO CON LA INFORMACION
@@ -76,8 +87,7 @@ class Manual(QMainWindow):
         self.tituloDescripcion = QLabel()
         self.tituloDescripcion.setAlignment(Qt.AlignCenter)
         self.tituloDescripcion.setFont(QFont("Arial", 15))
-        self.tituloDescripcion.setStyleSheet("color: #9AC069;"
-                                             "border: 2px solid white")
+        self.tituloDescripcion.setStyleSheet("color: " + self.colorLetra3 + ";")
 
 
         self.verticalI.addWidget(self.tituloDescripcion)
@@ -110,7 +120,7 @@ class Manual(QMainWindow):
         self.botonIzquierda = QPushButton()
         self.botonIzquierda.setFixedWidth(90)
         self.botonIzquierda.setFixedHeight(40)
-        self.botonIzquierda.setStyleSheet("background-color: #8EA85D;")
+        self.botonIzquierda.setStyleSheet("background-color: " + self.colorBotones1 + ";")
         self.botonIzquierda.setIcon(QtGui.QIcon('Imagenes/iconos/flechaIzquierda.png'))
         self.botonIzquierda.setIconSize(QSize(60, 20))
         self.botonIzquierda.setFont(QFont("Arial", 12))
@@ -119,7 +129,7 @@ class Manual(QMainWindow):
         self.botonDerecha = QPushButton()
         self.botonDerecha.setFixedWidth(90)
         self.botonDerecha.setFixedHeight(40)
-        self.botonDerecha.setStyleSheet("background-color: #8EA85D;")
+        self.botonDerecha.setStyleSheet("background-color: " + self.colorBotones1 + ";")
         self.botonDerecha.setIcon(QtGui.QIcon('Imagenes/iconos/flechaDerecha.png'))
         self.botonDerecha.setIconSize(QSize(60, 20))
         self.botonDerecha.setFont(QFont("Arial", 12))

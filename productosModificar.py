@@ -14,6 +14,17 @@ class ProductosModificar(QMainWindow):
         self.ventanaAnterior = anterior
         self.idPosicionModificar = anterior.idPosicion
 
+        self.colorFondo1 = anterior.colorFondo1
+        self.colorFondo2 = anterior.colorFondo2
+        self.colorFondo3 = anterior.colorFondo3
+        self.colorLetra1 = anterior.colorLetra1
+        self.colorLetra2 = anterior.colorLetra2
+        self.colorLetra3 = anterior.colorLetra3
+        self.colorBotones1 = anterior.colorBotones1
+        self.colorBotones2 = anterior.colorBotones2
+        self.colorBotones3 = anterior.colorBotones3
+        self.colorLogo = anterior.colorLogo
+
         self.fechaActual = datetime.today()
         self.calendario = calendar
 
@@ -33,17 +44,17 @@ class ProductosModificar(QMainWindow):
         self.ventanaDialogo = QLabel()
         self.setCentralWidget(self.ventanaDialogo)
         self.formularioPrin = QFormLayout()
-        self.ventanaDialogo.setStyleSheet("background-color: #9AC069;")
+        self.ventanaDialogo.setStyleSheet("background-color: " + self.colorFondo1 + ";")
 
         self.principal = QLabel()
         self.formularioMensaje = QFormLayout()
         self.principal.setFixedHeight(294)
-        self.principal.setStyleSheet("background-color: #8EA85D;")
+        self.principal.setStyleSheet("background-color: " + self.colorFondo2 + ";")
 
         self.titulo0 = QLabel("Nombre: ")
         self.titulo0.setFixedHeight(20)
         self.titulo0.setFont(QFont("Arial", 12))
-        self.titulo0.setStyleSheet("color: white;")
+        self.titulo0.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.nombre = QLineEdit()
         self.nombre.setFixedHeight(20)
@@ -56,7 +67,7 @@ class ProductosModificar(QMainWindow):
         self.titulo1 = QLabel("Descripción: ")
         self.titulo1.setFixedHeight(20)
         self.titulo1.setFont(QFont("Arial", 12))
-        self.titulo1.setStyleSheet("color: white;")
+        self.titulo1.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.descripcion = QTextEdit()
         self.descripcion.setFixedHeight(80)
@@ -68,7 +79,7 @@ class ProductosModificar(QMainWindow):
         self.titulo2 = QLabel("Caducidad:")
         self.titulo2.setFixedHeight(50)
         self.titulo2.setFont(QFont("Arial", 12))
-        self.titulo2.setStyleSheet("color: white;")
+        self.titulo2.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.minivertical = QVBoxLayout()
         self.infoCaducidad = QLabel()
@@ -82,19 +93,19 @@ class ProductosModificar(QMainWindow):
         self.miniTitulo1.setFixedWidth(50)
         self.miniTitulo1.setFixedHeight(20)
         self.miniTitulo1.setFont(QFont("Arial", 12))
-        self.miniTitulo1.setStyleSheet("color: white;")
+        self.miniTitulo1.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.miniTitulo2 = QLabel("mes")
         self.miniTitulo2.setFixedWidth(50)
         self.miniTitulo2.setFixedHeight(20)
         self.miniTitulo2.setFont(QFont("Arial", 12))
-        self.miniTitulo2.setStyleSheet("color: white;")
+        self.miniTitulo2.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.miniTitulo3 = QLabel("año")
         self.miniTitulo3.setFixedWidth(50)
         self.miniTitulo3.setFixedHeight(20)
         self.miniTitulo3.setFont(QFont("Arial", 12))
-        self.miniTitulo3.setStyleSheet("color: white;")
+        self.miniTitulo3.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.minihorizontal2.addWidget(self.miniTitulo1)
         self.minihorizontal2.addStretch()
@@ -135,14 +146,14 @@ class ProductosModificar(QMainWindow):
         self.barra.setFixedWidth(50)
         self.barra.setFixedHeight(20)
         self.barra.setAlignment(Qt.AlignCenter)
-        self.barra.setStyleSheet("color: white;")
+        self.barra.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.barra.setFont(QFont("Arial", 12))
 
         self.barra2 = QLabel("/")
         self.barra2.setFixedWidth(50)
         self.barra2.setFixedHeight(20)
         self.barra2.setAlignment(Qt.AlignCenter)
-        self.barra2.setStyleSheet("color: white;")
+        self.barra2.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.barra2.setFont(QFont("Arial", 12))
 
         self.minihorizontal3.addWidget(self.dia)
@@ -162,7 +173,7 @@ class ProductosModificar(QMainWindow):
         self.titulo3 = QLabel("Cantidad:")
         self.titulo3.setFixedHeight(20)
         self.titulo3.setFont(QFont("Arial", 12))
-        self.titulo3.setStyleSheet("color: white;")
+        self.titulo3.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ventanaModificarCantidad = QLabel()
         self.ventanaModificarCantidad.setFixedHeight(30)
@@ -178,6 +189,7 @@ class ProductosModificar(QMainWindow):
         self.sumar = QPushButton()
         self.sumar.setFixedWidth(20)
         self.sumar.setFixedHeight(20)
+        self.sumar.setStyleSheet("background-color: " + self.colorBotones2 + ";")
         self.sumar.setIcon(QtGui.QIcon('Imagenes/iconos/mas.png'))
         self.sumar.setIconSize(QSize(15, 15))
         self.sumar.clicked.connect(self.metodo_sumar)
@@ -186,6 +198,7 @@ class ProductosModificar(QMainWindow):
         self.restar = QPushButton()
         self.restar.setFixedWidth(20)
         self.restar.setFixedHeight(20)
+        self.restar.setStyleSheet("background-color: " + self.colorBotones2 + ";")
         self.restar.setIcon(QtGui.QIcon('Imagenes/iconos/menos.png'))
         self.restar.setIconSize(QSize(20, 20))
         self.restar.clicked.connect(self.metodo_restar)
@@ -199,7 +212,7 @@ class ProductosModificar(QMainWindow):
         self.titulo4 = QLabel("Filtro:")
         self.titulo4.setFixedHeight(20)
         self.titulo4.setFont(QFont("Arial", 12))
-        self.titulo4.setStyleSheet("color: white;")
+        self.titulo4.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.filtro = QComboBox()
         self.filtro.setFixedHeight(20)
@@ -220,14 +233,14 @@ class ProductosModificar(QMainWindow):
         self.botonModificar = QPushButton("Modificar")
         self.botonModificar.setFixedWidth(100)
         self.botonModificar.setFixedHeight(27)
-        self.botonModificar.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonModificar.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonModificar.setFont(QFont("Arial", 12))
         self.botonModificar.clicked.connect(self.funcion_modificar)
 
         self.botonAtras = QPushButton("Cancelar")
         self.botonAtras.setFixedWidth(100)
         self.botonAtras.setFixedHeight(27)
-        self.botonAtras.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonAtras.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonAtras.setFont(QFont("Arial", 12))
         self.botonAtras.clicked.connect(self.metodo_cerrar)
 
@@ -241,17 +254,17 @@ class ProductosModificar(QMainWindow):
         self.ventanaDialogo.setLayout(self.formularioPrin)
 
         self.ventanaValidar = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
-        self.ventanaValidar.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
+        self.ventanaValidar.setWindowIcon(QtGui.QIcon("Imagenes/" + self.colorLogo))
         self.ventanaValidar.setFixedWidth(300)
         self.ventanaValidar.setFixedHeight(100)
         self.ventanaValidar.setWindowTitle("Validación")
-        self.ventanaValidar.setStyleSheet("background-color: #9AC069;")
+        self.ventanaValidar.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.ventanaValidar.setWindowModality(Qt.ApplicationModal)
 
         self.verticalValidar = QVBoxLayout()
 
         self.mensaje = QLabel("")
-        self.mensaje.setStyleSheet("color: white;")
+        self.mensaje.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.mensaje.setFont(QFont("Arial", 12))
 
         self.verticalValidar.addWidget(self.mensaje)
@@ -263,7 +276,7 @@ class ProductosModificar(QMainWindow):
         self.Ok = QPushButton("Ok")
         self.Ok.setFixedWidth(80)
         self.Ok.setFixedHeight(25)
-        self.Ok.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.Ok.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.Ok.setFont(QFont("Arial", 12))
         self.Ok.clicked.connect(self.metodo_cerrar_validacion)
 

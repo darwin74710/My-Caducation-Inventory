@@ -10,13 +10,24 @@ from PyQt5.QtWidgets import QMainWindow, QDesktopWidget, QApplication, QPushButt
 from cliente import Cliente
 
 class ModificarUsuario(QMainWindow):
-    def __init__(self, anteriorC):
-        super(ModificarUsuario, self).__init__(anteriorC)
+    def __init__(self, anterior):
+        super(ModificarUsuario, self).__init__(anterior)
         # Se crea la ventana principal junto a sus propiedades
-        self.ventanaAnteriorC = anteriorC
+        self.ventanaAnteriorC = anterior
+
+        self.colorFondo1 = anterior.colorFondo1
+        self.colorFondo2 = anterior.colorFondo2
+        self.colorFondo3 = anterior.colorFondo3
+        self.colorLetra1 = anterior.colorLetra1
+        self.colorLetra2 = anterior.colorLetra2
+        self.colorLetra3 = anterior.colorLetra3
+        self.colorBotones1 = anterior.colorBotones1
+        self.colorBotones2 = anterior.colorBotones2
+        self.colorBotones3 = anterior.colorBotones3
+        self.colorLogo = anterior.colorLogo
 
         self.setWindowTitle("Modificar usuario")
-        self.setStyleSheet("background-color: #9AC069;")
+        self.setStyleSheet("background-color: " + self.colorFondo1 + ";")
 
         self.ancho = 1000
         self.alto = 563
@@ -41,7 +52,7 @@ class ModificarUsuario(QMainWindow):
         self.tnumero1 = QLabel()
         self.tnumero1.setText("MODIFICAR USUARIOS")
         self.tnumero1.setFont(QFont("Arial", 40))
-        self.tnumero1.setStyleSheet("color: white;")
+        self.tnumero1.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.tituloHorizontal.addWidget(self.tnumero1)
         self.tituloHorizontal.addStretch()
@@ -49,7 +60,7 @@ class ModificarUsuario(QMainWindow):
         self.botonDesconectar = QPushButton()
         self.botonDesconectar.setFixedWidth(50)
         self.botonDesconectar.setFixedHeight(50)
-        self.botonDesconectar.setStyleSheet("background-color: #8EA85D;")
+        self.botonDesconectar.setStyleSheet("background-color: " + self.colorBotones1 + ";")
         self.botonDesconectar.setIcon(QtGui.QIcon('Imagenes/iconos/casa.png'))
         self.botonDesconectar.setIconSize(QSize(40, 40))
         self.botonDesconectar.clicked.connect(self.accion_botonatras)
@@ -64,7 +75,7 @@ class ModificarUsuario(QMainWindow):
         self.horizontalFondo = QHBoxLayout()
 
         self.ventanaDatos = QLabel()
-        self.ventanaDatos.setStyleSheet("background-color: #8EA85D;")
+        self.ventanaDatos.setStyleSheet("background-color: " + self.colorFondo2 + ";")
         self.ventanaDatos.setFixedHeight(400)
         self.ventanaDatos.setFixedWidth(660)
         self.horizontal = QHBoxLayout()
@@ -86,7 +97,7 @@ class ModificarUsuario(QMainWindow):
 
         self.titulo1 = QLabel("Nombre completo")
         self.titulo1.setFont(QFont("Arial", 12))
-        self.titulo1.setStyleSheet("color: white;")
+        self.titulo1.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo1)
 
@@ -100,7 +111,7 @@ class ModificarUsuario(QMainWindow):
 
         self.titulo2 = QLabel("Nombre de usuario")
         self.titulo2.setFont(QFont("Arial", 12))
-        self.titulo2.setStyleSheet("color: white;")
+        self.titulo2.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo2)
 
@@ -114,7 +125,7 @@ class ModificarUsuario(QMainWindow):
 
         self.titulo3 = QLabel("Contraseña")
         self.titulo3.setFont(QFont("Arial", 12))
-        self.titulo3.setStyleSheet("color: white;")
+        self.titulo3.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo3)
 
@@ -127,7 +138,7 @@ class ModificarUsuario(QMainWindow):
 
         self.cambiarContra1 = QPushButton()
         self.cambiarContra1.setFixedWidth(25)
-        self.cambiarContra1.setStyleSheet("background-color: #9AC069;")
+        self.cambiarContra1.setStyleSheet("background-color: " + self.colorBotones2 + ";")
         self.cambiarContra1.clicked.connect(self.alternar_contrasena1)
         self.activacion1 = True
         self.cambiarContra1.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
@@ -136,7 +147,7 @@ class ModificarUsuario(QMainWindow):
 
         self.titulo4 = QLabel("Confirmar Contraseña")
         self.titulo4.setFont(QFont("Arial", 12))
-        self.titulo4.setStyleSheet("color: white;")
+        self.titulo4.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo4)
 
@@ -149,7 +160,7 @@ class ModificarUsuario(QMainWindow):
 
         self.cambiarContra2 = QPushButton()
         self.cambiarContra2.setFixedWidth(25)
-        self.cambiarContra2.setStyleSheet("background-color: #9AC069;")
+        self.cambiarContra2.setStyleSheet("background-color: " + self.colorBotones2 + ";")
         self.cambiarContra2.clicked.connect(self.alternar_contrasena2)
         self.activacion2 = True
         self.cambiarContra2.setIcon(QtGui.QIcon('Imagenes/iconos/nover.png'))
@@ -158,7 +169,7 @@ class ModificarUsuario(QMainWindow):
 
         self.titulo5 = QLabel("Documento de identidad")
         self.titulo5.setFont(QFont("Arial", 12))
-        self.titulo5.setStyleSheet("color: white;")
+        self.titulo5.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo5)
 
@@ -172,7 +183,7 @@ class ModificarUsuario(QMainWindow):
 
         self.titulo6 = QLabel("Correo electronico")
         self.titulo6.setFont(QFont("Arial", 12))
-        self.titulo6.setStyleSheet("color: white;")
+        self.titulo6.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.ladoIzquierdo.addRow(self.titulo6)
 
@@ -197,7 +208,7 @@ class ModificarUsuario(QMainWindow):
 
         # Se construyen los elementos para el ingreso de preguntas
         self.tituloPregunta1 = QLabel("Pregunta de verificacion 1")
-        self.tituloPregunta1.setStyleSheet("color: white;")
+        self.tituloPregunta1.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloPregunta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloPregunta1)
@@ -211,7 +222,7 @@ class ModificarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.pregunta1)
 
         self.tituloRespuesta1 = QLabel("Respuesta de verificacion 1")
-        self.tituloRespuesta1.setStyleSheet("color: white;")
+        self.tituloRespuesta1.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloRespuesta1.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloRespuesta1)
@@ -225,7 +236,7 @@ class ModificarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.respuesta1)
 
         self.tituloPregunta2 = QLabel("Pregunta de verificacion 2")
-        self.tituloPregunta2.setStyleSheet("color: white;")
+        self.tituloPregunta2.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloPregunta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloPregunta2)
@@ -239,7 +250,7 @@ class ModificarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.pregunta2)
 
         self.tituloRespuesta2 = QLabel("Respuesta de verificacion 2")
-        self.tituloRespuesta2.setStyleSheet("color: white;")
+        self.tituloRespuesta2.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloRespuesta2.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloRespuesta2)
@@ -253,7 +264,7 @@ class ModificarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.respuesta2)
 
         self.tituloPregunta3 = QLabel("Pregunta de verificacion 3")
-        self.tituloPregunta3.setStyleSheet("color: white;")
+        self.tituloPregunta3.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloPregunta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloPregunta3)
@@ -267,7 +278,7 @@ class ModificarUsuario(QMainWindow):
         self.ladoDerecho.addRow(self.pregunta3)
 
         self.tituloRespuesta3 = QLabel("Respuesta de verificacion 3")
-        self.tituloRespuesta3.setStyleSheet("color: white;")
+        self.tituloRespuesta3.setStyleSheet("color: " + self.colorLetra1 + ";")
         self.tituloRespuesta3.setFont(QFont("Arial", 12))
 
         self.ladoDerecho.addRow(self.tituloRespuesta3)
@@ -288,7 +299,7 @@ class ModificarUsuario(QMainWindow):
 
         self.usuarios = QScrollArea()
         self.usuarios.setFixedHeight(400)
-        self.usuarios.setStyleSheet("background-color: #8EA85D; border: none;")
+        self.usuarios.setStyleSheet("background-color: " + self.colorFondo2 + "; border: none;")
         self.usuarios.setWidgetResizable(True)
 
         self.contenedora = QWidget()
@@ -314,7 +325,7 @@ class ModificarUsuario(QMainWindow):
         self.botonModificar.setFixedWidth(100)
         self.botonModificar.setFixedHeight(40)
         self.botonModificar.setFont(QFont("Arial", 12))
-        self.botonModificar.setStyleSheet("background-color: #8EA85D;"
+        self.botonModificar.setStyleSheet("background-color: " + self.colorBotones1 + ";"
                                           "color: white;")
         self.botonModificar.clicked.connect(self.metodo_accionModificar)
 
@@ -325,7 +336,7 @@ class ModificarUsuario(QMainWindow):
         self.botonEliminar.setFixedWidth(100)
         self.botonEliminar.setFixedHeight(40)
         self.botonEliminar.setFont(QFont("Arial", 12))
-        self.botonEliminar.setStyleSheet("background-color: #8EA85D;"
+        self.botonEliminar.setStyleSheet("background-color: " + self.colorBotones1 + ";"
                                         "color: white;")
         self.botonEliminar.clicked.connect(self.metodo_accionEliminar)
 
@@ -339,15 +350,15 @@ class ModificarUsuario(QMainWindow):
 
         self.ventanadeDialogo = QDialog(None, QtCore.Qt.WindowSystemMenuHint | QtCore.Qt.WindowTitleHint)
         self.verticalDialogo = QVBoxLayout()
-        self.ventanadeDialogo.setWindowIcon(QtGui.QIcon("Imagenes/logo sin fondo.png"))
-        self.ventanadeDialogo.setStyleSheet("background-color: #9AC069;")
+        self.ventanadeDialogo.setWindowIcon(QtGui.QIcon("Imagenes/" + self.colorLogo))
+        self.ventanadeDialogo.setStyleSheet("background-color: " + self.colorFondo1 + ";")
         self.ventanadeDialogo.setWindowTitle("Modificar usuario")
         self.ventanadeDialogo.setWindowModality(Qt.ApplicationModal)
 
 
         self.mensaje = QLabel("")
         self.mensaje.setFont(QFont("Arial", 12))
-        self.mensaje.setStyleSheet("color: white;")
+        self.mensaje.setStyleSheet("color: " + self.colorLetra1 + ";")
 
         self.verticalDialogo.addWidget(self.mensaje)
 
@@ -358,7 +369,7 @@ class ModificarUsuario(QMainWindow):
         self.botonOk.setFixedWidth(80)
         self.botonOk.setFixedHeight(25)
         self.botonOk.setFont(QFont("Arial", 12))
-        self.botonOk.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.botonOk.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.botonOk.clicked.connect(self.cerrar_mensaje)
 
         self.espacioHorizontal.addStretch()
@@ -373,14 +384,14 @@ class ModificarUsuario(QMainWindow):
         self.Si.setFixedWidth(80)
         self.Si.setFixedHeight(25)
         self.Si.setFont(QFont("Arial", 12))
-        self.Si.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.Si.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.Si.clicked.connect(self.eliminar_usuarios)
 
         self.No = QPushButton("No")
         self.No.setFixedWidth(80)
         self.No.setFixedHeight(25)
         self.No.setFont(QFont("Arial", 12))
-        self.No.setStyleSheet("background-color: #8EA85D; color: white;")
+        self.No.setStyleSheet("background-color: " + self.colorBotones1 + "; color: white;")
         self.No.clicked.connect(self.cerrar_mensaje)
 
         self.espacioHorizontal.addWidget(self.Si)
@@ -491,7 +502,7 @@ class ModificarUsuario(QMainWindow):
 
                     self.botonAccion = QPushButton(self.usuarios[self.contador].usuario)
                     self.botonAccion.setFont(QFont("Arial", 12))
-                    self.botonAccion.setStyleSheet("color: white; background-color: #9AC069;")
+                    self.botonAccion.setStyleSheet("color: white; background-color: " + self.colorBotones2 + ";")
                     self.botonAccion.setFixedHeight(50)
 
                     self.verticalCuadricula.addWidget(self.botonAccion)
@@ -508,10 +519,10 @@ class ModificarUsuario(QMainWindow):
 
     def metodo_accionUsuarios(self, posicion):
         if self.posicion == 0:
-            self.botones.button(posicion).setStyleSheet("color: white; background-color: #65783E;")
+            self.botones.button(posicion).setStyleSheet("color: white; background-color: " + self.colorBotones3 + ";")
         if self.posicion > 0:
-            self.botones.button(self.posicion).setStyleSheet("color: white; background-color: #9AC069;")
-            self.botones.button(posicion).setStyleSheet("color: white; background-color: #65783E;")
+            self.botones.button(self.posicion).setStyleSheet("color: white; background-color: " + self.colorBotones2 + ";")
+            self.botones.button(posicion).setStyleSheet("color: white; background-color: " + self.colorBotones3 + ";")
 
         self.posicion = posicion
 
